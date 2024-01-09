@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7a88388f4d4a85bb1a810e291af976, type: 3}
+  m_Name: Cheese+Apple
+  m_EditorClassIdentifier:
+  ModeType: 1
+  NeedToUnlockIngredients:
+  - {fileID: 114022121396033133, guid: 79c1f07a30a857944b77049cf3c26a23, type: 2}
+  - {fileID: 114706088470452730, guid: 58ec964af22b3e546ad5fa1f9f4eae94, type: 2}
+  CustomModePrefab: {fileID: 0}
+  IconSuggestions:
+  - {fileID: 21300000, guid: 2a576a08ac9bb5042997e2da3a9c63aa, type: 2}
+  - {fileID: 21300000, guid: 8146348b50e1df44c81450ebe7a778c6, type: 2}

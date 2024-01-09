@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IconNoticeSlow
+  m_Controller: {fileID: 9100000, guid: 672f66f2b90c02c4595a9e2883f9d10d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: acd865c30bd4a4d44ab25b878e8654ef, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2ec4750436e5679479d7bef55af57b26, type: 2}

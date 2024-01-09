@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7a88388f4d4a85bb1a810e291af976, type: 3}
+  m_Name: Lipstick+BubbleTea
+  m_EditorClassIdentifier:
+  ModeType: 2
+  NeedToUnlockIngredients:
+  - {fileID: 114833849959504150, guid: 9c6a9e3bb1ad38340b15810605df574a, type: 2}
+  - {fileID: 114510477131763477, guid: 446b37db2bc86a5439c31aa368619f8e, type: 2}
+  CustomModePrefab: {fileID: 0}
+  IconSuggestions:
+  - {fileID: 21300000, guid: 8a84ad77a57a19a4b99c530759875a65, type: 2}
+  - {fileID: 21300000, guid: 104da214d896e644890800f53d910156, type: 2}

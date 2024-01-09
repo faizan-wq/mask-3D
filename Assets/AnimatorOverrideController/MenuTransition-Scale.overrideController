@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MenuTransition-Scale
+  m_Controller: {fileID: 9100000, guid: 81fdfcce5d70da84f8bf13b42d0ae6ef, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c42f3e597a009844d817d05d87a17d3b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b530c1736c59bec4f9c5213088963b1a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6765490196179ea41b71da9fe7408825, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3b750d5a8d77b2f4d94819aad5db015d, type: 2}
