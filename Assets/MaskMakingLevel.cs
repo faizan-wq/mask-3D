@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class MaskMakingLevel : MonoBehaviour
 {
+
+
+    public static MaskMakingLevel Instance;
+
     [Header("Camera")]
     [SerializeField] private Camera camera;
-    [SerializeField] private Transform knifePosition;
-    [SerializeField] private Transform Position;
+    [SerializeField] private List<Transform> cameraPositions;
+   
     [Header("Animators")]
     [SerializeField] private Animator knife;
     [SerializeField] private Animator bowl;
     [SerializeField] private Animator maskMaker;
     [SerializeField] private Animator character;
+    [Header("Items")]
+    public Transform choppingItemPosition;
+
+
+
     [Header("Knife")]
     [SerializeField] private Transform knifeStartingPosition;
     [SerializeField] private Transform knifeEndingPosition;
@@ -22,18 +31,32 @@ public class MaskMakingLevel : MonoBehaviour
 
 
 
-
+    #region Unity
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+    #endregion
 
 
 
     #region Methods
 
+
+
+
+
+
+
+
+
     private void KnifeMovement(Vector3 starting, Vector3 ending, float speed)
     {
-        float value = Mathf.Clamp(knifeDistance + speed, 0, 1);
+        float value = Mathf.Clamp(starting.x + speed*Time.deltaTime, 0, 1);
         Vector3 pos = Vector3.Lerp(starting,ending,value);
         knife.transform.position = pos;
-       GameObject.FindAnyObjectByType<GamePlayScene>().gameObject.SetActive(s)
+      // GameObject.FindAnyObjectByType<GamePlayScene>().gameObject.SetActive(s)
           
     }
 
