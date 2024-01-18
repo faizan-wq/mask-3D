@@ -8,9 +8,11 @@ public class ItemsManager : MonoBehaviour
 
     public static ItemsManager Instance;
     [SerializeField] public List<Item> choopingItems;
-    [SerializeField] private GridLayoutGroup choopingItemGroup; 
+    [SerializeField] private GridLayoutGroup choopingItemGroup;
+    
     [SerializeField] public List<Item> mashingItems;
     [SerializeField] private GridLayoutGroup mashingItemGroup;
+
     private void Awake()
     {
         if(Instance==null)
@@ -22,10 +24,8 @@ public class ItemsManager : MonoBehaviour
     private void Start()
     {
         CreateChoopingItems();
+        
     }
-
-
-
 
 
 
@@ -36,14 +36,20 @@ public class ItemsManager : MonoBehaviour
         foreach (var item in choopingItems)
         {
             GameObject newObject = new GameObject();
-            newObject.transform.parent = choopingItemGroup.transform;
+           
             newObject.name = item.sprite.name;
+            newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
+            Debug.Log(item.sprite);
             btn.image.sprite = item.sprite;
-
+            newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {
 
+               
+                MaskMakingLevel.Instance.KnifeMoveToChoppingPosition();
                 InstatitateObject(item.prefab, MaskMakingLevel.Instance.choppingItemPosition.position);
+                btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
+                choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;
 
             });

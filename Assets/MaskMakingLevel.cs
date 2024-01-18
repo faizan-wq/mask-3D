@@ -14,6 +14,8 @@ public class MaskMakingLevel : MonoBehaviour
    
     [Header("Animators")]
     [SerializeField] private Animator knife;
+    public Animator Board;
+
     [SerializeField] private Animator bowl;
     [SerializeField] private Animator maskMaker;
     [SerializeField] private Animator character;
@@ -23,11 +25,14 @@ public class MaskMakingLevel : MonoBehaviour
 
 
     [Header("Knife")]
+    [SerializeField] private float knifeWaitChoppingPosition = 1;
     [SerializeField] private Transform knifeStartingPosition;
     [SerializeField] private Transform knifeEndingPosition;
     [SerializeField] private float knifeMovingSpeed=1;
     [SerializeField] private float knifeCuttingSpeed=1;
     [SerializeField] private float knifeDistance = 0;
+
+
 
 
 
@@ -37,6 +42,27 @@ public class MaskMakingLevel : MonoBehaviour
         if (Instance == null)
             Instance = this;
     }
+
+
+    private void Update()
+    {
+        if(knife.GetBool("Chopping"))
+        if(Input.GetMouseButton(0))
+        {
+            KnifeMovementWithLerp(knifeStartingPosition.position, knifeEndingPosition.position, knifeMovingSpeed);
+                KnifeChoppingSpeed(1);
+            }
+        else
+            {
+                KnifeChoppingSpeed(0);
+            }
+    }
+
+
+
+
+
+
     #endregion
 
 
@@ -46,15 +72,42 @@ public class MaskMakingLevel : MonoBehaviour
 
 
 
-
-
-
-
-
-    private void KnifeMovement(Vector3 starting, Vector3 ending, float speed)
+    public void KnifeMoveToChoppingPosition()
     {
-        float value = Mathf.Clamp(starting.x + speed*Time.deltaTime, 0, 1);
-        Vector3 pos = Vector3.Lerp(starting,ending,value);
+        knife.SetBool("StartingPosition",true);
+        Invoke(nameof(KnifeStartChopping), knifeWaitChoppingPosition);
+    }
+    private void KnifeStartChopping()
+    {
+
+        knife.SetBool("Chopping", true);
+
+    }    
+
+    
+    
+    public void KnifeChoppingSpeed(float speed)
+    {
+       
+        if(Vector3.Distance(knife.transform.position,knifeEndingPosition.position)<=0.125f)
+        {
+           
+            knife.SetFloat("ChoppingSpeed", 0);
+            return;
+        }
+        knife.SetFloat("ChoppingSpeed",speed);
+    }
+
+    float value;
+    private void KnifeMovementWithLerp(Vector3 starting, Vector3 ending, float speed)
+    {
+        if(Vector3.Distance(knife.transform.position,ending)<0.125f)
+        {
+            return;
+        }
+        value += speed * Time.deltaTime;
+        
+        Vector3 pos = Vector3.MoveTowards(starting,ending,value);
         knife.transform.position = pos;
       // GameObject.FindAnyObjectByType<GamePlayScene>().gameObject.SetActive(s)
           

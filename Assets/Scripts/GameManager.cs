@@ -103,4 +103,11 @@ public class GameManager : MonoBehaviour
     [Header("Boolean Manager")]
     internal bool BoolSettings = false;
     internal bool BoolPause = false;
+
+    public void LoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
+
 }

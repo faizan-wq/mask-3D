@@ -21,6 +21,8 @@ TagManager:
   - Camera
   - LabelMoney
   - Bug
+  - ChoppingItem
+  - board
   layers:
   - Default
   - TransparentFX

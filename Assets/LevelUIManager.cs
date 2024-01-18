@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class LevelUIManager : MonoBehaviour
 {
+
+    public static LevelUIManager Instance;
     [SerializeField] private List<GameObject> screens;
    
     [SerializeField] public MaskMakingProcesses MMP;
-    
+
+    private void Awake()
+    {
+        if(Instance==null)
+        {
+            Instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        NextScreen(MMP);
+        NextScreen(MMP); 
     }
 
     // Update is called once per frame
@@ -23,8 +32,8 @@ public class LevelUIManager : MonoBehaviour
 
     public void NextScreen(MaskMakingProcesses screenProcess)
     {
-        if (screenProcess == MMP)
-            return;
+      
+      
 
 
         MMP = screenProcess;
