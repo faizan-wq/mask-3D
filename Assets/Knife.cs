@@ -8,7 +8,7 @@ public class Knife : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        board = MaskMakingLevel.Instance.Board.transform;
+        board = MaskMakingLevel.Instance.Board.transform.GetChild(0).GetChild(1).transform; 
     }
 
     // Update is called once per frame
@@ -20,6 +20,7 @@ public class Knife : MonoBehaviour
     {
         if (collision.gameObject.tag == "ChoppingItem")
         {
+            Debug.Log("collision gameObject"+collision.gameObject.name);
             if (collision.transform.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
                 rigidbody.isKinematic = false;
