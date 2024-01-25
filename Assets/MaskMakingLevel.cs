@@ -90,6 +90,15 @@ public class MaskMakingLevel : MonoBehaviour
 
        
     }
+    public void NextMethod(Mask_Making_Level_Methods method)
+    {
+
+
+
+        currentMethod = method;
+
+
+    }
 
     private void CurrentMethodOperations()
     {
@@ -185,6 +194,7 @@ public class MaskMakingLevel : MonoBehaviour
             knife.gameObject.SetActive(false);
             BoardStartMoving();
             crushingOnlyOnce = true;
+          
         }
         
 
@@ -216,13 +226,14 @@ public class MaskMakingLevel : MonoBehaviour
     private void ChangeBoardKnife()
     {
         Board.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
-        Board.transform.GetChild(0).transform.GetChild(0).DOLocalMove(new Vector3(0.0902f, 0.05301232f, 0.0352935f),5).SetDelay(2).OnComplete(()=> {
+        Board.transform.GetChild(0).transform.GetChild(0).DOLocalMove(new Vector3(0.0902f, 0.05301232f, 0.0352935f),2.5f).SetDelay(2).OnComplete(()=> {
 
-            Debug.Log("ChangeBoardKnife Completed");
             UnParentObjectsInsideBoard();
             GetTheHammer();
             Board.speed = -1f;
             Board.Rebind();
+            NextMethod(Mask_Making_Level_Methods.Crushing);
+            Debug.Log("ChangeBoardKnife Completed");
 
 
 
@@ -283,9 +294,10 @@ public class MaskMakingLevel : MonoBehaviour
     }
     private void CrushByhammer()
     {
-        
-        hammer.position = GetHammerCrushingPositionTransform();
-        hammer.DOMove(GetHammerCrushingPositionTransform() - Vector3.up * 10, 1).OnComplete(()=> {
+
+        Vector3 randomPosition = GetHammerCrushingPositionTransform();
+        hammer.position = randomPosition;
+        hammer.DOMove(randomPosition - Vector3.up * 8, 1f).SetEase(Ease.OutBounce).OnComplete(()=> {
 
             DoNotAllowCrushing = false;
 
@@ -293,9 +305,28 @@ public class MaskMakingLevel : MonoBehaviour
         });
     }
 
+
+    Transform position;
     private Vector3 GetHammerCrushingPositionTransform()
     {
+        Transform[] array = new Transform[hammerCrusingPsitions.Count-1];
+        int num = 0;
+        for (int i = 0; i < hammerCrusingPsitions.Count; i++)
+        {
+            if(position!=null)
+            {
+                if(position==hammerCrusingPsitions[i])
+                {
+                    continue;
+                }
+            }
+            array[num] = hammerCrusingPsitions[i];
+        }
+
+        
         int trans = Random.Range(0, hammerCrusingPsitions.Count);
+        position = hammerCrusingPsitions[trans];
+        Array.Clear(array,0,array.Length);
         return hammerCrusingPsitions[trans].position;
 
     }
