@@ -331,7 +331,7 @@ public class MaskMakingLevel : MonoBehaviour
        if(bowlController.checkColorChangedCompletely)
         {
             mixingComplete = true;
-            hammerController.SetHammerRotation(false);
+           
            
             hammerController.ResetToStartingPosition();
         }
