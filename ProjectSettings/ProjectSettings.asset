@@ -249,7 +249,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: Downloads/rebelapps.keystore'
+  AndroidKeystoreName: D:/Latest C Downloads data/pre 24-1-2024/rebelapps.keystore
   AndroidKeyaliasName: rebelapps
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

@@ -284,10 +284,10 @@ Material:
     - _WorldSpaceUV: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.4306388, g: 0.40557128, b: 0.9245283, a: 0.49019608}
+    - _BaseColor: {r: 0.58251774, g: 0.9811321, b: 0.0509078, a: 0.49019608}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.43063876, g: 0.40557125, b: 0.9245283, a: 0.49019608}
+    - _Color: {r: 0.5825177, g: 0.9811321, b: 0.050907783, a: 0.49019608}
     - _DepthMapBounds: {r: -402.3, g: -459.43, b: 0.0012693577, a: 0}
     - _Direction: {r: 1, g: 1, b: 0, a: 0}
     - _DistanceNormalsFadeDist: {r: 300, g: 0.25, b: 0, a: 0}

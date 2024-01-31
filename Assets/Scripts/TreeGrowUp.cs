@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+//using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -206,10 +207,10 @@ public class TreeGrowUp : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         BigTree.Play("Vibration");
         HitedShoot.Play();
-        int RandomSelection = Random.Range(0, 2);
+        int RandomSelection = UnityEngine.Random.Range(0, 2);
         if(RandomSelection == 1 && TimeDrop > 0 && FillingBar.GetComponent<Image>().fillAmount != 1)
         {
-            int RandomAppel = Random.Range(0, ListAppels.Length);
+            int RandomAppel = UnityEngine.Random.Range(0, ListAppels.Length);
             Debug.Log("RandomAppel:"+ RandomAppel);
             if(RandomAppel < ListAppels.Length - 1)
             {
@@ -218,7 +219,7 @@ public class TreeGrowUp : MonoBehaviour
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Appel>().IsAppel = true;
                 ListAppels[RandomAppel].transform.GetChild(0).transform.parent = null;
-                ArrayUtility.Remove(ref ListAppels, ListAppels[RandomAppel]);
+                //ArrayUtility.Remove(ref ListAppels, ListAppels[RandomAppel]);
                 
                 TimeDrop -= 1;
             }

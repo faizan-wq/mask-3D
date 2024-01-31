@@ -8,4 +8,5 @@ public class Item
 {
     public Sprite sprite;
     public GameObject prefab;
+    public Color color;
 }

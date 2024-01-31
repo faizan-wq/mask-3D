@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class LevelUIManager : MonoBehaviour
 {
 
     public static LevelUIManager Instance;
     [SerializeField] private List<GameObject> screens;
-   
-    [SerializeField] public MaskMakingProcesses MMP;
-
+    
+    [SerializeField] public Mask_Making_Level_Methods MMP;
+    public Button next;
     private void Awake()
     {
         if(Instance==null)
@@ -30,7 +30,7 @@ public class LevelUIManager : MonoBehaviour
         
     }
 
-    public void NextScreen(MaskMakingProcesses screenProcess)
+    public void NextScreen(Mask_Making_Level_Methods screenProcess)
     {
       
       
@@ -43,35 +43,38 @@ public class LevelUIManager : MonoBehaviour
             item.SetActive(false);
         }
 
-        switch (MMP)
+      
+
+        switch (screenProcess)
         {
-            case MaskMakingProcesses.Chopping:
+            case Mask_Making_Level_Methods.Chopping:
                 ProcessChopping();
                 break;
-            case MaskMakingProcesses.Mashing:
+            case Mask_Making_Level_Methods.MoveToCrushing:
+                break;
+            case Mask_Making_Level_Methods.Crushing:
                 ProcessMashing();
                 break;
-            case MaskMakingProcesses.Mixing:
-                ProcessMixing();
+            case Mask_Making_Level_Methods.Pouring:
+                ProcessPouring();
                 break;
-            case MaskMakingProcesses.Tablet:
+            case Mask_Making_Level_Methods.Mixing:
+                ProcessMashing();
+                break;
+            case Mask_Making_Level_Methods.Injecting:
                 ProcessTablet();
                 break;
-            case MaskMakingProcesses.Making:
+            case Mask_Making_Level_Methods.Mask_Making:
                 ProcessMaking();
                 break;
-            case MaskMakingProcesses.Applying:
+            case Mask_Making_Level_Methods.Mask_Applying:
                 ProcessApplying();
-                break;
-            case MaskMakingProcesses.Complete:
-                ProcessComplete();
                 break;
             default:
                 break;
         }
 
-      
-      
+
 
     }
     
@@ -82,27 +85,31 @@ public class LevelUIManager : MonoBehaviour
 
     private void ProcessMashing()
     {
-
-    }
-    private void ProcessMixing()
-    {
         EnableScreen(1);
     }
-    private void ProcessTablet()
-    {
-
-    }
-    private void ProcessMaking()
+    private void ProcessPouring()
     {
         EnableScreen(2);
     }
-    private void ProcessApplying()
+    private void ProcessMixing()
+    {
+        EnableScreen(2);
+    }
+    private void ProcessTablet()
     {
         EnableScreen(3);
     }
+    private void ProcessMaking()
+    {
+        EnableScreen(4);
+    }
+    private void ProcessApplying()
+    {
+        EnableScreen(5);
+    }
     private void ProcessComplete()
     {
-
+        EnableScreen(6);
     }
 
     private void EnableScreen(int num)
@@ -115,15 +122,4 @@ public class LevelUIManager : MonoBehaviour
 
 
 
-}
-public enum MaskMakingProcesses
-{
-    Chopping,
-    Mashing,
-    Mixing,
-    Tablet,
-    Making,
-    Applying,
-    Complete
-    
 }

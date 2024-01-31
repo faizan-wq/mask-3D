@@ -17,7 +17,7 @@ public class MaskMakingLevel : MonoBehaviour
    
     [Header("Animators")]
     public Animator Board;
-    [SerializeField] private Animator knife;
+   
     [SerializeField] private Animator bowl;
     [SerializeField] private Animator maskMaker;
     [SerializeField] private Animator character;
@@ -26,18 +26,17 @@ public class MaskMakingLevel : MonoBehaviour
 
 
     [Header("Knife")]
-    [SerializeField] private float knifeWaitChoppingPosition = 1;
-    [SerializeField] private Transform knifeStartingPosition;
-    [SerializeField] private Transform knifeEndingPosition;
-    [SerializeField] private float knifeMovingSpeed=1;
-    [SerializeField] private float knifeCuttingSpeed=1;
-    [SerializeField] private float knifeDistance = 0;
-    [SerializeField] private bool HideAnimation;
-    
+    public KnifeController knifeController;
+   
+
     [Header("Hammer")]
-    [SerializeField] private Transform hammer;
-    [SerializeField] private Transform firstHammerPosition;
-    [SerializeField] private List<Transform> hammerCrusingPsitions;
+    public HammerController hammerController;
+
+    [Header("Bottle")]
+    public BottleController bottleController;
+
+    [Header("Bowl")]
+    public BowlController bowlController;
 
 
 
@@ -50,7 +49,20 @@ public class MaskMakingLevel : MonoBehaviour
 
     private void Start()
     {
-        SetHammerCrushingPositions();
+        if(knifeController == null)
+            knifeController = GameObject.FindAnyObjectByType<KnifeController>();
+
+        if (hammerController == null)
+            hammerController = GameObject.FindAnyObjectByType<HammerController>();
+        
+        if (bottleController == null)
+            bottleController = GameObject.FindAnyObjectByType<BottleController>();
+
+        if (bowlController == null)
+            bowlController = GameObject.FindAnyObjectByType<BowlController>();
+
+        NextBtnChopping();
+       
     }
 
 
@@ -60,7 +72,10 @@ public class MaskMakingLevel : MonoBehaviour
     }
 
 
+    public void RemoveAllFunctionsFromNext()
+    {
 
+    }
 
 
 
@@ -81,15 +96,6 @@ public class MaskMakingLevel : MonoBehaviour
 
 
 
-    public void NextMethod()
-    {
-       
-        
-
-        currentMethod = Mask_Making_Level_Methods.MoveToCrushing;
-
-       
-    }
     public void NextMethod(Mask_Making_Level_Methods method)
     {
 
@@ -113,6 +119,12 @@ public class MaskMakingLevel : MonoBehaviour
             case Mask_Making_Level_Methods.Crushing:
                 CrushingMethod();
                 break;
+            case Mask_Making_Level_Methods.Pouring:
+                PouringMethod();
+                break;
+            case Mask_Making_Level_Methods.Mixing:
+                MixingMethod();
+                break;
             case Mask_Making_Level_Methods.Injecting:
                 break;
             case Mask_Making_Level_Methods.Mask_Making:
@@ -130,55 +142,31 @@ public class MaskMakingLevel : MonoBehaviour
 
 
     #region Knife Methods
-    public void KnifeMoveToChoppingPosition()
-    {
-        knife.SetBool("StartingPosition", true);
-        Invoke(nameof(KnifeStartChopping), knifeWaitChoppingPosition);
-    }
-    private void KnifeStartChopping()
-    {
-
-        knife.SetBool("Chopping", true);
-
-    }
-    public void KnifeChoppingSpeed(float speed)
-    {
-
-        if (Vector3.Distance(knife.transform.position, knifeEndingPosition.position) <= 0.125f)
-        {
-
-            knife.SetFloat("ChoppingSpeed", 0);
-            return;
-        }
-        knife.SetFloat("ChoppingSpeed", speed);
-    }
-    float value;
-    private void KnifeMovementWithLerp(Vector3 starting, Vector3 ending, float speed)
-    {
-        if (Vector3.Distance(knife.transform.position, ending) < 0.125f)
-        {
-            return;
-        }
-        value += speed * Time.deltaTime;
-
-        Vector3 pos = Vector3.MoveTowards(starting, ending, value);
-        knife.transform.position = pos;
-        // GameObject.FindAnyObjectByType<GamePlayScene>().gameObject.SetActive(s)
-
-    }
-
+   
     private void ChoppingMethod()
     {
-        if (knife.GetBool("Chopping"))
+        if (knifeController.animator.GetBool("Chopping"))
             if (Input.GetMouseButton(0))
             {
-                KnifeMovementWithLerp(knifeStartingPosition.position, knifeEndingPosition.position, knifeMovingSpeed);
-                KnifeChoppingSpeed(1);
+                knifeController.KnifeMovementWithLerp(knifeController.knifeStartingPosition.position, knifeController.knifeEndingPosition.position, knifeController.knifeMovingSpeed);
+                knifeController.KnifeChoppingSpeed(1);
             }
             else
             {
-                KnifeChoppingSpeed(0);
+                knifeController.KnifeChoppingSpeed(0);
             }
+    }
+
+
+    public void NextBtnChopping()
+    {
+
+        LevelUIManager.Instance.next.gameObject.SetActive(true);
+        LevelUIManager.Instance.next.onClick.AddListener(() => {
+            NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
+            Debug.Log("Next Button Is pressed");
+
+        });
     }
 
     #endregion
@@ -190,9 +178,11 @@ public class MaskMakingLevel : MonoBehaviour
     {
        if(!crushingOnlyOnce)
         {
-            knife.SetBool("Chopping", false);
-            knife.gameObject.SetActive(false);
+            knifeController.animator.SetBool("Chopping", false);
+            knifeController.gameObject.SetActive(false);
+            knifeController.knife.DisableKinematicsOfItemSlice();
             BoardStartMoving();
+            NextBtnMoveToCrushing();
             crushingOnlyOnce = true;
           
         }
@@ -229,32 +219,31 @@ public class MaskMakingLevel : MonoBehaviour
         Board.transform.GetChild(0).transform.GetChild(0).DOLocalMove(new Vector3(0.0902f, 0.05301232f, 0.0352935f),2.5f).SetDelay(2).OnComplete(()=> {
 
             UnParentObjectsInsideBoard();
-            GetTheHammer();
+            hammerController.GetTheHammer();
             Board.speed = -1f;
             Board.Rebind();
             NextMethod(Mask_Making_Level_Methods.Crushing);
+            LevelUIManager.Instance.NextScreen(currentMethod);
             Debug.Log("ChangeBoardKnife Completed");
 
 
 
         });
 
-
+       
     }
     
-    private void GetTheHammer()
+   
+
+
+    public void NextBtnMoveToCrushing()
     {
-        hammer.DOJump(firstHammerPosition.position,1,1,4).OnComplete(()=> {
 
+        LevelUIManager.Instance.next.gameObject.SetActive(false);
 
-            DoNotAllowCrushing = false;
-
-
-        });
+        LevelUIManager.Instance.next.onClick.RemoveAllListeners();
+           
     }
-
-
-
 
 
 
@@ -262,77 +251,105 @@ public class MaskMakingLevel : MonoBehaviour
     #endregion
 
     #region Crushing Methods
-    private bool DoNotAllowCrushing = true;
+  
     private void CrushingMethod()
     {
-        if (DoNotAllowCrushing)
+        if (hammerController.DoNotAllowCrushing)
             return;
 
-        GetHammerCrush();
+        hammerController.GetHammerCrush();
     }
 
-    private void GetHammerCrush()
-    {
-        if(Input.GetMouseButton(0))
-        {
-            CrushByhammer();
-            DoNotAllowCrushing = true;
-        }
-       
-
-
-    }
-
-
-
-    private void SetHammerCrushingPositions()
-    {
-        foreach (var item in firstHammerPosition.GetComponentsInChildren<Transform>())
-        {
-            hammerCrusingPsitions.Add(item);
-        }
-    }
-    private void CrushByhammer()
+ 
+    public void NextBtnCrushing()
     {
 
-        Vector3 randomPosition = GetHammerCrushingPositionTransform();
-        hammer.position = randomPosition;
-        hammer.DOMove(randomPosition - Vector3.up * 8, 1f).SetEase(Ease.OutBounce).OnComplete(()=> {
+        LevelUIManager.Instance.next.gameObject.SetActive(true);
 
-            DoNotAllowCrushing = false;
-
-
-        });
-    }
-
-
-    Transform position;
-    private Vector3 GetHammerCrushingPositionTransform()
-    {
-        Transform[] array = new Transform[hammerCrusingPsitions.Count-1];
-        int num = 0;
-        for (int i = 0; i < hammerCrusingPsitions.Count; i++)
-        {
-            if(position!=null)
-            {
-                if(position==hammerCrusingPsitions[i])
-                {
-                    continue;
-                }
-            }
-            array[num] = hammerCrusingPsitions[i];
-        }
-
-        
-        int trans = Random.Range(0, hammerCrusingPsitions.Count);
-        position = hammerCrusingPsitions[trans];
-        Array.Clear(array,0,array.Length);
-        return hammerCrusingPsitions[trans].position;
+        LevelUIManager.Instance.next.onClick.AddListener(
+            ()=> { 
+            
+            
+            });
 
     }
 
     #endregion
 
+
+    #region Pouring
+
+
+    private void PouringMethod()
+    {
+      if(!bottleController.PouringMethodCalled)
+        {
+            ItemsManager.Instance.CreateliquidItems();
+            LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Pouring);
+            bottleController.PouringMethodCalled = true;
+            Debug.Log("Pouring Methods is Called");
+        }
+    }
+
+    #endregion
+
+
+    #region Mixing
+
+    [HideInInspector] public bool mixingComplete;
+
+
+    private void MixingMethod()
+    {
+
+        if (mixingComplete)
+            return;
+
+        if(!hammerController.isMixingProcessPlayed)
+        {
+            bottleController.BottleBackToStartingPosition();
+            hammerController.HammerMovesToMixingPosition();
+
+            hammerController.isMixingProcessPlayed = true;
+            return;
+        }
+
+       if(Input.GetAxis("Mouse X")>=0.005f || Input.GetAxis("Mouse Y") >= 0.005f)
+        {
+            float Mouse_X = Mathf.Abs(Input.GetAxis("Mouse X"));
+            float Mouse_Y = Mathf.Abs(Input.GetAxis("Mouse Y"));
+
+            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 5);
+            bowlController.UpdateColorChangingEffect();
+
+        }
+       else
+        {
+            hammerController.HammerRotationEffect(0);
+        }
+
+       if(bowlController.checkColorChangedCompletely)
+        {
+            mixingComplete = true;
+            hammerController.SetHammerRotation(false);
+           
+            hammerController.ResetToStartingPosition();
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    #endregion
 
 
 
@@ -360,6 +377,8 @@ public enum Mask_Making_Level_Methods
     Chopping,
     MoveToCrushing,
     Crushing,
+    Pouring,
+    Mixing,
     Injecting,
     Mask_Making,
     Mask_Applying
