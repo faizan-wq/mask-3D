@@ -136,8 +136,7 @@ public class BottleController : MonoBehaviour
             pouringInBowlIsComplete = true;
         }
         
-        Debug.Log("pos.y=" + pos.y);
-
+     
 
     }
 
@@ -174,7 +173,7 @@ public class BottleController : MonoBehaviour
              selectedBottle.bottle.transform.DOMove(resetPosition, bottleStartingPositionTime).OnComplete(() => {
 
 
-                 Debug.Log("Bottle Reseted Suceessfully");
+                
                  selectedBottle.bottle.SetActive(false);
 
 

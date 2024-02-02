@@ -43,6 +43,9 @@ public class MaskMakingLevel : MonoBehaviour
     public SyringeController syringeController;
 
 
+    [Header("Mask making machine")]
+    public MaskMakingController maskMakingController;
+    
 
     #region Unity
     private void Awake()
@@ -100,9 +103,6 @@ public class MaskMakingLevel : MonoBehaviour
 
     #region Methods
 
-
-
-
     public void NextMethod(Mask_Making_Level_Methods method)
     {
 
@@ -136,6 +136,7 @@ public class MaskMakingLevel : MonoBehaviour
                 InjectingMethod();
                 break;
             case Mask_Making_Level_Methods.Mask_Making:
+                MaskMakingMethod();
                 break;
             case Mask_Making_Level_Methods.Mask_Applying:
                 break;
@@ -172,7 +173,7 @@ public class MaskMakingLevel : MonoBehaviour
         LevelUIManager.Instance.next.gameObject.SetActive(true);
         LevelUIManager.Instance.next.onClick.AddListener(() => {
             NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
-            Debug.Log("Next Button Is pressed");
+      
 
         });
     }
@@ -232,9 +233,7 @@ public class MaskMakingLevel : MonoBehaviour
             Board.Rebind();
             NextMethod(Mask_Making_Level_Methods.Crushing);
             LevelUIManager.Instance.NextScreen(currentMethod);
-            Debug.Log("ChangeBoardKnife Completed");
-
-
+           
 
         });
 
@@ -295,7 +294,7 @@ public class MaskMakingLevel : MonoBehaviour
             ItemsManager.Instance.CreateliquidItems();
             LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Pouring);
             bottleController.PouringMethodCalled = true;
-            Debug.Log("Pouring Methods is Called");
+           
         }
     }
 
@@ -322,12 +321,12 @@ public class MaskMakingLevel : MonoBehaviour
             return;
         }
 
-       if(Input.GetAxis("Mouse X")>=0.005f || Input.GetAxis("Mouse Y") >= 0.005f)
+       if((Input.GetAxis("Mouse X")>=0.005f || Input.GetAxis("Mouse Y") >= 0.005f )&& Input.GetMouseButton(0))
         {
             float Mouse_X = Mathf.Abs(Input.GetAxis("Mouse X"));
             float Mouse_Y = Mathf.Abs(Input.GetAxis("Mouse Y"));
 
-            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 5);
+            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 10);
             bowlController.UpdateColorChangingEffect();
 
         }
@@ -394,6 +393,13 @@ public class MaskMakingLevel : MonoBehaviour
             syringeController.SyringePouredInMachineComplete();
 
             syringeController.InjectionMethodScenario();
+
+
+          
+        }
+        else
+        {
+            syringeController.MoveTabletMethodIitiate();
         }
     }
 
@@ -403,7 +409,18 @@ public class MaskMakingLevel : MonoBehaviour
     #endregion
 
 
-    
+    #region Mask Making
+
+    private void MaskMakingMethod()
+    {
+        Debug.Log("MaskMakingMethod");
+        maskMakingController.MachineShaking();
+
+    }
+
+
+
+    #endregion
 
 
 

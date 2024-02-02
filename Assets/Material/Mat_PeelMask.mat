@@ -144,7 +144,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 0
     - _Cutoff: 0.459
-    - _DetailAlbedoMapScale: 1.194
+    - _DetailAlbedoMapScale: 0.71
     - _DetailNormalMapScale: 0.555
     - _DirectIntensityOutline: 1
     - _Distortion: 1
@@ -250,9 +250,9 @@ Material:
     m_Colors:
     - Color_14f895bac86d46e7b67d6dd09c790d51: {r: 3.1832461, g: 3.1832461, b: 3.1832461, a: 1}
     - Color_7617f6b8d6e54090ae5777279eea9bb3: {r: 0.5849056, g: 0.08552865, b: 0.08552865, a: 0.9529412}
-    - _BaseColor: {r: 1, g: 0.5215685, b: 0.8901961, a: 0.77254903}
-    - _Color: {r: 1, g: 0.5215685, b: 0.8901961, a: 0.77254903}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.24649972, g: 0.8207547, b: 0.058072258, a: 0.77254903}
+    - _Color: {r: 0.24649969, g: 0.8207547, b: 0.05807224, a: 0.77254903}
+    - _EmissionColor: {r: 0.12836055, g: 0.4339623, b: 0, a: 1}
     - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

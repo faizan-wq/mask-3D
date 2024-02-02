@@ -64,7 +64,7 @@ public class HammerController : MonoBehaviour
                 transform.position = randomPosition;
                 transform.DOJump(hammerStartingPosition, 5, 1, 0.5f).OnComplete(()=>
                 {
-                    Debug.Log(" Crushing Mechanics Started");
+                   
                     MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Pouring);
                  
                 }
@@ -151,7 +151,7 @@ public class HammerController : MonoBehaviour
         transform.DOJump(MixingStartingPosition.position, 1, 1, 4).OnComplete(() => {
 
 
-            Debug.Log("Move inside the Bowl");
+          
             MoveInsideRotatingPosition();
 
         });
@@ -166,7 +166,7 @@ public class HammerController : MonoBehaviour
 
            
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Injecting);
-            Debug.Log("Move pack to starting Position and initiated Injected Method");
+          
         });
     }
 
@@ -179,7 +179,7 @@ public class HammerController : MonoBehaviour
 
             SetHammerRotation(true);
             SetHammerModelCollider(true);
-            Debug.Log("Move inside the Bowl and Hammer Rotation Started");
+          
 
         });
     }

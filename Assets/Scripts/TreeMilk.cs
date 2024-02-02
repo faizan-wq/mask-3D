@@ -110,6 +110,7 @@ public class TreeMilk : MonoBehaviour
                     {
                         obj.SetActive(false);
                     }
+
                 }
                 StartCoroutine(TakingOf());
                 FaceMoving.GetComponent<Animator>().Play("Take001");

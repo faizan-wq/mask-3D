@@ -26,7 +26,7 @@ public class Knife : MonoBehaviour
     {
         if (collision.gameObject.tag == "ChoppingItem")
         {
-            Debug.Log("Chopping Item name: "+collision.gameObject.name);
+           
             if (collision.transform.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
                 //rigidbody.isKinematic = false;

@@ -89,7 +89,7 @@ public class ItemsManager : MonoBehaviour
             newObject.name = item.sprite.name;
             newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
-            Debug.Log(item.sprite);
+           
             btn.image.sprite = item.sprite;
             newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {

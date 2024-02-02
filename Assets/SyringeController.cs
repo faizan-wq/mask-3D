@@ -60,7 +60,7 @@ public class SyringeController : MonoBehaviour
         {
             if(!onlyOnce)
             {
-                Invoke(nameof(InjectionMoveToMachinePosition), 2);
+                Invoke(nameof(InjectionMoveToMachinePosition), 0);
                 onlyOnce = true;
             }
 
@@ -75,12 +75,19 @@ public class SyringeController : MonoBehaviour
         {
             allowFillingOrRefillingInjection = false;
             tabletMechanicsStarted = true;
-            Syringe.gameObject.SetActive(false);
-            Debug.Log("Syringe Mechanics Complete Now tablet method");
+
+            Invoke(nameof(DisableSyringe), 1);
+          
+         
         }
     }
 
-
+    private void DisableSyringe()
+    {
+        Syringe.gameObject.SetActive(false);
+        allowtabletMechanics = true;
+        tablet.gameObject.SetActive(true);
+    }
 
     public void InjectionPushOrPull(bool check)
     {
@@ -114,7 +121,7 @@ public class SyringeController : MonoBehaviour
         trans.DOMove(pos.position, time).OnComplete(()=> {
 
             action?.Invoke();
-            Debug.Log(trans.name + " Reached Position " + pos.name);
+      
         });
     }
 
@@ -153,6 +160,82 @@ public class SyringeController : MonoBehaviour
 
     #endregion
 
+    #region Tablet
+    private const string Tablet_Header = "Tablet";
+
+    [Header(Tablet_Header)]
+    [SerializeField] private Animator tablet;
+    [SerializeField] private ParticleSystem tabletParticle;
+    private const string tabletInitiate = "Initiate";
+    private bool tabletReachedPosition;
+    private bool tabletMethodOnce;
+    private bool allowtabletMechanics;
+    private bool starttabletEffect;
+
+    public void MoveTabletMethodIitiate()
+    {
+        if (!allowtabletMechanics)
+            return;
+
+        if(!starttabletEffect)
+            if(Input.GetAxis("Mouse Y")>0.5f && Input.GetMouseButton(0))
+            {
+                starttabletEffect = true;
+            }
+        if(starttabletEffect)
+        {
+            if (!tabletMethodOnce)
+            {
+
+                ApplyAnimationOftablet();
+                tabletMethodOnce = true;
+            }
+            if (tablet.GetComponent<Tablet>().tabletParticles)
+                tabletParticle.gameObject.SetActive(true);
+
+
+            if (!tabletReachedPosition)
+            {
+                ChecktabletReachedDestination();
+            }
+        }
+
+
+
+        
+    
+    }
+
+    private void ChecktabletReachedDestination()
+    {
+       
+        if (tablet.GetComponent<Tablet>().tabletInsideMachne)
+        {
+            Debug.Log("MaskMakingMethod");
+            MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mask_Making);
+            tabletReachedPosition = true;
+            tablet.GetComponent<Tablet>().tabletParticles = false;
+            tabletParticle.gameObject.SetActive(false);
+            tablet.gameObject.SetActive(false);
+            allowtabletMechanics = false;
+            tablet.GetComponent<Tablet>().tabletInsideMachne = false;
+
+
+        }
+        
+
+
+    }
+
+    private void ApplyAnimationOftablet()
+    {
+        
+        tablet.SetBool(tabletInitiate, true);
+    }
+
+
+
+    #endregion
 
 
 
