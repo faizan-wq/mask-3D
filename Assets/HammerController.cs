@@ -159,13 +159,14 @@ public class HammerController : MonoBehaviour
 
     public void ResetToStartingPosition()
     {
-
+        
+        SetHammerRotation(false);
+        SetHammerModelCollider(false);
         transform.DOJump(hammerStartingPosition, 5, 1, 4).OnComplete(() => {
 
-
-            Debug.Log("Move pack to starting Position");
-           SetHammerRotation(false);
-            SetHammerModelCollider(false);
+           
+            MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Injecting);
+            Debug.Log("Move pack to starting Position and initiated Injected Method");
         });
     }
 

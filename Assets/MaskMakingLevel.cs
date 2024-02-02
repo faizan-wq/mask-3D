@@ -12,13 +12,14 @@ public class MaskMakingLevel : MonoBehaviour
     [SerializeField] private Mask_Making_Level_Methods currentMethod;
     [Header("Camera")]
     [SerializeField] private Camera camera;
-    [SerializeField] private ChangeCameraPositionTest changeCameraPositionTest; 
+    public ChangeCameraPositionTest changeCameraPositionTest; 
     [SerializeField] private List<Transform> cameraPositions;
    
     [Header("Animators")]
     public Animator Board;
    
     [SerializeField] private Animator bowl;
+
     [SerializeField] private Animator maskMaker;
     [SerializeField] private Animator character;
     [Header("Items")]
@@ -37,6 +38,9 @@ public class MaskMakingLevel : MonoBehaviour
 
     [Header("Bowl")]
     public BowlController bowlController;
+
+    [Header("Syringe")]
+    public SyringeController syringeController;
 
 
 
@@ -60,6 +64,9 @@ public class MaskMakingLevel : MonoBehaviour
 
         if (bowlController == null)
             bowlController = GameObject.FindAnyObjectByType<BowlController>();
+
+        if (syringeController == null)
+            syringeController = GameObject.FindAnyObjectByType<SyringeController>();
 
         NextBtnChopping();
        
@@ -126,6 +133,7 @@ public class MaskMakingLevel : MonoBehaviour
                 MixingMethod();
                 break;
             case Mask_Making_Level_Methods.Injecting:
+                InjectingMethod();
                 break;
             case Mask_Making_Level_Methods.Mask_Making:
                 break;
@@ -350,6 +358,54 @@ public class MaskMakingLevel : MonoBehaviour
 
 
     #endregion
+
+    #region Injection
+
+    private bool injectingMethodPlayOnce;
+
+
+
+    private void InjectingMethod()
+    {
+        if(!injectingMethodPlayOnce)
+        {
+            syringeController.InjectionMoveToBowlPosition();
+
+            injectingMethodPlayOnce = true;
+            return;
+        }
+
+        if (!syringeController.tabletMechanicsStarted)
+        {
+
+
+
+            if (Input.GetMouseButton(0))
+            {
+                syringeController.InjectionPushOrPull(true);
+            }
+            else
+            {
+                syringeController.InjectionPushOrPull(false);
+            }
+
+
+
+            syringeController.SyringePouredInMachineComplete();
+
+            syringeController.InjectionMethodScenario();
+        }
+    }
+
+
+
+
+    #endregion
+
+
+    
+
+
 
 
 
