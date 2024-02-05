@@ -15,6 +15,9 @@ public class SyringeController : MonoBehaviour
     [SerializeField] private Transform intoTheBowl;
     [SerializeField] private Transform intoTheMachine;
     [SerializeField] private ParticleSystem syringeParticles;
+    [SerializeField] private List<MeshRenderer> syringeLiquid;
+
+
     private const string pushSyringe="Push";
     private const string pullSyringe= "Pull";
     private const string speedSyringe = "Speed";
@@ -28,6 +31,25 @@ public class SyringeController : MonoBehaviour
        
 
     #region Methods
+
+    public void UpdateColorOfSyringePasteAndParticles()
+    {
+        foreach (var item in syringeLiquid)
+        {
+            foreach (var material in item.materials)
+            {
+                material.color = MaskMakingLevel.Instance.bowlController.colorOfPaste;
+            }
+        }
+
+
+        foreach (var material in syringeParticles.GetComponent<ParticleSystemRenderer>().materials)
+        {
+            material.color = MaskMakingLevel.Instance.bowlController.colorOfPaste;
+        }
+       
+    }
+
 
 
     public void InjectionMoveToBowlPosition()

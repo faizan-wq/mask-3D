@@ -368,6 +368,7 @@ public class MaskMakingLevel : MonoBehaviour
     {
         if(!injectingMethodPlayOnce)
         {
+            syringeController.UpdateColorOfSyringePasteAndParticles();
             syringeController.InjectionMoveToBowlPosition();
 
             injectingMethodPlayOnce = true;
@@ -411,10 +412,19 @@ public class MaskMakingLevel : MonoBehaviour
 
     #region Mask Making
 
+
+    
+
     private void MaskMakingMethod()
     {
         Debug.Log("MaskMakingMethod");
         maskMakingController.MachineShaking();
+        maskMakingController.EnableTakeOffMechanics();
+        maskMakingController.MasktakingOff();
+
+
+
+
 
     }
 

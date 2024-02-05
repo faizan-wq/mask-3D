@@ -6,7 +6,7 @@ using UnityEngine;
 public class BowlController : MonoBehaviour
 {
     [SerializeReference] private SkinnedMeshRenderer water;
-
+    [HideInInspector] public Color colorOfPaste;
     private void Start()
     {
         bendValue = new WaterShapeProperties[3];
@@ -110,6 +110,7 @@ public class BowlController : MonoBehaviour
         {
             item.color = color;
         }
+        colorOfPaste = color;
     }
 
 

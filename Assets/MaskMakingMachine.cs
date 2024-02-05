@@ -8,7 +8,7 @@ public class MaskMakingMachine : MonoBehaviour
 
     [HideInInspector] public bool machineShakingComplete;
     [HideInInspector] public bool machineButtonPressComplete;
-
+   
     public void EnableMachineShaking()
     {
         machineShakingComplete = true;
@@ -21,6 +21,7 @@ public class MaskMakingMachine : MonoBehaviour
         machineButtonPressComplete = true;
     }
 
+   
 
 
    // public void Enable
