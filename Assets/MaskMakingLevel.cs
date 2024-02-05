@@ -417,7 +417,7 @@ public class MaskMakingLevel : MonoBehaviour
 
     private void MaskMakingMethod()
     {
-        Debug.Log("MaskMakingMethod");
+        
         maskMakingController.MachineShaking();
         maskMakingController.EnableTakeOffMechanics();
         maskMakingController.MasktakingOff();

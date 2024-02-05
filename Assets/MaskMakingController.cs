@@ -26,6 +26,8 @@ public class MaskMakingController : MonoBehaviour
 
     public void MachineShaking()
     {
+        if (mask.GetComponent<MaskPaste>().maskIsPastingComplete)
+            return;
 
         Debug.Log("PerformAnimationMaskmaking");
         if (!shakingOfMachineStarted)
@@ -95,22 +97,22 @@ public class MaskMakingController : MonoBehaviour
         if (!masktakingStarted)
             return;
 
-        float Mouse_Y = Mathf.Clamp(Input.GetAxis("Mouse Y"),-Mathf.Infinity,0);
+        float Mouse_Y = Mathf.Clamp(Input.GetAxis("Mouse Y"),-Mathf.Infinity,0 );
        
-        if (Mouse_Y!=0 && Input.GetMouseButton(0))
+        if (Mouse_Y<=-0.05f && Input.GetMouseButton(0))
         {
 
-            masktakingOffThreshold = Mathf.Clamp(Mouse_Y * 100, 0, 1);
-            takingMaskOff.SetFloat("Speed", masktakingOffThreshold);
+            masktakingOffThreshold = Mathf.Clamp(-Mouse_Y * 100, 0, 1);
+            takingMaskOff.SetFloat("Speed", 1);
 
 
         }
-        else
-        {
+        //else
+        //{
            
-            takingMaskOff.SetFloat("Speed", 0);
+        //    takingMaskOff.SetFloat("Speed", 0);
 
-        }
+        //}
 
 
 
