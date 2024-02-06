@@ -20,12 +20,6 @@ public class MaskMakingController : MonoBehaviour
     
 
 
-  
-
-
-
-
-
     public void MachineShaking()
     {
         if (mask.GetComponent<MaskPaste>().maskIsPastingComplete)
@@ -107,7 +101,7 @@ public class MaskMakingController : MonoBehaviour
             return;
         if(takingMaskOff.GetComponent<MaskTakingOff>().MasktakingOffCheck)
         {
-            Tutorial2.SetActive(false);
+            
             takingMaskOff.gameObject.SetActive(false);
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mask_Applying);
         }
@@ -124,10 +118,7 @@ public class MaskMakingController : MonoBehaviour
 
 
         }
-        else
-        {
-            Tutorial2.SetActive(true);
-        }
+       
 
        
 

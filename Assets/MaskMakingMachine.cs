@@ -11,6 +11,7 @@ public class MaskMakingMachine : MonoBehaviour
    
     public void EnableMachineShaking()
     {
+        MaskMakingLevel.Instance.maskMakingController.Tutorial1.SetActive(true);
         machineShakingComplete = true;
 
 
@@ -18,7 +19,7 @@ public class MaskMakingMachine : MonoBehaviour
 
     public void EnableButtonPressed()
     {
-        MaskMakingLevel.Instance.maskMakingController.Tutorial1.SetActive(true);
+        MaskMakingLevel.Instance.maskMakingController.Tutorial2.SetActive(true);
         machineButtonPressComplete = true;
     }
 

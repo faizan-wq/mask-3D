@@ -167,10 +167,10 @@ public class HammerController : MonoBehaviour
         
         SetHammerRotation(false);
         SetHammerModelCollider(false);
-        RotatingTutorial.SetActive(true);
+        RotatingTutorial.SetActive(false);
         transform.DOJump(hammerStartingPosition, 5, 1, 4).OnComplete(() => {
 
-            RotatingTutorial.SetActive(false);
+           
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Injecting);
           
         });
@@ -182,7 +182,7 @@ public class HammerController : MonoBehaviour
     {
         transform.DOJump(MixingStartingPosition.position-Vector3.up*8f, 1, 1, 1).OnComplete(() => {
 
-
+            RotatingTutorial.SetActive(true);
             SetHammerRotation(true);
             SetHammerModelCollider(true);
           
