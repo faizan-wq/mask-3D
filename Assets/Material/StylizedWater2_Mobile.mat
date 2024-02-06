@@ -10,6 +10,7 @@ Material:
   m_Name: StylizedWater2_Mobile
   m_Shader: {fileID: 4800000, guid: b7839dad95683814aa64166edc107ae2, type: 3}
   m_ValidKeywords:
+  - _COLOROVERLAY_ON
   - _NORMALMAP
   - _RECEIVE_SHADOWS_OFF
   - _SURFACE_TYPE_TRANSPARENT
@@ -133,7 +134,7 @@ Material:
     - _CausticsTiling: 0.5
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorMode: 0
+    - _ColorMode: 3
     - _CrossPan_IntersectionOn: 0
     - _Cull: 2
     - _Cutoff: 0.5
@@ -284,10 +285,10 @@ Material:
     - _WorldSpaceUV: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.58251774, g: 0.9811321, b: 0.0509078, a: 0.49019608}
-    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _BaseColor: {r: 0.5825177, g: 0.9811321, b: 0.050907783, a: 1}
+    - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.5825177, g: 0.9811321, b: 0.050907783, a: 0.49019608}
+    - _Color: {r: 0.5825177, g: 0.9811321, b: 0.05090777, a: 1}
     - _DepthMapBounds: {r: -402.3, g: -459.43, b: 0.0012693577, a: 0}
     - _Direction: {r: 1, g: 1, b: 0, a: 0}
     - _DistanceNormalsFadeDist: {r: 300, g: 0.25, b: 0, a: 0}

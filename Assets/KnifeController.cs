@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class KnifeController : MonoBehaviour
 {
 
@@ -12,9 +11,11 @@ public class KnifeController : MonoBehaviour
     public float knifeCuttingSpeed = 1;
     public float knifeDistance = 0;
     public bool HideAnimation;
+    public GameObject TutorialScreen1;
+    public GameObject TutorialScreen2;
+
     [HideInInspector]public Animator animator;
     [HideInInspector]public Knife knife;
-
 
 
 
@@ -24,23 +25,21 @@ public class KnifeController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         knife = transform.GetChild(0).GetComponent<Knife>();
+        TutorialScreen1.SetActive(true);
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void KnifeMoveToChoppingPosition()
     {
+        TutorialScreen1.SetActive(false);
         animator.SetBool("StartingPosition", true);
         Invoke(nameof(KnifeStartChopping), knifeWaitChoppingPosition);
     }
     private void KnifeStartChopping()
     {
-
+      
         animator.SetBool("Chopping", true);
+      
 
     }
     public void KnifeChoppingSpeed(float speed)
@@ -59,6 +58,10 @@ public class KnifeController : MonoBehaviour
     {
         if (Vector3.Distance(animator.transform.position, ending) < 0.125f)
         {
+            TutorialScreen1.SetActive(false);
+            TutorialScreen2.SetActive(false);
+            MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
+
             return;
         }
         value += speed * Time.deltaTime;

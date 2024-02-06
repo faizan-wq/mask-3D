@@ -93,23 +93,23 @@ public class LevelUIManager : MonoBehaviour
     }
     private void ProcessMixing()
     {
-        EnableScreen(2);
+        EnableScreen(3);
     }
     private void ProcessTablet()
     {
-        EnableScreen(3);
+        EnableScreen(4);
     }
     private void ProcessMaking()
     {
-        EnableScreen(4);
+        EnableScreen(5);
     }
     private void ProcessApplying()
     {
-        EnableScreen(5);
+        EnableScreen(6);
     }
     private void ProcessComplete()
     {
-        EnableScreen(6);
+        EnableScreen(7);
     }
 
     private void EnableScreen(int num)

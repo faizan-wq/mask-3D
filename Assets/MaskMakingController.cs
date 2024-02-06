@@ -92,10 +92,17 @@ public class MaskMakingController : MonoBehaviour
 
     public void MasktakingOff()
     {
+
         if (!mask.GetComponent<MaskPaste>().maskIsPastingComplete)
             return;
         if (!masktakingStarted)
             return;
+        if(takingMaskOff.GetComponent<MaskTakingOff>().MasktakingOffCheck)
+        {
+            takingMaskOff.gameObject.SetActive(false);
+            MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mask_Applying);
+        }
+
 
         float Mouse_Y = Mathf.Clamp(Input.GetAxis("Mouse Y"),-Mathf.Infinity,0 );
        
@@ -107,12 +114,7 @@ public class MaskMakingController : MonoBehaviour
 
 
         }
-        //else
-        //{
-           
-        //    takingMaskOff.SetFloat("Speed", 0);
-
-        //}
+       
 
 
 

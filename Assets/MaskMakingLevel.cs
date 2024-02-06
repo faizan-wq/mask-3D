@@ -18,10 +18,6 @@ public class MaskMakingLevel : MonoBehaviour
     [Header("Animators")]
     public Animator Board;
    
-    [SerializeField] private Animator bowl;
-
-    [SerializeField] private Animator maskMaker;
-    [SerializeField] private Animator character;
     [Header("Items")]
     public Transform choppingItemPosition;
 
@@ -45,7 +41,10 @@ public class MaskMakingLevel : MonoBehaviour
 
     [Header("Mask making machine")]
     public MaskMakingController maskMakingController;
-    
+
+    [Header("Mask Applying")]
+    public MaskApplyingController maskApplyingController;
+
 
     #region Unity
     private void Awake()
@@ -71,7 +70,13 @@ public class MaskMakingLevel : MonoBehaviour
         if (syringeController == null)
             syringeController = GameObject.FindAnyObjectByType<SyringeController>();
 
-        NextBtnChopping();
+        if (maskMakingController == null)
+            maskMakingController = GameObject.FindAnyObjectByType<MaskMakingController>();
+
+        if (maskApplyingController == null)
+            maskApplyingController = GameObject.FindAnyObjectByType<MaskApplyingController>();
+
+        //NextBtnChopping();
        
     }
 
@@ -139,6 +144,7 @@ public class MaskMakingLevel : MonoBehaviour
                 MaskMakingMethod();
                 break;
             case Mask_Making_Level_Methods.Mask_Applying:
+                MaskApplyingMethod();
                 break;
             default:
                 break;
@@ -155,27 +161,34 @@ public class MaskMakingLevel : MonoBehaviour
     private void ChoppingMethod()
     {
         if (knifeController.animator.GetBool("Chopping"))
+        {
             if (Input.GetMouseButton(0))
             {
+                knifeController.TutorialScreen2.SetActive(true);
                 knifeController.KnifeMovementWithLerp(knifeController.knifeStartingPosition.position, knifeController.knifeEndingPosition.position, knifeController.knifeMovingSpeed);
                 knifeController.KnifeChoppingSpeed(1);
+              
             }
             else
             {
                 knifeController.KnifeChoppingSpeed(0);
+                knifeController.TutorialScreen2.SetActive(true);
             }
+        }
+       
+          
     }
 
 
     public void NextBtnChopping()
     {
 
-        LevelUIManager.Instance.next.gameObject.SetActive(true);
-        LevelUIManager.Instance.next.onClick.AddListener(() => {
-            NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
+        //LevelUIManager.Instance.next.gameObject.SetActive(true);
+        //LevelUIManager.Instance.next.onClick.AddListener(() => {
+        //    NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
       
 
-        });
+        //});
     }
 
     #endregion
@@ -305,7 +318,8 @@ public class MaskMakingLevel : MonoBehaviour
 
     [HideInInspector] public bool mixingComplete;
 
-
+    float Mouse_X=0;
+    float Mouse_Y=0;
     private void MixingMethod()
     {
 
@@ -320,13 +334,14 @@ public class MaskMakingLevel : MonoBehaviour
             hammerController.isMixingProcessPlayed = true;
             return;
         }
+        Mouse_X = Mathf.Clamp(Mathf.Abs(Input.GetAxis("Mouse X")), 0, 0.25f);
+        Mouse_Y = Mathf.Clamp(Mathf.Abs(Input.GetAxis("Mouse Y")), 0, 0.25f);
 
-       if((Input.GetAxis("Mouse X")>=0.005f || Input.GetAxis("Mouse Y") >= 0.005f )&& Input.GetMouseButton(0))
+        if ((Mouse_X > 0 || Mouse_Y >0 )&& Input.GetMouseButton(0))
         {
-            float Mouse_X = Mathf.Abs(Input.GetAxis("Mouse X"));
-            float Mouse_Y = Mathf.Abs(Input.GetAxis("Mouse Y"));
+           
 
-            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 10);
+            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 30);
             bowlController.UpdateColorChangingEffect();
 
         }
@@ -422,10 +437,6 @@ public class MaskMakingLevel : MonoBehaviour
         maskMakingController.EnableTakeOffMechanics();
         maskMakingController.MasktakingOff();
 
-
-
-
-
     }
 
 
@@ -433,6 +444,17 @@ public class MaskMakingLevel : MonoBehaviour
     #endregion
 
 
+    #region Apply On Face
+
+
+
+
+    private void MaskApplyingMethod()
+    {
+        maskApplyingController.ApplyOnUpdate();
+        maskApplyingController.ApplyOnStart();
+    }
+
 
 
 
@@ -441,16 +463,7 @@ public class MaskMakingLevel : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
+    #endregion
 
 
 }

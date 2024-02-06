@@ -98,7 +98,7 @@ public class SyringeController : MonoBehaviour
             allowFillingOrRefillingInjection = false;
             tabletMechanicsStarted = true;
 
-            Invoke(nameof(DisableSyringe), 1);
+            Invoke(nameof(DisableSyringe), 0.25f);
           
          
         }
@@ -122,7 +122,7 @@ public class SyringeController : MonoBehaviour
 
         if(check)
         {
-            SetAnimatorParameter(speedSyringe,1f);
+            SetAnimatorParameter(speedSyringe,0.25f);
         }
         else
         {
