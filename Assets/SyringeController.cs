@@ -16,7 +16,7 @@ public class SyringeController : MonoBehaviour
     [SerializeField] private Transform intoTheMachine;
     [SerializeField] private ParticleSystem syringeParticles;
     [SerializeField] private List<MeshRenderer> syringeLiquid;
-
+    [SerializeField] private GameObject Tutorial;
 
     private const string pushSyringe="Push";
     private const string pullSyringe= "Pull";
@@ -24,6 +24,7 @@ public class SyringeController : MonoBehaviour
     private bool allowFillingOrRefillingInjection;
     private bool syringePouringComplete;
     private bool onlyOnce;
+
 
     [HideInInspector]public bool tabletMechanicsStarted ;
 
@@ -97,7 +98,7 @@ public class SyringeController : MonoBehaviour
         {
             allowFillingOrRefillingInjection = false;
             tabletMechanicsStarted = true;
-
+            Tutorial.SetActive(false);
             Invoke(nameof(DisableSyringe), 0.25f);
           
          
@@ -122,10 +123,12 @@ public class SyringeController : MonoBehaviour
 
         if(check)
         {
+            Tutorial.SetActive(false);
             SetAnimatorParameter(speedSyringe,0.25f);
         }
         else
         {
+            Tutorial.SetActive(true);
             SetAnimatorParameter(speedSyringe, 0f);
         }
 

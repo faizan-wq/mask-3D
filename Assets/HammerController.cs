@@ -27,13 +27,18 @@ public class HammerController : MonoBehaviour
     public int hammerCrushedCountLimit = 5;
     public int hammerCrushedCount;
     public bool DoNotAllowCrushing = true;
-
+    public GameObject CrushingTutorial;
     public void GetHammerCrush()
     {
         if (Input.GetMouseButton(0))
         {
+            CrushingTutorial.SetActive(false);
             CrushByhammer();
             DoNotAllowCrushing = true;
+        }
+        else
+        {
+            CrushingTutorial.SetActive(true);
         }
 
 
@@ -64,7 +69,7 @@ public class HammerController : MonoBehaviour
                 transform.position = randomPosition;
                 transform.DOJump(hammerStartingPosition, 5, 1, 0.5f).OnComplete(()=>
                 {
-                   
+                    CrushingTutorial.SetActive(false);
                     MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Pouring);
                  
                 }
@@ -144,7 +149,7 @@ public class HammerController : MonoBehaviour
     public bool isMixingProcessPlayed;
     [SerializeField] private Transform MixingStartingPosition;
     [SerializeField] private Collider hammerModelCollider;
-
+    [SerializeField] private GameObject RotatingTutorial;
 
     public void HammerMovesToMixingPosition()
     {
@@ -162,9 +167,10 @@ public class HammerController : MonoBehaviour
         
         SetHammerRotation(false);
         SetHammerModelCollider(false);
+        RotatingTutorial.SetActive(true);
         transform.DOJump(hammerStartingPosition, 5, 1, 4).OnComplete(() => {
 
-           
+            RotatingTutorial.SetActive(false);
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Injecting);
           
         });

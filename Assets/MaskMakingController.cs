@@ -9,6 +9,8 @@ public class MaskMakingController : MonoBehaviour
     [SerializeField] private Animator maskMakingMachine;
     [SerializeField] private Animator mask;
     [SerializeField] private Animator takingMaskOff;
+    public GameObject Tutorial1;
+    public GameObject Tutorial2;
     private bool masktakingStarted;
    
     private bool shakingOfMachineStarted;
@@ -39,6 +41,7 @@ public class MaskMakingController : MonoBehaviour
         }
         if(!pressingOfMachineStarted && maskMakingMachine.GetComponent<MaskMakingMachine>().machineShakingComplete && Input.GetMouseButton(0))
         {
+            Tutorial1.SetActive(false);
             PerformAnimationMaskmaking("Pressed");
             pressingOfMachineStarted = true;
         }
@@ -55,6 +58,11 @@ public class MaskMakingController : MonoBehaviour
     {
         foreach (var item in mask.GetComponent<MeshRenderer>().materials)
         {
+            item.color = MaskMakingLevel.Instance.bowlController.colorOfPaste;
+            item.SetColor("_EmissionColor", item.color);
+        }
+        foreach (var item in takingMaskOff.GetComponent<SkinnedMeshRenderer>().materials)
+        {   
             item.color = MaskMakingLevel.Instance.bowlController.colorOfPaste;
             item.SetColor("_EmissionColor", item.color);
         }
@@ -99,6 +107,7 @@ public class MaskMakingController : MonoBehaviour
             return;
         if(takingMaskOff.GetComponent<MaskTakingOff>().MasktakingOffCheck)
         {
+            Tutorial2.SetActive(false);
             takingMaskOff.gameObject.SetActive(false);
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mask_Applying);
         }
@@ -109,11 +118,17 @@ public class MaskMakingController : MonoBehaviour
         if (Mouse_Y<=-0.05f && Input.GetMouseButton(0))
         {
 
+            Tutorial2.SetActive(false);
             masktakingOffThreshold = Mathf.Clamp(-Mouse_Y * 100, 0, 1);
             takingMaskOff.SetFloat("Speed", 1);
 
 
         }
+        else
+        {
+            Tutorial2.SetActive(true);
+        }
+
        
 
 

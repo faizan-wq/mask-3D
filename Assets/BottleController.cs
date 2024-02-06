@@ -9,20 +9,23 @@ public class BottleController : MonoBehaviour
 
     public bool PouringMethodCalled;
     public List<Bottle> bottles;
-    
+
 
 
 
     public Transform bottleStarting;
     private Vector3 resetPosition;
-    
 
 
-    
+
+
     public Transform WaterShader;
-    private int bottleSelected=-1;
-    [HideInInspector]public Bottle selectedBottle;
+    private int bottleSelected = -1;
+    [HideInInspector] public Bottle selectedBottle;
     [SerializeField] private float bottleStartingPositionTime;
+    public GameObject Tutorial1;
+    public GameObject Tutorial2;
+
     private bool bottleReachedStartingPosition;
     private float timer;
     private float waterRise= -1.4f;
@@ -52,11 +55,13 @@ public class BottleController : MonoBehaviour
 
         if(Input.GetMouseButton(0) && !pouringInBowlIsComplete)
         {
+            Tutorial2.SetActive(false);
             PouringWaterIntheBowl(true);
 
         }
         else
         {
+            Tutorial2.SetActive(true);
             PouringWaterIntheBowl(false);
         }
     }
@@ -69,8 +74,10 @@ public class BottleController : MonoBehaviour
 
     public void  SelectedBottle(int number)
     {
+        Tutorial1.SetActive(false);
         bottleSelected = number;
         EnableSelectedBottle();
+
         MaskMakingLevel.Instance.bowlController.startAnimation = true;
     }
 
@@ -156,6 +163,8 @@ public class BottleController : MonoBehaviour
                 if(pouringInBowlIsComplete)
                 {
                     ResetBottlePosition = true;
+                    Tutorial2.SetActive(false);
+                    Tutorial1.SetActive(false);
                     MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mixing);
                 }
                 

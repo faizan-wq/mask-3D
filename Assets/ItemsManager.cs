@@ -96,6 +96,7 @@ public class ItemsManager : MonoBehaviour
 
 
                 MaskMakingLevel.Instance.bottleController.SelectedBottle(0);
+
                 //InstatitateObject(item.prefab, MaskMakingLevel.Instance.bottleController.bottleStarting.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);

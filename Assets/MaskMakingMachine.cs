@@ -18,6 +18,7 @@ public class MaskMakingMachine : MonoBehaviour
 
     public void EnableButtonPressed()
     {
+        MaskMakingLevel.Instance.maskMakingController.Tutorial1.SetActive(true);
         machineButtonPressComplete = true;
     }
 

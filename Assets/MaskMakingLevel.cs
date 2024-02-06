@@ -305,6 +305,7 @@ public class MaskMakingLevel : MonoBehaviour
       if(!bottleController.PouringMethodCalled)
         {
             ItemsManager.Instance.CreateliquidItems();
+            bottleController.Tutorial1.SetActive(true);
             LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Pouring);
             bottleController.PouringMethodCalled = true;
            
@@ -398,6 +399,7 @@ public class MaskMakingLevel : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 syringeController.InjectionPushOrPull(true);
+               
             }
             else
             {
