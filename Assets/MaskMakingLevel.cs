@@ -244,6 +244,7 @@ public class MaskMakingLevel : MonoBehaviour
             hammerController.GetTheHammer();
             Board.speed = -1f;
             Board.Rebind();
+            ParticleManager.Instance.PlayAnimation("Star Effect", Vector3.zero);
             NextMethod(Mask_Making_Level_Methods.Crushing);
             LevelUIManager.Instance.NextScreen(currentMethod);
            
@@ -341,9 +342,17 @@ public class MaskMakingLevel : MonoBehaviour
         if ((Mouse_X > 0 || Mouse_Y >0 )&& Input.GetMouseButton(0))
         {
            
-
+            
             hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 30);
             bowlController.UpdateColorChangingEffect();
+            //if(!mixingParticlelPlayed)
+            //{
+            //    StartCoroutine(ParticleEffect(() =>
+            //    {
+            //        ParticleManager.Instance.PlayAnimation("Mixing Item", hammerController.transform.position + Vector3.up * 3, bowlController.colorOfPaste);
+            //    }, 0.25f));
+            //}
+          
 
         }
        else
@@ -364,7 +373,16 @@ public class MaskMakingLevel : MonoBehaviour
 
     }
 
+    private bool mixingParticlelPlayed;
+    IEnumerator ParticleEffect(Action a,float wait)
+    {
+        mixingParticlelPlayed = true;
+        a?.Invoke();
+        yield return new WaitForSeconds(wait);
+        mixingParticlelPlayed = false;
 
+
+    }
 
 
 

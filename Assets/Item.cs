@@ -9,4 +9,13 @@ public class Item
     public Sprite sprite;
     public GameObject prefab;
     public Color color;
+    public Item_Type itemType;
+
 }
+
+public enum Item_Type
+{
+    Good,
+    Bad
+}
+

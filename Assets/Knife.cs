@@ -30,12 +30,13 @@ public class Knife : MonoBehaviour
             if (collision.transform.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
                 //rigidbody.isKinematic = false;
+                ParticleManager.Instance.PlayAnimation("Cutting Item", rigidbody.position,ItemsManager.Instance.selectedItem.color);
                 rigidbody.transform.DOJump(rigidbody.transform.position+Vector3.left* (1+sliceStep) + Vector3.right*(difference* sliceStep),jumpHeight,1,0.125f).OnComplete(()=> {
                     rigidbody.tag = "Untagged";
                 });
                 difference++;
                 StartCoroutine(waitAndExecute(rigidbody,board,0));
-               ;
+               
             }
          
         }

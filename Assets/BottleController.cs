@@ -8,7 +8,9 @@ public class BottleController : MonoBehaviour
 {
 
     public bool PouringMethodCalled;
-    public List<Bottle> bottles;
+    public List<Item> bottles;
+    public List<Quaternion> eachBottleRotationLimit;
+    private Quaternion selectedRotation;
 
 
 
@@ -21,7 +23,7 @@ public class BottleController : MonoBehaviour
 
     public Transform WaterShader;
     private int bottleSelected = -1;
-    [HideInInspector] public Bottle selectedBottle;
+    [HideInInspector] public Item selectedBottle=null;
     [SerializeField] private float bottleStartingPositionTime;
     public GameObject Tutorial1;
     public GameObject Tutorial2;
@@ -89,17 +91,20 @@ public class BottleController : MonoBehaviour
             SelectedBottle(number);
 
         }
+        Debug.Log("bottle Selected:" + bottleSelected);
+
         selectedBottle = bottles[bottleSelected];
+        selectedRotation = eachBottleRotationLimit[bottleSelected];
         MaskMakingLevel.Instance.bowlController.ChangeColorOfwater(selectedBottle.color);
-        bottles[bottleSelected].bottle.SetActive(true);
-        resetPosition = selectedBottle.bottle.transform.position; 
+        bottles[bottleSelected].prefab.SetActive(true);
+        resetPosition = selectedBottle.prefab.transform.position; 
         BottleMoveToPosition();
     }
 
 
     private void BottleMoveToPosition()
     {
-        selectedBottle.bottle.transform.DOMove(bottleStarting.position, bottleStartingPositionTime).OnComplete(()=> {
+        selectedBottle.prefab.transform.DOMove(bottleStarting.position, bottleStartingPositionTime).OnComplete(()=> {
 
 
             bottleReachedStartingPosition = true;
@@ -116,11 +121,11 @@ public class BottleController : MonoBehaviour
     {
         if(check)
         {
-            BottleRotating(Quaternion.Euler(Vector3.zero), bottleStarting.localRotation, 1);
+            BottleRotating(Quaternion.Euler(Vector3.zero), selectedRotation, 1);
         }
         else
         {
-            BottleRotating(Quaternion.Euler(Vector3.zero), bottleStarting.localRotation, -1);
+            BottleRotating(Quaternion.Euler(Vector3.zero), selectedRotation, -1);
         }
     }
 
@@ -128,7 +133,7 @@ public class BottleController : MonoBehaviour
     private void  BottleRotating(Quaternion starting, Quaternion ending, float speed)
     {
         timer =Mathf.Clamp(timer+Time.deltaTime * speed,0,1);
-        selectedBottle.bottle.transform.localRotation = Quaternion.Lerp(starting,ending,timer);
+        selectedBottle.prefab.transform.localRotation = Quaternion.Lerp(starting,ending,timer);
         ParticleSystem(timer);
     }
 
@@ -151,13 +156,13 @@ public class BottleController : MonoBehaviour
     {
         if(value>=0.75f)
         {
-            selectedBottle.bottle.transform.GetChild(1).gameObject.SetActive(true);
+            selectedBottle.prefab.transform.GetChild(1).gameObject.SetActive(true);
             WaterRising();
            
         }
         else
         {
-            selectedBottle.bottle.transform.GetChild(1).gameObject.SetActive(false);
+            selectedBottle.prefab.transform.GetChild(1).gameObject.SetActive(false);
             if(value<=0)
             {
                 if(pouringInBowlIsComplete)
@@ -179,11 +184,11 @@ public class BottleController : MonoBehaviour
     public void BottleBackToStartingPosition()
     {
         
-             selectedBottle.bottle.transform.DOMove(resetPosition, bottleStartingPositionTime).OnComplete(() => {
+             selectedBottle.prefab.transform.DOMove(resetPosition, bottleStartingPositionTime).OnComplete(() => {
 
 
                 
-                 selectedBottle.bottle.SetActive(false);
+                 selectedBottle.prefab.SetActive(false);
 
 
              });
@@ -197,16 +202,6 @@ public class BottleController : MonoBehaviour
 
     #endregion
 
-
-
-
-}
-[Serializable]
-public class Bottle
-{
-
-    public GameObject bottle;
-    public Color color;
 
 
 

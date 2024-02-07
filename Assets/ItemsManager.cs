@@ -40,7 +40,7 @@ public class ItemsManager : MonoBehaviour
         foreach (var item in choopingItems)
         {
             GameObject newObject = new GameObject();
-            selectedItem = item;
+           
             newObject.name = item.sprite.name;
             newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
@@ -49,7 +49,7 @@ public class ItemsManager : MonoBehaviour
             newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {
 
-               
+                selectedItem = item;
                 MaskMakingLevel.Instance.knifeController.KnifeMoveToChoppingPosition();
                 InstatitateObject(item.prefab, MaskMakingLevel.Instance.choppingItemPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
@@ -81,11 +81,12 @@ public class ItemsManager : MonoBehaviour
     public void CreateliquidItems()
     {
 
+        int number=0;
         
         foreach (var item in liquidItems)
         {
             GameObject newObject = new GameObject();
-
+            int num = number;
             newObject.name = item.sprite.name;
             newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
@@ -94,8 +95,8 @@ public class ItemsManager : MonoBehaviour
             newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {
 
-
-                MaskMakingLevel.Instance.bottleController.SelectedBottle(0);
+               
+                MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
 
                 //InstatitateObject(item.prefab, MaskMakingLevel.Instance.bottleController.bottleStarting.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
@@ -104,8 +105,8 @@ public class ItemsManager : MonoBehaviour
                 
 
             });
-          
 
+            number++;
 
 
         }

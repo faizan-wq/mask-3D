@@ -58,12 +58,19 @@ public class HammerController : MonoBehaviour
 
         Vector3 randomPosition = GetHammerCrushingPositionTransform();
         transform.position = randomPosition;
+        StartCoroutine(ParticlePlayAfterWait(() => {
+            ParticleManager.Instance.PlayAnimation("Crushing Item", randomPosition - Vector3.up * 8, ItemsManager.Instance.selectedItem.color); }, 0.2f));
+       
         transform.DOMove(randomPosition - Vector3.up * 8, 1f).SetEase(Ease.OutBounce).OnComplete(() => {
 
             UpdateHammerCrushedCount();
-
+           
             if (!HammerResetPosition())
+            {
+               
                 DoNotAllowCrushing = false;
+            }
+               
             else
             {
                 transform.position = randomPosition;
@@ -80,6 +87,11 @@ public class HammerController : MonoBehaviour
             }
 
         });
+    }
+    private IEnumerator ParticlePlayAfterWait(Action a, float wait)
+    {
+        yield return new WaitForSeconds(wait);
+        a?.Invoke();
     }
 
     Transform position;
@@ -120,6 +132,7 @@ public class HammerController : MonoBehaviour
     {
         if (hammerCrushedCount < hammerCrushedCountLimit)
         {
+
             return false;
         }
 
@@ -131,7 +144,7 @@ public class HammerController : MonoBehaviour
     {
         transform.DOJump(firstHammerPosition.position, 1, 1, 4).OnComplete(() => {
 
-
+            
             DoNotAllowCrushing = false;
 
 
