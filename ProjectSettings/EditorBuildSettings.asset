@@ -6,21 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MainGame/Scenes/Level_Chopping.unity
-    guid: 87060a712f21f4a4da32d92cebf44926
-  - enabled: 1
     path: Assets/MainGame/Scenes/Start.unity
     guid: f02813238a89f574f9fcdf0f3e4d3321
   - enabled: 1
     path: Assets/MainGame/Scenes/Home.unity
     guid: 9e3f2a7af61e85549803c6796d58e89f
   - enabled: 1
-    path: Assets/MainGame/Scenes/GamePlay.unity
-    guid: 28a57c79c9e4b974897be2168716ad04
-  - enabled: 1
-    path: Assets/MainGame/DecorationRoom/Scene/DecorateRoom.unity
-    guid: 26c1bba422fc61b41b23b17c5f4137f3
+    path: Assets/MainGame/Scenes/Level_Chopping.unity
+    guid: 87060a712f21f4a4da32d92cebf44926
   - enabled: 1
     path: Assets/MainGame/Scenes/Preload.unity
     guid: 645a4aca71d1e54438b4cd615c64b558
+  - enabled: 1
+    path: Assets/MainGame/Scenes/Rooms Test.unity
+    guid: 39ac67e10503b824b9711a50be1fafb5
+  - enabled: 1
+    path: Assets/MainGame/Scenes/GamePlay.unity
+    guid: 28a57c79c9e4b974897be2168716ad04
   m_configObjects: {}
