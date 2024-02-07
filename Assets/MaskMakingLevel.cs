@@ -51,6 +51,10 @@ public class MaskMakingLevel : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+       if( PlayerPrefs.GetString("Scene")=="1")
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void Start()
