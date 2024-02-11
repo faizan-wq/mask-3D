@@ -7,9 +7,11 @@ public class ItemsManager : MonoBehaviour
 {
 
     public static ItemsManager Instance;
-    [SerializeField] public List<Item> choopingItems;
+   
     [SerializeField] private GridLayoutGroup choopingItemGroup;
     [HideInInspector] public Item selectedItem;
+   
+    [SerializeField] private List<Chopping_Item_Properties> choopingItems;
     
     [SerializeField] public List<Item> mashingItems;
     [SerializeField] private GridLayoutGroup mashingItemGroup;
@@ -36,29 +38,32 @@ public class ItemsManager : MonoBehaviour
 
     private void CreateChoopingItems()
     {
-
+        
         foreach (var item in choopingItems)
         {
             GameObject newObject = new GameObject();
            
-            newObject.name = item.sprite.name;
+            newObject.name = item.choopingItems.sprite.name;
             newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
-            Debug.Log(item.sprite);
-            btn.image.sprite = item.sprite;
+            Debug.Log(item.choopingItems.sprite);
+            btn.image.sprite = item.choopingItems.sprite;
             newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {
 
-                selectedItem = item;
+                int num = item.GetHashCode();
+                selectedItem = item.choopingItems;
+                
+                MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
                 MaskMakingLevel.Instance.knifeController.KnifeMoveToChoppingPosition();
-                InstatitateObject(item.prefab, MaskMakingLevel.Instance.choppingItemPosition.position);
+                InstatitateObject(item.choopingItems.prefab, MaskMakingLevel.Instance.choppingItemPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;
 
             });
-            
 
+           
 
         }
     }
@@ -129,4 +134,9 @@ public class ItemsManager : MonoBehaviour
 
 
 }
-
+[System.Serializable]
+public class Chopping_Item_Properties
+{
+    public Item choopingItems;
+    public Vector3 knifeStartingPositions;
+}

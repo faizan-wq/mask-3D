@@ -33,6 +33,7 @@ public class KnifeController : MonoBehaviour
     {
         TutorialScreen1.SetActive(false);
         animator.SetBool("StartingPosition", true);
+        animator.transform.position = knifeStartingPosition.position;
         Invoke(nameof(KnifeStartChopping), knifeWaitChoppingPosition);
     }
     private void KnifeStartChopping()
