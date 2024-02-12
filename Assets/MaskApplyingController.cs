@@ -109,9 +109,20 @@ public class MaskApplyingController : MonoBehaviour
     }
     IEnumerator TakingOfSuccess()
     {
-      
-        yield return new WaitForSeconds(1.05f);
+        MaskMakingLevel.Instance.EnableTaskPoint(6, 1);
+        Transform maskParent = maskOnFace.transform.parent;
+        for (int i = 0; i < maskParent.childCount; i++)
+        {
+            if (maskParent.GetChild(i).gameObject!=maskOnFace)
+            {
+                maskParent.GetChild(i).gameObject.SetActive(false);
+            }
+          
+        }
+       
+        yield return new WaitForSeconds(1.5f);
         maskOnFace.SetActive(false);
+      
         yield return new WaitForSeconds(0.3f);
         Character.Play("Happy01");
         //WinSource.Play();

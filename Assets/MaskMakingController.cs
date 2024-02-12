@@ -25,7 +25,7 @@ public class MaskMakingController : MonoBehaviour
         if (mask.GetComponent<MaskPaste>().maskIsPastingComplete)
             return;
 
-        Debug.Log("PerformAnimationMaskmaking");
+      
         if (!shakingOfMachineStarted)
         {
             ChangeColorOfMask();
@@ -42,6 +42,7 @@ public class MaskMakingController : MonoBehaviour
         if(maskMakingMachine.GetComponent<MaskMakingMachine>().machineButtonPressComplete)
         {
             maskMakingMachine.GetComponent<MaskMakingMachine>().machineButtonPressComplete = false;
+            MaskMakingLevel.Instance.EnableTaskPoint(5, 1);
             mask.Play("Liquide");
         }
 
@@ -101,7 +102,7 @@ public class MaskMakingController : MonoBehaviour
             return;
         if(takingMaskOff.GetComponent<MaskTakingOff>().MasktakingOffCheck)
         {
-            
+            MaskMakingLevel.Instance.EnableTaskPoint(6, 0);
             takingMaskOff.gameObject.SetActive(false);
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mask_Applying);
         }

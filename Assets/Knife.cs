@@ -22,6 +22,7 @@ public class Knife : MonoBehaviour
     {
         
     }
+    Vector3 temp=Vector3.zero;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "ChoppingItem")
@@ -31,7 +32,7 @@ public class Knife : MonoBehaviour
             {
                 //rigidbody.isKinematic = false;
                 ParticleManager.Instance.PlayAnimation("Cutting Item", rigidbody.position,ItemsManager.Instance.selectedItem.color);
-                rigidbody.transform.DOJump(rigidbody.transform.position+Vector3.left* (1+sliceStep) + Vector3.right*(difference* sliceStep),jumpHeight,1,0.125f).OnComplete(()=> {
+                rigidbody.transform.DOJump(rigidbody.transform.position + Vector3.left * (1 + sliceStep) + Vector3.right * (difference * 0.2f), jumpHeight, 1, 0.125f).OnStart(() => {
                     rigidbody.tag = "Untagged";
                 });
                 difference++;

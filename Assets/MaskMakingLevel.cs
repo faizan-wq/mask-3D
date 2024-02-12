@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 public class MaskMakingLevel : MonoBehaviour
 {
@@ -17,7 +18,12 @@ public class MaskMakingLevel : MonoBehaviour
    
     [Header("Animators")]
     public Animator Board;
-   
+
+
+    public List<RectTransform> iconList;
+    public Image progressBarParent;
+    public GameObject progressPanel;
+
     [Header("Items")]
     public Transform choppingItemPosition;
 
@@ -55,7 +61,18 @@ public class MaskMakingLevel : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+        foreach (var item in iconList)
+        {
+            item.gameObject.SetActive(true);
+            item.GetChild(0).localScale = Vector3.one * 0.7f;
+        }
+        progressPanel.SetActive(true);
+
+
     }
+
+
+
 
     private void Start()
     {
@@ -111,6 +128,23 @@ public class MaskMakingLevel : MonoBehaviour
 
 
     #region Methods
+
+
+
+    public void EnableTaskPoint(int number,float value)
+    {
+        iconList[number].transform.GetChild(0).gameObject.SetActive(true);
+        progressBarParent.rectTransform.GetChild(0).GetComponent<Image>().fillAmount = value;
+        if(value==1)
+        {
+            iconList[number].transform.GetChild(0).localScale = Vector3.one;
+        }
+
+    }
+   
+
+
+
 
     public void NextMethod(Mask_Making_Level_Methods method)
     {
@@ -171,7 +205,7 @@ public class MaskMakingLevel : MonoBehaviour
                 knifeController.TutorialScreen2.SetActive(true);
                 knifeController.KnifeMovementWithLerp(knifeController.knifeStartingPosition.position, knifeController.knifeEndingPosition.position, knifeController.knifeMovingSpeed);
                 knifeController.KnifeChoppingSpeed(1);
-              
+                
             }
             else
             {
@@ -204,6 +238,7 @@ public class MaskMakingLevel : MonoBehaviour
     {
        if(!crushingOnlyOnce)
         {
+            MaskMakingLevel.Instance.EnableTaskPoint(1, 0);
             knifeController.animator.SetBool("Chopping", false);
             knifeController.gameObject.SetActive(false);
             knifeController.knife.DisableKinematicsOfItemSlice();
@@ -309,6 +344,7 @@ public class MaskMakingLevel : MonoBehaviour
     {
       if(!bottleController.PouringMethodCalled)
         {
+            MaskMakingLevel.Instance.EnableTaskPoint(2, 0);
             ItemsManager.Instance.CreateliquidItems();
             bottleController.Tutorial1.SetActive(true);
             LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Pouring);
@@ -334,6 +370,7 @@ public class MaskMakingLevel : MonoBehaviour
 
         if(!hammerController.isMixingProcessPlayed)
         {
+            MaskMakingLevel.Instance.EnableTaskPoint(3, 0);
             bottleController.BottleBackToStartingPosition();
             hammerController.HammerMovesToMixingPosition();
 
@@ -410,6 +447,7 @@ public class MaskMakingLevel : MonoBehaviour
             syringeController.InjectionMoveToBowlPosition();
 
             injectingMethodPlayOnce = true;
+            MaskMakingLevel.Instance.EnableTaskPoint(4, 0);
             return;
         }
 

@@ -202,15 +202,18 @@ public class TreeGrowUp : MonoBehaviour
         yield return new WaitForSeconds(2f);
         CheckCameraMoving = true;
     }
+    int RandomAppel = 0;
     IEnumerator LoadingHandActivate()
     {
         yield return new WaitForSeconds(0.25f);
         BigTree.Play("Vibration");
         HitedShoot.Play();
         int RandomSelection = UnityEngine.Random.Range(0, 2);
-        if(RandomSelection == 1 && TimeDrop > 0 && FillingBar.GetComponent<Image>().fillAmount != 1)
+        //int RandomSelection = 0;
+        if (RandomSelection == 1 && TimeDrop > 0 && FillingBar.GetComponent<Image>().fillAmount != 1)
         {
-            int RandomAppel = UnityEngine.Random.Range(0, ListAppels.Length);
+            //int RandomAppel = UnityEngine.Random.Range(0, ListAppels.Length);
+            
             Debug.Log("RandomAppel:"+ RandomAppel);
             if(RandomAppel < ListAppels.Length - 1)
             {
@@ -223,6 +226,7 @@ public class TreeGrowUp : MonoBehaviour
                 
                 TimeDrop -= 1;
             }
+            RandomAppel++;
         }
         else if(FillingBar.GetComponent<Image>().fillAmount == 1)
         {

@@ -21,7 +21,7 @@ public class LevelSpawner : MonoBehaviour
     {
         if(PlayerPrefs.GetString("Mode") == "AllHair")
         {
-            ContainerUI.SetActive(true);
+            //ContainerUI.SetActive(true);
             AllHair.SetActive(true);
         }
         if (PlayerPrefs.GetString("Mode") == "Acnes")
@@ -42,7 +42,7 @@ public class LevelSpawner : MonoBehaviour
         }
         if (PlayerPrefs.GetString("Mode") == "BigAcne")
         {
-            ContainerUI.SetActive(true);
+            //ContainerUI.SetActive(true);
             BigAcne.SetActive(true);
         }
     }

@@ -107,6 +107,7 @@ public class SyringeController : MonoBehaviour
 
     private void DisableSyringe()
     {
+        MaskMakingLevel.Instance.EnableTaskPoint(4, 1);
         Syringe.gameObject.SetActive(false);
         allowtabletMechanics = true;
         tablet.gameObject.SetActive(true);
@@ -131,8 +132,8 @@ public class SyringeController : MonoBehaviour
             Tutorial.SetActive(true);
             SetAnimatorParameter(speedSyringe, 0f);
         }
-
-       if(Syringe.GetComponent<Syringe>().SyringPullCheck)
+        MaskMakingLevel.Instance.progressBarParent.gameObject.SetActive(false);
+        if (Syringe.GetComponent<Syringe>().SyringPullCheck)
             EnableSyringeLiquidParticles(check);
 
 
@@ -202,6 +203,7 @@ public class SyringeController : MonoBehaviour
         if (!allowtabletMechanics)
             return;
 
+
         if(!starttabletEffect)
             if(Input.GetAxis("Mouse Y")>0.5f && Input.GetMouseButton(0))
             {
@@ -211,7 +213,7 @@ public class SyringeController : MonoBehaviour
         {
             if (!tabletMethodOnce)
             {
-
+                MaskMakingLevel.Instance.EnableTaskPoint(5, 0);
                 ApplyAnimationOftablet();
                 tabletMethodOnce = true;
             }

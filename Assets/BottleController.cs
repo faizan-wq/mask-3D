@@ -137,14 +137,18 @@ public class BottleController : MonoBehaviour
         ParticleSystem(timer);
     }
 
+    float barProgressValue;
     private void WaterRising()
     {
         waterRise = Mathf.Clamp(waterRise + Time.deltaTime, -2.13f, 3.21f);
+        barProgressValue = (waterRise + 2.13f)/5.34f;
         Vector3 pos = WaterShader.localPosition;
         pos.y = waterRise;
         WaterShader.localPosition = pos;
-        if(waterRise>= 3.21f)
+        MaskMakingLevel.Instance.EnableTaskPoint(2, barProgressValue);
+        if (waterRise>= 3.21f)
         {
+            MaskMakingLevel.Instance.EnableTaskPoint(2, 1);
             pouringInBowlIsComplete = true;
         }
         

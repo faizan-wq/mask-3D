@@ -34,11 +34,13 @@ public class KnifeController : MonoBehaviour
         TutorialScreen1.SetActive(false);
         animator.SetBool("StartingPosition", true);
         animator.transform.position = knifeStartingPosition.position;
+        MaskMakingLevel.Instance.EnableTaskPoint(0, 0);
         Invoke(nameof(KnifeStartChopping), knifeWaitChoppingPosition);
     }
     private void KnifeStartChopping()
     {
       
+       
         animator.SetBool("Chopping", true);
       
 
@@ -48,6 +50,7 @@ public class KnifeController : MonoBehaviour
 
         if (Vector3.Distance(animator.transform.position, knifeEndingPosition.position) <= 0.125f)
         {
+           
 
             animator.SetFloat("ChoppingSpeed", 0);
             return;
@@ -61,15 +64,16 @@ public class KnifeController : MonoBehaviour
         {
             TutorialScreen1.SetActive(false);
             TutorialScreen2.SetActive(false);
+            MaskMakingLevel.Instance.EnableTaskPoint(0, 1);
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
 
             return;
         }
         value += speed * Time.deltaTime;
-
         Vector3 pos = Vector3.MoveTowards(starting, ending, value);
         animator.transform.position = pos;
-      
+
+        MaskMakingLevel.Instance.EnableTaskPoint(0,1- Vector3.Distance(animator.transform.position, ending)/10);
 
     }
 

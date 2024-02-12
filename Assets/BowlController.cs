@@ -85,6 +85,7 @@ public class BowlController : MonoBehaviour
 
 
         colorContrast = Mathf.Clamp(colorContrast + Time.deltaTime/10, 0, 0.5f);
+        MaskMakingLevel.Instance.EnableTaskPoint(3, colorContrast/0.5f);
         ChangeWaterEffect(MaskMakingLevel.Instance.bottleController.selectedBottle.color, ItemsManager.Instance.selectedItem.color, colorContrast);
         if (colorContrast>=0.5f)
         {

@@ -130,14 +130,14 @@ public class HammerController : MonoBehaviour
 
     private bool HammerResetPosition()
     {
+        MaskMakingLevel.Instance.EnableTaskPoint(1, (float)hammerCrushedCount / hammerCrushedCountLimit);
         if (hammerCrushedCount < hammerCrushedCountLimit)
         {
-
+         
             return false;
         }
 
-
-
+    
         return true;
     }
     public void GetTheHammer()
@@ -183,7 +183,7 @@ public class HammerController : MonoBehaviour
         RotatingTutorial.SetActive(false);
         transform.DOJump(hammerStartingPosition, 5, 1, 4).OnComplete(() => {
 
-           
+            MaskMakingLevel.Instance.EnableTaskPoint(3, 1);
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Injecting);
           
         });

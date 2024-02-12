@@ -49,6 +49,7 @@ public class ItemsManager : MonoBehaviour
             Debug.Log(item.choopingItems.sprite);
             btn.image.sprite = item.choopingItems.sprite;
             newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
+            newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
 
                 int num = item.GetHashCode();

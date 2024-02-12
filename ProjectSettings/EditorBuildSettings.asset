@@ -20,7 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainGame/Scenes/Rooms Test.unity
     guid: 39ac67e10503b824b9711a50be1fafb5
-  - enabled: 1
-    path: Assets/MainGame/Scenes/GamePlay.unity
-    guid: 28a57c79c9e4b974897be2168716ad04
   m_configObjects: {}
