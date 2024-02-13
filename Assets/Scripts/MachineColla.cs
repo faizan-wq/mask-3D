@@ -58,29 +58,40 @@ public class MachineColla : MonoBehaviour
     void Start()
     {
         ChckerContainer.SetActive(true);
-        TakeOne.SetActive(true); TakeTwo.SetActive(true);TakeThree.SetActive(true);
+        TakeOne.SetActive(true); TakeTwo.SetActive(true); TakeThree.SetActive(true);
     }
     void Update()
     {
-        if(FillingBar.gameObject.GetComponent<Image>().fillAmount == 1)
+        if (FillingBar.gameObject.GetComponent<Image>().fillAmount == 1)
         {
             FillingContainer.SetActive(false);
             FillingBar.SetActive(false);
             TakeThree.transform.GetChild(0).gameObject.SetActive(true);
             if (GameFinish)
             {
-                ListWeaponOne.SetActive(false);
-                ListWeaponTwo.SetActive(false);
-                MachineBox.GetComponent<Animator>().Play("CloseCartonBox");
-                EffectDone.Play();
-                EffectDone.gameObject.GetComponent<AudioSource>().Play();
-                StartCoroutine(loadingFinish());
+                StartCoroutine(FinalizingMachineDistruction());
                 GameFinish = false;
             }
             Camera.transform.position = Vector3.Lerp(Camera.transform.position, CameraPos.transform.position, 0.05f);
             Camera.transform.eulerAngles = Vector3.Lerp(Camera.transform.eulerAngles, CameraPos.transform.eulerAngles, 0.05f);
         }
     }
+
+    IEnumerator FinalizingMachineDistruction()
+    {
+
+        ListWeaponOne.SetActive(false);
+        ListWeaponTwo.SetActive(false);
+        yield return new WaitForSeconds(3);
+        MachineBox.GetComponent<Animator>().Play("CloseCartonBox");
+        EffectDone.Play();
+        EffectDone.gameObject.GetComponent<AudioSource>().Play();
+        StartCoroutine(loadingFinish());
+
+    }
+
+
+
     public void SetDown()
     {
         if (FirstStep)
@@ -88,29 +99,17 @@ public class MachineColla : MonoBehaviour
             Coins.GetComponent<Animator>().Play("MoveInside");
             StartCoroutine(LoadingMachine());
             FirstStep = false;
-        }else if (StartShooting && FillingBar.gameObject.GetComponent<Image>().fillAmount != 1)
+        }
+        else if (StartShooting && FillingBar.gameObject.GetComponent<Image>().fillAmount != 1)
         {
-            if (ListWeaponOne.activeSelf)
+            if (allowHittingmachine)
             {
-                CrashAttack.Play();
-                (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
-                ListWeaponOne.gameObject.GetComponent<Animator>().Play("Attack");
-                int SetShoot = Random.Range(0, 2);
-                if(SetShoot == 1 && TimeMove > 0)
+
+                if (ListWeaponOne.activeSelf)
                 {
-                    int randomSelection = Random.Range(0, ListCoka.Length);
-                    ListCoka[randomSelection].gameObject.SetActive(true);
-                    FillingBar.gameObject.GetComponent<Image>().fillAmount += 0.1f;
-                    TimeMove -= 1;
-                }
-            }
-            if (ListWeaponTwo.activeSelf)
-            {
-                CrashAttack.Play();
-                (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
-                if (FillingBar.gameObject.GetComponent<Image>().fillAmount != 1)
-                {
-                    ListWeaponTwo.gameObject.GetComponent<Animator>().Play("Attack");
+                    CrashAttack.Play();
+                    (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
+                    ListWeaponOne.gameObject.GetComponent<Animator>().Play("Attack");
                     int SetShoot = Random.Range(0, 2);
                     if (SetShoot == 1 && TimeMove > 0)
                     {
@@ -120,14 +119,51 @@ public class MachineColla : MonoBehaviour
                         TimeMove -= 1;
                     }
                 }
+                if (ListWeaponTwo.activeSelf)
+                {
+                    CrashAttack.Play();
+                    (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
+                    if (FillingBar.gameObject.GetComponent<Image>().fillAmount != 1)
+                    {
+                        ListWeaponTwo.gameObject.GetComponent<Animator>().Play("Attack");
+                        int SetShoot = Random.Range(0, 2);
+                        if (SetShoot == 1 && TimeMove > 0)
+                        {
+                            int randomSelection = Random.Range(0, ListCoka.Length);
+                            ListCoka[randomSelection].gameObject.SetActive(true);
+                            FillingBar.gameObject.GetComponent<Image>().fillAmount += 0.1f;
+                            TimeMove -= 1;
+                        }
+                    }
+                }
+                StartCoroutine(allowhittingMachineAfterWait(2));
             }
         }
+
         else
         {
             ListWeaponOne.SetActive(false);
             ListWeaponTwo.SetActive(false);
         }
+
+
+
+
     }
+
+
+
+
+    private bool allowHittingmachine=true; 
+    IEnumerator allowhittingMachineAfterWait(float wait=0)
+    {
+        allowHittingmachine = false;
+        yield return new WaitForSeconds(wait);
+        allowHittingmachine = true;
+    }
+
+
+
     public void SetUp()
     {
 

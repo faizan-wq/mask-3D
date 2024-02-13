@@ -13,13 +13,16 @@ public class LevelSpawner : MonoBehaviour
     [Header("Controller UI")]
     public GameObject CreatorMilkUI;
 
+    public string levelName= "AllHair";
+
+
     void Awake()
     {
         //PlayerPrefs.SetString("Mode", "Acnes");
     }
     void Start()
     {
-        if(PlayerPrefs.GetString("Mode") == "AllHair")
+        if (PlayerPrefs.GetString("Mode") == "AllHair")
         {
             //ContainerUI.SetActive(true);
             AllHair.SetActive(true);
@@ -45,6 +48,34 @@ public class LevelSpawner : MonoBehaviour
             //ContainerUI.SetActive(true);
             BigAcne.SetActive(true);
         }
+
+        //switch (levelName)
+        //{
+        //    case "AllHair":
+        //        AllHair.SetActive(true);
+        //        break;
+        //    case "Acnes":
+        //        ContainerUI.SetActive(true);
+        //        CreatorMilkUI.SetActive(true);
+        //        Acnes.SetActive(true);
+        //        break;
+        //    case "MushRooms":
+        //        ContainerUI.SetActive(true);
+        //        MushRooms.SetActive(true);
+        //        break;
+        //    case "BlackAcnes":
+        //        ContainerUI.SetActive(true);
+        //        BlackAcnes.SetActive(true);
+        //        break;
+        //    case "BigAcne":
+        //        //ContainerUI.SetActive(true);
+        //        BigAcne.SetActive(true);
+        //        break;
+
+        //    default:
+        //        break;
+        //}
+
     }
     [Header("UI Container")]
     public GameObject ContainerUI;

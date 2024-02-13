@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DG.Tweening;
 public class TreeGrowUp : MonoBehaviour
 {
     [Header("Audio Source")]
@@ -17,8 +17,9 @@ public class TreeGrowUp : MonoBehaviour
     public Animator ShortGrass;
     public Animator PlasticBox;
 
-    [Header("Controller Appel")]
+    [Header("Controller Apple")]
     public GameObject[] ListAppels;
+    private List<GameObject> selectedApples=new List<GameObject>();
 
     [Header("Container Controller")]
     public GameObject ContainerCash;
@@ -65,7 +66,7 @@ public class TreeGrowUp : MonoBehaviour
             WaterEffect.gameObject.GetComponent<AudioSource>().Play();
             isDragging = true;
         }
-        else if(SHootAgain)
+        else if(SHootAgain && !barIsCompletOnce)
         {
             HandTutorial.SetActive(false);
             HandObj.GetComponent<Animator>().Play("TakeFruit");
@@ -86,44 +87,89 @@ public class TreeGrowUp : MonoBehaviour
             WaterEffect.gameObject.GetComponent<AudioSource>().Stop();
             isDragging = false;
         }
-        else if(FinishGrowing) { FillingBar.gameObject.GetComponent<Image>().fillAmount = 0f; WaterCan.GetComponent<Animator>().Play("PourWaterAnimReverse"); HandTutorial.SetActive(true); BigTree.StopPlayback(); WaterEffect.Stop(); FinishGrowing = false; DoneLevel.Play(); DoneLevel.gameObject.GetComponent<AudioSource>().Play(); TakeHand = true; } else
+        else if (FinishGrowing)
+        {
+            FillingBar.gameObject.GetComponent<Image>().fillAmount = 0f;
+            WaterCan.GetComponent<Animator>().Play("PourWaterAnimReverse");
+            HandTutorial.SetActive(true); BigTree.StopPlayback();
+            WaterEffect.Stop();
+            
+            DoneLevel.Play();
+            DoneLevel.gameObject.GetComponent<AudioSource>().Play();
+            TakeHand = true; HandObj.SetActive(true);
+            FinishGrowing = false;
+        }
+        else
         {
 
         }
     }
+    private bool barIsComplete=false;
+    private bool barIsCompletOnce = false;
 
     void Update()
     {
         ManagerFirstMove();
         if (TakeHand)
         {
-            HandObj.SetActive(true);
+            //HandObj.SetActive(true);
             Vector3 PositionMoveTo = new Vector3(0, 6.71f, -29.13f);
             HandObj.transform.localPosition = Vector3.Lerp(HandObj.transform.localPosition, PositionMoveTo, 0.05f);
-            if(FillingBar.GetComponent<Image>().fillAmount == 1f)
+            if (FillingBar.GetComponent<Image>().fillAmount == 1f)
             {
-                Vector3 Mover = new Vector3(-40.87f, 2.74f, -7.24f);
-                BasketBox.transform.localPosition = Vector3.Lerp(BasketBox.transform.localPosition, Mover, 0.05f);
-                HandObj.SetActive(false);
-                if (CheckDone)
+                if (!barIsCompletOnce)
                 {
-                    StartCoroutine(LoadingCameraMovement());
-                    CheckDone = false;
-                }else if (CheckCameraMoving)
-                {
-                    if (Verifie)
+                    Vector3 Mover = new Vector3(-40.87f, 2.74f, -7.24f);
+                    HandObj.gameObject.SetActive(false);
+                    BasketBox.transform.DOLocalMove(Mover, 3).OnComplete(() =>
                     {
-                        StartCoroutine(LoadingHandActivate());
-                        Verifie = false;
-                    }
-                    CameraView.transform.position = Vector3.Lerp(CameraView.transform.localPosition, FinishPoint.transform.position, 0.05f);
-                    CameraView.transform.eulerAngles = Vector3.Lerp(CameraView.transform.eulerAngles, FinishPoint.transform.eulerAngles, 0.05f);
-                    Vector3 VecLice = Vector3.zero;
-                    BasketBox.transform.position = Vector3.Lerp(BasketBox.transform.position, PositionBaskest.transform.position, 1.5f);
+
+                      
+                        foreach (var appel in selectedApples)
+                        {
+                            Debug.Log("appel: "+ appel);
+                            BasketBox.GetComponent<Basket>().PlaceItemInsideBasket(appel);
+                        }
+
+                        StartCoroutine(EnableBarisCompleteAfterWait(3));
+
+                       
+
+                    });
+
+
+
+                    barIsCompletOnce = true;
                 }
+                else if (barIsComplete)
+                {
+
+                    //BasketBox.transform.localPosition = Vector3.Lerp(BasketBox.transform.localPosition, Mover, 0.05f);
+                    //HandObj.SetActive(false);
+                    if (CheckDone)
+                    {
+                        StartCoroutine(LoadingCameraMovement());
+                        CheckDone = false;
+                    }
+                    else if (CheckCameraMoving)
+                    {
+                        if (Verifie)
+                        {
+                            StartCoroutine(LoadingHandActivate());
+                            Verifie = false;
+                        }
+                      
+                    }
+                }
+
             }
         }
+
     }
+
+    
+
+
     void ManagerFirstMove()
     {
         if (Scaler.transform.localScale.x == 4.25f)
@@ -177,7 +223,36 @@ public class TreeGrowUp : MonoBehaviour
             }
         }
     }
+    IEnumerator EnableBarisCompleteAfterWait(float wait)
+    {
 
+       
+
+        yield return new WaitForSeconds(wait);
+
+        //CameraView.transform.position = Vector3.Lerp(CameraView.transform.localPosition, FinishPoint.transform.position, 0.05f);
+        //CameraView.transform.eulerAngles = Vector3.Lerp(CameraView.transform.eulerAngles, FinishPoint.transform.eulerAngles, 0.05f);
+
+        //BasketBox.transform.position = Vector3.Lerp(BasketBox.transform.position, PositionBaskest.transform.position, 1.5f);
+        HandObj.gameObject.SetActive(false);
+        BasketBox.transform.DOMove(PositionBaskest.transform.position, 0.75f).OnStart(() => {
+            CameraView.transform.DOMove(FinishPoint.transform.position,0.5f);
+            CameraView.transform.DORotate (FinishPoint.transform.eulerAngles, 0.5f);
+
+
+
+
+
+
+        }).OnComplete(()=> {
+
+
+            barIsComplete = true;
+
+        });
+
+
+    }
     Vector3 GetMouseWorldPosition()
     {
         Vector3 mousePosition = Input.mousePosition;
@@ -221,38 +296,53 @@ public class TreeGrowUp : MonoBehaviour
                 FillingBar.GetComponent<Image>().fillAmount += 0.1428571428571429f;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Appel>().IsAppel = true;
+                selectedApples.Add(ListAppels[RandomAppel].transform.GetChild(0).gameObject);
                 ListAppels[RandomAppel].transform.GetChild(0).transform.parent = null;
+               
                 //ArrayUtility.Remove(ref ListAppels, ListAppels[RandomAppel]);
                 
                 TimeDrop -= 1;
             }
             RandomAppel++;
+           
+
         }
         else if(FillingBar.GetComponent<Image>().fillAmount == 1)
         {
-            DoneLevel.Play();
-            DoneLevel.gameObject.GetComponent<AudioSource>().Play();
-            TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
-            Appel[] ListAppels = FindObjectsOfType<Appel>();
-            foreach(Appel appel in ListAppels)
+
+            if (barIsComplete)
             {
-                if (appel.IsAppel)
+
+
+                DoneLevel.Play();
+                DoneLevel.gameObject.GetComponent<AudioSource>().Play();
+                TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
+              
+                foreach(GameObject appel in selectedApples)
                 {
-                    appel.StartJump = true;
+                    if (appel.GetComponent<Appel>().IsAppel)
+                    {
+                        appel.GetComponent<Rigidbody>().isKinematic = false;
+                        appel.GetComponent<Appel>().StartJump = true;
+                    }
+
                 }
+
+                yield return new WaitForSeconds(1.8f);
+                BoxColliderHidden.SetActive(false);
+                BasketBox.GetComponent<Animator>().Play("Controller");
+                yield return new WaitForSeconds(6f);
+                PlasticBox.Play("CloseBox");
+                SearchSource.Play();
+                yield return new WaitForSeconds(2f);
+                FinishUI.SetActive(true);
+                AppelFinish.SetActive(true);
             }
-            yield return new WaitForSeconds(1.4f);
-            BoxColliderHidden.SetActive(false);
-            BasketBox.GetComponent<Animator>().Play("Controller");
-            yield return new WaitForSeconds(3f);
-            PlasticBox.Play("CloseBox");
-            SearchSource.Play();
-            yield return new WaitForSeconds(2f);
-            FinishUI.SetActive(true);
-            AppelFinish.SetActive(true);
         }
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         SHootAgain = true;
+
+
     }
     [Header("UI Finish")]
     public GameObject FinishUI;

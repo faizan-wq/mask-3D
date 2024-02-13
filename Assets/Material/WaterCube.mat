@@ -1,21 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2433378834472105302
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WaterCube
-  m_Shader: {fileID: 4800000, guid: 8f08cb4f122b9b540b60075f9822c7a3, type: 3}
-  m_ShaderKeywords: _EMISSION _RECEIVE_SHADOWS_OFF
+  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  m_ValidKeywords:
+  - _EMISSION
+  - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -23,10 +42,39 @@ Material:
         m_Texture: {fileID: 2800000, guid: abec08ecbee0a1649a1bf96dc133f5d1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0.13, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _FoamTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: abec08ecbee0a1649a1bf96dc133f5d1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0.13, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaClip: 0
     - _AlphaCombined: 1
@@ -42,7 +90,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DoubleSidedBias: 0
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _EnvironmentReflections: 1
     - _FoamBottom: 1
     - _FoamDensity: 1
@@ -56,6 +104,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.338
     - _GlossinessInt: 0.5
+    - _GlossinessSource: 0
     - _GlossyReflections: 1
     - _LevelPos: 0
     - _LiquidRaySteps: 10
@@ -72,17 +121,20 @@ Material:
     - _ReceiveShadowsOff: 0
     - _RimMax: 1
     - _RimMin: 0.5
+    - _Shininess: 0
     - _SmokeAtten: 2
     - _SmokeHeightAtten: 0
     - _SmokeRaySteps: 10
     - _SmokeSpeed: 5
     - _Smoothness: 0.338
+    - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SparklingIntensity: 1
     - _SparklingThreshold: 0.85
+    - _SpecSource: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _SrcBlend: 5
+    - _Surface: 1
     - _TurbulenceSpeed: 1
     - _UVSec: 0
     - _UVWaveAmplitude: 0.05
@@ -94,12 +146,12 @@ Material:
     - _WaveSpeed: 2
     - _WorkflowMode: 1
     - _ZTestMode: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - __dummy__: 0
     m_Colors:
     - _BaseColor: {r: 0.41189036, g: 0.8429187, b: 0.9811321, a: 1}
     - _Center: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.9622642, g: 0.66723037, b: 0.7238784, a: 1}
+    - _Color: {r: 0.41189033, g: 0.8429187, b: 0.9811321, a: 1}
     - _Color1: {r: 1, g: 0, b: 0, a: 0.1}
     - _Color2: {r: 1, g: 0, b: 0, a: 0.3}
     - _DepthColor: {r: 0.4575472, g: 0.7497389, b: 1, a: 1}
