@@ -6,6 +6,7 @@ public class Knife : MonoBehaviour
 {
     private Transform board;
     private const string slice = "Slice of Items";
+    [SerializeField] private List<Transform> rigidBodiesPositions;
     [Header(slice)]
     [SerializeField] private float jumpHeight=1;
     [SerializeField] private float sliceStep = 1;
@@ -32,10 +33,25 @@ public class Knife : MonoBehaviour
             {
                 //rigidbody.isKinematic = false;
                 ParticleManager.Instance.PlayAnimation("Cutting Item", rigidbody.position,ItemsManager.Instance.selectedItem.color);
-                rigidbody.transform.DOJump(rigidbody.transform.position + Vector3.left * (1 + sliceStep) + Vector3.right * (difference * 0.2f), jumpHeight, 1, 0.125f).OnStart(() => {
+                Vector3 pos = rigidbody.transform.position - Vector3.right * (1+ sliceStep);
+                if (rigidBodiesPositions.Count != 0)
+                {
+                    pos.x = rigidBodiesPositions[rigidBodiesPositions.Count - 1].position.x ;
+                    pos += (1 + sliceStep) * Vector3.right;
+                    //pos += (1 / (difference+1)) * Vector3.right;
+
+                }
+
+
+                //rigidbody.transform.DOJump(rigidbody.transform.position + Vector3.left * (1 + sliceStep) + Vector3.right * (difference * 0.2f), jumpHeight, 1, 0.125f).OnStart(() =>
+                //{
+                //    rigidbody.tag = "Untagged";
+                //});
+                rigidbody.transform.DOJump(pos /*+ Vector3.right * (difference * 0.2f)*/, jumpHeight, 1, 0.125f).OnStart(() => {
                     rigidbody.tag = "Untagged";
                 });
                 difference++;
+                rigidBodiesPositions.Add(rigidbody.transform);
                 StartCoroutine(waitAndExecute(rigidbody,board,0));
                
             }
@@ -64,6 +80,7 @@ public class Knife : MonoBehaviour
             if (board.GetChild(i).TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
                 rigidbody.isKinematic = false;
+                rigidbody.AddForce(Vector3.right * 100);
                
             }
         }

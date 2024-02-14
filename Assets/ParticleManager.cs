@@ -29,6 +29,16 @@ public class ParticleManager : MonoBehaviour
             newparticle.transform.position = position;
 
     }
+    public void PlayAnimation(string name)
+    {
+        ParticleProperties particleProperties = GetParticleProperties(name);
+        if (particleProperties == null)
+            return;
+
+        particleProperties.particle.Play();
+       
+
+    }
     public void PlayAnimation(string name, Vector3 position, Color color)
     {
         ParticleProperties particleProperties = GetParticleProperties(name);
@@ -36,12 +46,22 @@ public class ParticleManager : MonoBehaviour
             return;
 
         GameObject newparticle = Instantiate(particleProperties.particle.gameObject);
+        float alphaValue = newparticle.GetComponent<ParticleSystem>().startColor.a;
+        color.a = alphaValue;
         newparticle.GetComponent<ParticleSystem>().startColor = color;
+        
         for (int i = 0; i < newparticle.transform.childCount; i++)
         {
             if(newparticle.transform.GetChild(i).TryGetComponent<ParticleSystem>(out ParticleSystem particleSystem))
             {
                 particleSystem.startColor = color;
+            }
+            for (int j = 0; j < newparticle.transform.GetChild(i).childCount; j++)
+            {
+                if (newparticle.transform.GetChild(i).GetChild(j).TryGetComponent<ParticleSystem>(out ParticleSystem particleSystemChild))
+                {
+                    particleSystemChild.startColor = color;
+                }
             }
         }
         newparticle.transform.position = position;

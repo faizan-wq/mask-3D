@@ -56,6 +56,8 @@ public class ItemsManager : MonoBehaviour
                 selectedItem = item.choopingItems;
                 
                 MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
+                MaskMakingLevel.Instance.knifeController.knifeEndingPosition.position = item.knifeEndingPositions;
+
                 MaskMakingLevel.Instance.knifeController.KnifeMoveToChoppingPosition();
                 InstatitateObject(item.choopingItems.prefab, MaskMakingLevel.Instance.choppingItemPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
@@ -140,4 +142,5 @@ public class Chopping_Item_Properties
 {
     public Item choopingItems;
     public Vector3 knifeStartingPositions;
+    public Vector3 knifeEndingPositions;
 }

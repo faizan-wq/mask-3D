@@ -5,6 +5,9 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using Unity.Jobs;
+using Unity.Burst;
+
 public class MaskMakingLevel : MonoBehaviour
 {
 
@@ -104,6 +107,7 @@ public class MaskMakingLevel : MonoBehaviour
 
     private void Update()
     {
+        
         CurrentMethodOperations();
     }
 
@@ -150,7 +154,7 @@ public class MaskMakingLevel : MonoBehaviour
     {
 
 
-
+        ParticleManager.Instance.PlayAnimation("Happy_Emoji");
         currentMethod = method;
 
 

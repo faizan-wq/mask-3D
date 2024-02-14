@@ -7,10 +7,12 @@ public class MilkBacking : MonoBehaviour
     internal bool SetVec = true;
     internal bool Once = true;
     internal bool CheckDone = true;
+    CreatorMilkUI creatorMilkUI;
     void Start()
     {
         CreatorMilkUI Controller = FindAnyObjectByType<CreatorMilkUI>();
         Controller.MovingUI += 0.2f;
+        creatorMilkUI = GameObject.FindObjectOfType<CreatorMilkUI>();
     }
     void FixedUpdate()
     {
@@ -27,7 +29,11 @@ public class MilkBacking : MonoBehaviour
         Once = false;
         if (CheckDone)
         {
-            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+            creatorMilkUI.BoxAnimated.transform.GetComponent<CarterBox>().NextPosition(transform);
+
+          
+            
             CheckDone = false;
         }
     }

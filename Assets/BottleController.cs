@@ -134,6 +134,8 @@ public class BottleController : MonoBehaviour
     {
         timer =Mathf.Clamp(timer+Time.deltaTime * speed,0,1);
         selectedBottle.prefab.transform.localRotation = Quaternion.Lerp(starting,ending,timer);
+        
+       
         ParticleSystem(timer);
     }
 
@@ -161,16 +163,20 @@ public class BottleController : MonoBehaviour
         if(value>=0.75f)
         {
             selectedBottle.prefab.transform.GetChild(1).gameObject.SetActive(true);
+
+           selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = true;
+            selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
             WaterRising();
            
         }
         else
         {
-            selectedBottle.prefab.transform.GetChild(1).gameObject.SetActive(false);
+            selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = false;
             if(value<=0)
             {
                 if(pouringInBowlIsComplete)
                 {
+                    selectedBottle.prefab.transform.GetChild(1).gameObject.SetActive(false); 
                     ResetBottlePosition = true;
                     Tutorial2.SetActive(false);
                     Tutorial1.SetActive(false);

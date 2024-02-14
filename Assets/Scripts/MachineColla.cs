@@ -91,7 +91,8 @@ public class MachineColla : MonoBehaviour
     }
 
 
-
+    int randomSelection=0;
+    int SetShoot = 0;
     public void SetDown()
     {
         if (FirstStep)
@@ -110,13 +111,14 @@ public class MachineColla : MonoBehaviour
                     CrashAttack.Play();
                     (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
                     ListWeaponOne.gameObject.GetComponent<Animator>().Play("Attack");
-                    int SetShoot = Random.Range(0, 2);
+                    SetShoot = SetShoot == 0 ? 1 : 0; 
                     if (SetShoot == 1 && TimeMove > 0)
                     {
-                        int randomSelection = Random.Range(0, ListCoka.Length);
+                       
                         ListCoka[randomSelection].gameObject.SetActive(true);
-                        FillingBar.gameObject.GetComponent<Image>().fillAmount += 0.1f;
+                        FillingBar.gameObject.GetComponent<Image>().fillAmount += 0.2f;
                         TimeMove -= 1;
+                        randomSelection ++;
                     }
                 }
                 if (ListWeaponTwo.activeSelf)
@@ -126,17 +128,17 @@ public class MachineColla : MonoBehaviour
                     if (FillingBar.gameObject.GetComponent<Image>().fillAmount != 1)
                     {
                         ListWeaponTwo.gameObject.GetComponent<Animator>().Play("Attack");
-                        int SetShoot = Random.Range(0, 2);
+                        SetShoot = SetShoot == 0 ? 1 : 0;
                         if (SetShoot == 1 && TimeMove > 0)
                         {
-                            int randomSelection = Random.Range(0, ListCoka.Length);
                             ListCoka[randomSelection].gameObject.SetActive(true);
-                            FillingBar.gameObject.GetComponent<Image>().fillAmount += 0.1f;
+                            FillingBar.gameObject.GetComponent<Image>().fillAmount += 0.2f;
                             TimeMove -= 1;
+                            randomSelection++;
                         }
                     }
                 }
-                StartCoroutine(allowhittingMachineAfterWait(2));
+                StartCoroutine(allowhittingMachineAfterWait(1));
             }
         }
 
