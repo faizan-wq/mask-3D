@@ -52,6 +52,9 @@ public class LevelUIManager : MonoBehaviour
                 break;
             case Mask_Making_Level_Methods.MoveToCrushing:
                 break;
+            case Mask_Making_Level_Methods.Hammering:
+                ProcessHammering();
+                break;
             case Mask_Making_Level_Methods.Crushing:
                 ProcessMashing();
                 break;
@@ -117,6 +120,10 @@ public class LevelUIManager : MonoBehaviour
         screens[num].SetActive(true);
     }
 
+    private void  ProcessHammering()
+    {
+        EnableScreen(8);
+    }
 
 
 

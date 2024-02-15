@@ -13,7 +13,9 @@ public class MaskMakingLevel : MonoBehaviour
 
 
     public static MaskMakingLevel Instance;
+    public Mask_Making_Level_Type maskiMakingType;
     [SerializeField] private Mask_Making_Level_Methods currentMethod;
+    
     [Header("Camera")]
     [SerializeField] private Camera camera;
     public ChangeCameraPositionTest changeCameraPositionTest; 
@@ -60,6 +62,10 @@ public class MaskMakingLevel : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+
+        
+
+
        if( PlayerPrefs.GetString("Scene")=="1")
         {
             gameObject.SetActive(false);
@@ -70,7 +76,6 @@ public class MaskMakingLevel : MonoBehaviour
             item.GetChild(0).localScale = Vector3.one * 0.7f;
         }
         progressPanel.SetActive(true);
-
 
     }
 
@@ -162,35 +167,72 @@ public class MaskMakingLevel : MonoBehaviour
 
     private void CurrentMethodOperations()
     {
-        switch (currentMethod)
+
+        if(maskiMakingType== Mask_Making_Level_Type.Chopping)
         {
-            case Mask_Making_Level_Methods.Chopping:
-                ChoppingMethod();
-                break;
-            case Mask_Making_Level_Methods.MoveToCrushing:
-                MoveToCrushingMethod();
-                break;
-            case Mask_Making_Level_Methods.Crushing:
-                CrushingMethod();
-                break;
-            case Mask_Making_Level_Methods.Pouring:
-                PouringMethod();
-                break;
-            case Mask_Making_Level_Methods.Mixing:
-                MixingMethod();
-                break;
-            case Mask_Making_Level_Methods.Injecting:
-                InjectingMethod();
-                break;
-            case Mask_Making_Level_Methods.Mask_Making:
-                MaskMakingMethod();
-                break;
-            case Mask_Making_Level_Methods.Mask_Applying:
-                MaskApplyingMethod();
-                break;
-            default:
-                break;
+            switch (currentMethod)
+            {
+                case Mask_Making_Level_Methods.Chopping:
+                    ChoppingMethod();
+                    break;
+                case Mask_Making_Level_Methods.MoveToCrushing:
+                    MoveToCrushingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Crushing:
+                    CrushingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Pouring:
+                    PouringMethod();
+                    break;
+                case Mask_Making_Level_Methods.Mixing:
+                    MixingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Injecting:
+                    InjectingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Mask_Making:
+                    MaskMakingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Mask_Applying:
+                    MaskApplyingMethod();
+                    break;
+                default:
+                    break;
+            }
         }
+        else
+        {
+            switch (currentMethod)
+            {
+                case Mask_Making_Level_Methods.Chopping:
+                    ChoppingMethod();
+                    break;
+                case Mask_Making_Level_Methods.MoveToCrushing:
+                    MoveToCrushingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Crushing:
+                    CrushingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Pouring:
+                    PouringMethod();
+                    break;
+                case Mask_Making_Level_Methods.Mixing:
+                    MixingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Injecting:
+                    InjectingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Mask_Making:
+                    MaskMakingMethod();
+                    break;
+                case Mask_Making_Level_Methods.Mask_Applying:
+                    MaskApplyingMethod();
+                    break;
+                default:
+                    break;
+            }
+        }
+      
     }
 
 
@@ -526,7 +568,15 @@ public class MaskMakingLevel : MonoBehaviour
 
     #endregion
 
+    #region Hammering Level
 
+    private void HammeringMethod()
+    {
+
+    }
+
+
+    #endregion
 
 
     #endregion
@@ -538,10 +588,16 @@ public enum Mask_Making_Level_Methods
 {
     Chopping,
     MoveToCrushing,
+    Hammering,
     Crushing,
     Pouring,
     Mixing,
     Injecting,
     Mask_Making,
     Mask_Applying
+}
+public enum Mask_Making_Level_Type
+{
+    Chopping,
+    Hammer
 }
