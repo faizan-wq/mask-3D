@@ -112,8 +112,8 @@ public class CreatorMilkUI : MonoBehaviour
         CheckingMilk();
         if (FinishItCollecting)
         {
-            MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, CameraPos.transform.position, 0.05f);
-            Barrel.transform.position = Vector3.Lerp(Barrel.transform.position, BarrelPos.transform.position, 0.025f);
+            MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, CameraPos.transform.position, 0.2f);
+            Barrel.transform.position = Vector3.Lerp(Barrel.transform.position, BarrelPos.transform.position, 0.1f);
             float DistanceBtw = Vector3.Distance(MainCamera.transform.position, CameraPos.transform.position);
             if(DistanceBtw < 0.1f)
             {
@@ -166,8 +166,8 @@ public class CreatorMilkUI : MonoBehaviour
             if(CheckCloseFinish == false)
             {
                 Barrel.gameObject.SetActive(false);
-                MainCamera.gameObject.transform.position = Vector3.Lerp(MainCamera.transform.position, CameraSecondPos.transform.position, 0.05f);
-                MainCamera.transform.eulerAngles = Vector3.Lerp(MainCamera.transform.eulerAngles, CameraSecondPos.transform.eulerAngles, 0.05f);
+                MainCamera.gameObject.transform.position = Vector3.Lerp(MainCamera.transform.position, CameraSecondPos.transform.position, 0.1f);
+                MainCamera.transform.eulerAngles = Vector3.Lerp(MainCamera.transform.eulerAngles, CameraSecondPos.transform.eulerAngles, 0.1f);
                 float PosLenght = Vector3.Distance(MainCamera.transform.position, CameraSecondPos.transform.position);
                 if(PosLenght < 0.1f)
                 {

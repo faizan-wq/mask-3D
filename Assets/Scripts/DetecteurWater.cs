@@ -27,7 +27,7 @@ public class DetecteurWater : MonoBehaviour
             CreatorMilkUI Controller = FindAnyObjectByType<CreatorMilkUI>();
             if(Controller.StartMovingBarrel)
             {
-                Controller.MovingFilling += 0.005f;
+                Controller.MovingFilling += 0.05f;
                 if (StartPool)
                 {
                     Controller.ThrowUpWater.Play();
