@@ -20,6 +20,10 @@ public class LevelUIManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        ItemsManager.Instance.InvokeAfterWait();
+
+
     }
 
     // Start is called before the first frame update

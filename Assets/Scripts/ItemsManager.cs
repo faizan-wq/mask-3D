@@ -34,17 +34,39 @@ public class ItemsManager : MonoBehaviour
 
     private void Start()
     {
+
+
+     
+
+
+
+    }
+
+    public void InvokeAfterWait()
+    {
+
+        if (LevelUIManager.Instance == null)
+            return;
+
         if (LevelUIManager.Instance.choppingItemsImages != null)
+        {
             choopingItemGroup = LevelUIManager.Instance.choppingItemsImages;
+            CreateChoopingItems();
+        }
         if (LevelUIManager.Instance.hammeringItemsImages != null)
+        {
             mashingItemGroup = LevelUIManager.Instance.hammeringItemsImages;
+            CreatehammeingItems();
+        }
+
         if (LevelUIManager.Instance.bottleItemsImages != null)
             liquidItemGroup = LevelUIManager.Instance.bottleItemsImages;
 
-        CreatehammeingItems();
-        CreateChoopingItems();
-        
+
     }
+
+
+
     private void CreatehammeingItems()
     {
         foreach (var item in mashingItems)
