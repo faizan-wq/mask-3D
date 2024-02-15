@@ -204,11 +204,11 @@ public class MaskMakingLevel : MonoBehaviour
         {
             switch (currentMethod)
             {
-                case Mask_Making_Level_Methods.Chopping:
-                    ChoppingMethod();
-                    break;
-                case Mask_Making_Level_Methods.MoveToCrushing:
-                    MoveToCrushingMethod();
+                //case Mask_Making_Level_Methods.Chopping:
+                //    ChoppingMethod();
+                //    break;
+                case Mask_Making_Level_Methods.Hammering:
+                    HammeringMethod();
                     break;
                 case Mask_Making_Level_Methods.Crushing:
                     CrushingMethod();
@@ -570,11 +570,76 @@ public class MaskMakingLevel : MonoBehaviour
 
     #region Hammering Level
 
+    private bool allowCreateNewHammeingItem = false;
+    private bool hammeingProcessStart;
+    private bool hammeringProcessFinish=false;
+    [HideInInspector]public int hammeringItemLimit;
+    int hammeringCreatedItemCount;
+
+
+
+
+
     private void HammeringMethod()
     {
+        if(!hammeingProcessStart)
+        {
+            LevelUIManager.Instance.NextScreen(currentMethod);
+            
+            hammeingProcessStart = true;
+        }
 
+        Debug.Log("Hammering");
+
+
+        if (hammeringProcessFinish)
+        {
+            hammerController.GetTheHammer();
+            NextMethod(Mask_Making_Level_Methods.Crushing);
+            LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Crushing);
+
+            hammeringProcessFinish = false;
+        }
+
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(CreateHammeringItem())
+            {
+                Debug.Log("Hammering Object Created");
+            }
+            else
+            {
+                Debug.Log("Limit is Full");
+            }
+        }
+       
+
+        
     }
 
+    private  bool CreateHammeringItem()
+    {
+        if (hammeringCreatedItemCount >= hammeringItemLimit)
+            return false;
+
+        InstatitateObject(ItemsManager.Instance.selectedItem.prefab, hammerController.firstHammerPosition.position);
+
+        hammeringCreatedItemCount++;
+        if(hammeringCreatedItemCount==hammeringItemLimit)
+        {
+            hammeringProcessFinish = true;
+            Debug.Log("All Hammering Objects are created");
+        }
+        return true;
+    }
+
+    private void InstatitateObject(GameObject obj, Vector3 startingPosition)
+    {
+        GameObject temp = Instantiate(obj);
+
+        obj.transform.position = startingPosition;
+    }
 
     #endregion
 

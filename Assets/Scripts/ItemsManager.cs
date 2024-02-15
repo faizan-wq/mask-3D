@@ -13,7 +13,7 @@ public class ItemsManager : MonoBehaviour
    
     [SerializeField] private List<Chopping_Item_Properties> choopingItems;
     
-    [SerializeField] public List<Item> mashingItems;
+    [SerializeField] public List<Hammering_Item_Properties> mashingItems;
     [SerializeField] private GridLayoutGroup mashingItemGroup;
 
 
@@ -25,14 +25,60 @@ public class ItemsManager : MonoBehaviour
         {
             Instance = this;
         }
+
+
+       
+
+
     }
 
     private void Start()
     {
+        if (LevelUIManager.Instance.choppingItemsImages != null)
+            choopingItemGroup = LevelUIManager.Instance.choppingItemsImages;
+        if (LevelUIManager.Instance.hammeringItemsImages != null)
+            mashingItemGroup = LevelUIManager.Instance.hammeringItemsImages;
+        if (LevelUIManager.Instance.bottleItemsImages != null)
+            liquidItemGroup = LevelUIManager.Instance.bottleItemsImages;
+
+        CreatehammeingItems();
         CreateChoopingItems();
         
     }
+    private void CreatehammeingItems()
+    {
+        foreach (var item in mashingItems)
+        {
+            GameObject newObject = new GameObject();
 
+            newObject.name = item.hammeringItem.sprite.name;
+            newObject.AddComponent<Image>();
+            Button btn = newObject.AddComponent<Button>();
+
+            btn.image.sprite = item.hammeringItem.sprite;
+            newObject.GetComponent<RectTransform>().parent = mashingItemGroup.GetComponent<RectTransform>();
+            newObject.transform.localScale = Vector3.one;
+            btn.onClick.AddListener(() => {
+
+                int num = item.GetHashCode();
+                selectedItem = item.hammeringItem;
+
+                MaskMakingLevel.Instance.hammeringItemLimit = item.count;
+                //MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
+                //MaskMakingLevel.Instance.knifeController.knifeEndingPosition.position = item.knifeEndingPositions;
+
+
+               // InstatitateObject(item.hammeringItem.prefab, MaskMakingLevel.Instance.hammerController.firstHammerPosition.position);
+                btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
+                choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
+                btn.interactable = false;
+
+            });
+
+
+
+        }
+    }
 
 
 
@@ -46,7 +92,7 @@ public class ItemsManager : MonoBehaviour
             newObject.name = item.choopingItems.sprite.name;
             newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
-            Debug.Log(item.choopingItems.sprite);
+
             btn.image.sprite = item.choopingItems.sprite;
             newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
@@ -137,6 +183,17 @@ public class ItemsManager : MonoBehaviour
 
 
 }
+[System.Serializable]
+public class Hammering_Item_Properties
+{
+    public Item hammeringItem;
+    public int count;
+
+}
+
+
+
+
 [System.Serializable]
 public class Chopping_Item_Properties
 {

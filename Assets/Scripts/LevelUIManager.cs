@@ -9,6 +9,10 @@ public class LevelUIManager : MonoBehaviour
     [SerializeField] private List<GameObject> screens;
     
     [SerializeField] public Mask_Making_Level_Methods MMP;
+    public GridLayoutGroup choppingItemsImages;
+    public GridLayoutGroup hammeringItemsImages;
+    public GridLayoutGroup bottleItemsImages;
+
     public Button next;
     private void Awake()
     {
@@ -122,7 +126,7 @@ public class LevelUIManager : MonoBehaviour
 
     private void  ProcessHammering()
     {
-        EnableScreen(8);
+        EnableScreen(7);
     }
 
 

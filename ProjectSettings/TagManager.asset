@@ -23,6 +23,7 @@ TagManager:
   - Bug
   - ChoppingItem
   - board
+  - CrushingItem
   layers:
   - Default
   - TransparentFX

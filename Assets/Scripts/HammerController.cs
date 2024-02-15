@@ -112,7 +112,8 @@ public class HammerController : MonoBehaviour
         }
 
 
-        int trans = Random.Range(0, hammerCrusingPsitions.Count);
+        //int trans = Random.Range(0, hammerCrusingPsitions.Count);
+        int trans = 1;
         position = hammerCrusingPsitions[trans];
         Array.Clear(array, 0, array.Length);
         return hammerCrusingPsitions[trans].position;
