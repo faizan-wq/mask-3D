@@ -55,6 +55,11 @@ public class MachineColla : MonoBehaviour
 
     [Header("Boolean Manager")]
     internal bool GameFinish = true;
+
+    [Header("Blast Effect")]
+    [SerializeField]private List<MeshRenderer> partsNeedToBurn;
+
+
     void Start()
     {
         ChckerContainer.SetActive(true);
@@ -69,6 +74,7 @@ public class MachineColla : MonoBehaviour
             TakeThree.transform.GetChild(0).gameObject.SetActive(true);
             if (GameFinish)
             {
+                StartCoroutine(MachineBlastEffect());
                 StartCoroutine(FinalizingMachineDistruction());
                 GameFinish = false;
             }
@@ -82,6 +88,7 @@ public class MachineColla : MonoBehaviour
 
         ListWeaponOne.SetActive(false);
         ListWeaponTwo.SetActive(false);
+      
         yield return new WaitForSeconds(3);
         MachineBox.GetComponent<Animator>().Play("CloseCartonBox");
         EffectDone.Play();
@@ -164,7 +171,21 @@ public class MachineColla : MonoBehaviour
         allowHittingmachine = true;
     }
 
+    IEnumerator MachineBlastEffect()
+    {
+       
+        ParticleManager.Instance.PlayAnimation("machine_Blast", new Vector3(-44f, 17.5f, 7.0999999f));
+        yield return new WaitForSeconds(0.1f);
+        foreach (var item in partsNeedToBurn)
+        {
+            foreach (var material in item.materials)
+            {
+                material.color = Color.black;
+            }
+            
+        }
 
+    }
 
     public void SetUp()
     {
