@@ -89,8 +89,9 @@ public class ItemsManager : MonoBehaviour
                 //MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
                 //MaskMakingLevel.Instance.knifeController.knifeEndingPosition.position = item.knifeEndingPositions;
 
-
-               // InstatitateObject(item.hammeringItem.prefab, MaskMakingLevel.Instance.hammerController.firstHammerPosition.position);
+                MaskMakingLevel.Instance.hammerController.SelectHammeringTutorial(0, false);
+                MaskMakingLevel.Instance.hammerController.SelectHammeringTutorial(1, true);
+                // InstatitateObject(item.hammeringItem.prefab, MaskMakingLevel.Instance.hammerController.firstHammerPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;

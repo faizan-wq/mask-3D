@@ -17,9 +17,29 @@ public class HammerController : MonoBehaviour
        SetHammerCrushingPositions();
     }
 
+    #region Hammering
+    [Header("Hammering")]
+    public GameObject hammeringSelectionTutorial;
+    public GameObject hammeringTapTutorial;
+
+
+    public void SelectHammeringTutorial(int num = 0, bool check = false)
+    {
+        if(num==0)
+            hammeringSelectionTutorial.SetActive(check);
+        else if(num==1)
+            hammeringTapTutorial.SetActive(check);
+
+    }
+
+
+
+    #endregion
+
+
     #region Crushing
 
-
+    [Header("Crushing")]
 
     public Vector3 hammerStartingPosition;
     public Transform firstHammerPosition;
@@ -155,6 +175,7 @@ public class HammerController : MonoBehaviour
     #endregion
 
     #region Mixing
+    [Header("Mixing")]
     private const string Mixing_header="Mixing Process";
     private const string Hammer_Rotating = "Rotating";
     private const string Hammer_Speed = "Speed";

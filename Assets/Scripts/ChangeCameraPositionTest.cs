@@ -6,10 +6,10 @@ using DG.Tweening;
 using TMPro;
 public class ChangeCameraPositionTest : MonoBehaviour
 {
-    [SerializeField]private CinemachineVirtualCamera obj;
+    [SerializeField] private CinemachineVirtualCamera obj;
     [SerializeField] private CameraOffset offset;
     [SerializeField] private  TMP_InputField input;
-    float cameraCurrentValue=0;
+    [SerializeField] private float cameraCurrentValue=0;
   
     public void ChangeTrack()
     {

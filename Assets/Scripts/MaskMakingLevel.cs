@@ -63,9 +63,6 @@ public class MaskMakingLevel : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        
-
-
        if( PlayerPrefs.GetString("Scene")=="1")
         {
             gameObject.SetActive(false);
@@ -204,9 +201,9 @@ public class MaskMakingLevel : MonoBehaviour
         {
             switch (currentMethod)
             {
-                //case Mask_Making_Level_Methods.Chopping:
-                //    ChoppingMethod();
-                //    break;
+                case Mask_Making_Level_Methods.Chopping:
+                    ChoppingMethod();
+                    break;
                 case Mask_Making_Level_Methods.Hammering:
                     HammeringMethod();
                     break;
@@ -585,31 +582,39 @@ public class MaskMakingLevel : MonoBehaviour
         if(!hammeingProcessStart)
         {
             LevelUIManager.Instance.NextScreen(currentMethod);
-            
+            hammerController.SelectHammeringTutorial(0, true);
             hammeingProcessStart = true;
         }
 
-        Debug.Log("Hammering");
+       
 
 
         if (hammeringProcessFinish)
         {
+            
             hammerController.GetTheHammer();
             NextMethod(Mask_Making_Level_Methods.Crushing);
             LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Crushing);
-
+           
             hammeringProcessFinish = false;
+            
         }
+       
 
 
         if(Input.GetMouseButtonDown(0))
         {
-            if(CreateHammeringItem())
+           
+            if (CreateHammeringItem())
             {
+               
                 Debug.Log("Hammering Object Created");
             }
             else
             {
+               
+              
+               
                 Debug.Log("Limit is Full");
             }
         }
@@ -629,6 +634,7 @@ public class MaskMakingLevel : MonoBehaviour
         if(hammeringCreatedItemCount==hammeringItemLimit)
         {
             hammeringProcessFinish = true;
+            hammerController.SelectHammeringTutorial(1, false);
             Debug.Log("All Hammering Objects are created");
         }
         return true;

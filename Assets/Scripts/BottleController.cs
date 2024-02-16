@@ -12,14 +12,8 @@ public class BottleController : MonoBehaviour
     public List<Quaternion> eachBottleRotationLimit;
     private Quaternion selectedRotation;
 
-
-
-
     public Transform bottleStarting;
     private Vector3 resetPosition;
-
-
-
 
     public Transform WaterShader;
     private int bottleSelected = -1;
