@@ -20,7 +20,7 @@ public class StartScene : MonoBehaviour
     {
         if(LoadingProgress.fillAmount < 1 && LoaderTime > 0)
         {
-            LoadingProgress.fillAmount += Time.deltaTime / LoadingTime;
+            LoadingProgress.fillAmount += Time.deltaTime / 5;
             ValuePrecent.text = "" + (int)(LoadingProgress.fillAmount * 100) + "%";
             LevelLoaderSynce.text = Levels[LoaderTime];
         }

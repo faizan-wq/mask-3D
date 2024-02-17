@@ -33,6 +33,10 @@ public class HomeScene : MonoBehaviour
             StartCoroutine(LoadingTime());
         }
     }
+    public void ISQuit()
+    {
+        Application.Quit();
+    }
     public void StartGame()
     {
         PlayerPrefs.SetString("Scene", "0");

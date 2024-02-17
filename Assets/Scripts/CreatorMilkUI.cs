@@ -117,6 +117,7 @@ public class CreatorMilkUI : MonoBehaviour
             float DistanceBtw = Vector3.Distance(MainCamera.transform.position, CameraPos.transform.position);
             if(DistanceBtw < 0.1f)
             {
+                TaskTwo.transform.GetChild(0).gameObject.SetActive(true);
                 FinishItCollecting = false;
             }
         }else if(FinishItCollecting == false && FinishDrooping)
@@ -132,7 +133,8 @@ public class CreatorMilkUI : MonoBehaviour
                     {
                         FillingBar.gameObject.SetActive(false);
                         ContainerBar.gameObject.SetActive(false);
-                        TaskFour.transform.GetChild(0).gameObject.SetActive(true);
+                       
+                        TaskThree.transform.GetChild(0).gameObject.SetActive(true);
                         FinishDrooping = false;
                     }
                 }
@@ -287,7 +289,9 @@ public class CreatorMilkUI : MonoBehaviour
     }
     IEnumerator LoadingFinish()
     {
+        TaskFour.transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
+        
         BoxAnimated.Play("CloseCartonBox");
         StartCoroutine(StateFinish());
     }
@@ -309,7 +313,7 @@ public class CreatorMilkUI : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         if (FillingBar.fillAmount > 0.9f)
         {
-            TaskTwo.transform.GetChild(0).gameObject.SetActive(true);
+            //TaskTwo.transform.GetChild(0).gameObject.SetActive(true);
             MilkBarel.Play("FullMilkAnim");
             Destroy(ClickedUI.gameObject.GetComponent<EventTrigger>());
             StopClicking = true;
@@ -317,7 +321,7 @@ public class CreatorMilkUI : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         if (FillingBar.fillAmount == 1)
         {
-            TaskThree.transform.GetChild(0).gameObject.SetActive(true);
+            //TaskThree.transform.GetChild(0).gameObject.SetActive(true);
             ContainerBar.gameObject.SetActive(false);
             FillingBar.gameObject.SetActive(false);
             yield return new WaitForSeconds(1f);
