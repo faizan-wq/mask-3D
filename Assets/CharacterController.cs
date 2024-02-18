@@ -49,21 +49,25 @@ public class CharacterController : MonoBehaviour
 
         if (value >= 0)
         {
-            AvatarListButtonFunc(1);
+            AvatarListButtonFunc(0);
         }
 
         if (value >= 4)
         {
-            AvatarListButtonFunc(2);
+            AvatarListButtonFunc(1);
         }
         if (value >= 10)
         {
-            AvatarListButtonFunc(3);
+            AvatarListButtonFunc(2);
         }
         if (value >= 15)
         {
-            AvatarListButtonFunc(4);
+            AvatarListButtonFunc(3);
         }
+        //if (value >= 20)
+        //{
+        //    AvatarListButtonFunc(4);
+        //}
 
 
     }
@@ -87,7 +91,7 @@ public class CharacterController : MonoBehaviour
         character.ChangeCharaterProperties();
 
     }
-
+  
 
 
 

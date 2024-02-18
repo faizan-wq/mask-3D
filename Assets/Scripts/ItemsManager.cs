@@ -19,6 +19,10 @@ public class ItemsManager : MonoBehaviour
 
     [SerializeField] public List<Item> liquidItems;
     [SerializeField] private GridLayoutGroup liquidItemGroup;
+
+    [SerializeField] private GameObject ItemImage;
+
+
     private void Awake()
     {
         if(Instance==null)
@@ -71,13 +75,15 @@ public class ItemsManager : MonoBehaviour
     {
         foreach (var item in mashingItems)
         {
-            GameObject newObject = new GameObject();
-
+            GameObject newObject = Instantiate(ItemImage);
+           
             newObject.name = item.hammeringItem.sprite.name;
-            newObject.AddComponent<Image>();
-            Button btn = newObject.AddComponent<Button>();
+            //newObject.AddComponent<Image>();
+            
 
-            btn.image.sprite = item.hammeringItem.sprite;
+             Button btn = newObject.AddComponent<Button>();
+            
+            btn.transform.GetChild(0).GetComponent<Image>().sprite = item.hammeringItem.sprite;
             newObject.GetComponent<RectTransform>().parent = mashingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
@@ -110,13 +116,16 @@ public class ItemsManager : MonoBehaviour
         
         foreach (var item in choopingItems)
         {
-            GameObject newObject = new GameObject();
-           
+            //GameObject newObject = new GameObject();
+            GameObject newObject =  Instantiate(ItemImage);
+
+
             newObject.name = item.choopingItems.sprite.name;
-            newObject.AddComponent<Image>();
+            //newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
 
-            btn.image.sprite = item.choopingItems.sprite;
+            //btn.image.sprite = item.choopingItems.sprite;
+            btn.transform.GetChild(0).GetComponent<Image>().sprite = item.choopingItems.sprite;
             newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
@@ -162,13 +171,15 @@ public class ItemsManager : MonoBehaviour
         
         foreach (var item in liquidItems)
         {
-            GameObject newObject = new GameObject();
+            //GameObject newObject = new GameObject();
+            GameObject newObject = Instantiate(ItemImage);
             int num = number;
             newObject.name = item.sprite.name;
-            newObject.AddComponent<Image>();
+            //newObject.AddComponent<Image>();
             Button btn = newObject.AddComponent<Button>();
-           
-            btn.image.sprite = item.sprite;
+
+            //btn.image.sprite = item.sprite;
+            btn.transform.GetChild(0).GetComponent<Image>().sprite = item.sprite;
             newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {
 
