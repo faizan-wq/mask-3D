@@ -18,7 +18,7 @@ public class DailyRewardManager : MonoBehaviour
 
     public List<DailyReward_Item_Property> dailyReward_Item_Properties;
     private Transform temp_DailyReward=null;
-    private DailyReward_Item_Property temp_Daily = new DailyReward_Item_Property();
+    private DailyReward_Item_Property temp_Daily;
 
     private void Awake()
     {
@@ -47,12 +47,13 @@ public class DailyRewardManager : MonoBehaviour
         for (int i = 0; i < DailyRewardParent.childCount; i++)
         {
             temp_DailyReward = DailyRewardParent.GetChild(i);
-            
-            temp_Daily.notSelected = temp_DailyReward.GetChild(0).gameObject;
-            temp_Daily.text_Value = temp_DailyReward.GetChild(3).GetComponent<Text>();
-            temp_Daily.selected = temp_DailyReward.GetChild(4).gameObject;
-            temp_Daily.text_Value.text = dailyRewardValues[i].ToString();
-            dailyReward_Item_Properties.Add(temp_Daily);
+           
+            //temp_Daily.notSelected = temp_DailyReward.GetChild(0).gameObject;
+            //temp_Daily.text_Value = temp_DailyReward.GetChild(3).GetComponent<Text>();
+            //temp_Daily.selected = temp_DailyReward.GetChild(4).gameObject;
+            //temp_Daily.text_Value.text = dailyRewardValues[i].ToString();
+            dailyReward_Item_Properties.Add(new DailyReward_Item_Property(temp_DailyReward.GetChild(4).gameObject, temp_DailyReward.GetChild(0).gameObject, temp_DailyReward.GetChild(3).GetComponent<Text>(), dailyRewardValues[i]));
+           
         }
 
     }
@@ -88,15 +89,15 @@ public class DailyRewardManager : MonoBehaviour
         int Day = PlayerPrefs.GetInt(Days);
       
 
-        int setday = dailyReward_Item_Properties.Count - 1;
+       
 
         string value = PlayerPrefs.GetString("Days" + PlayerPrefs.GetInt(Days).ToString());
 
 
         for (int i = 0; i < Day; i++)
         {
-            dailyReward_Item_Properties[setday-i].notSelected.SetActive(true);
-            dailyReward_Item_Properties[setday - i].selected.SetActive(true);
+            dailyReward_Item_Properties[i].notSelected.SetActive(true);
+            dailyReward_Item_Properties[i].selected.SetActive(true);
 
 
         }
@@ -104,13 +105,13 @@ public class DailyRewardManager : MonoBehaviour
 
         if(value=="")
         {
-            dailyReward_Item_Properties[setday - Day].notSelected.SetActive(true);
-            Debug.Log("setday - Day" + setday.ToString() + Day.ToString());
+            dailyReward_Item_Properties[Day].notSelected.SetActive(true);
+          
         }
         else if(value== "selected")
         {
-            dailyReward_Item_Properties[setday - Day].notSelected.SetActive(true);
-            dailyReward_Item_Properties[setday - Day].selected.SetActive(true);
+            dailyReward_Item_Properties[Day].notSelected.SetActive(true);
+            dailyReward_Item_Properties[Day].selected.SetActive(true);
            
           
         }
@@ -123,14 +124,14 @@ public class DailyRewardManager : MonoBehaviour
     {
         int Day = PlayerPrefs.GetInt(Days);
         string value = PlayerPrefs.GetString("Days" + PlayerPrefs.GetInt(Days).ToString());
-        int setday = dailyReward_Item_Properties.Count - 1;
+       
         if (value == "")
         {
-            dailyReward_Item_Properties[setday - Day].notSelected.SetActive(true);
-            dailyReward_Item_Properties[setday - Day].selected.SetActive(true);
+            dailyReward_Item_Properties[ Day].notSelected.SetActive(true);
+            dailyReward_Item_Properties[ Day].selected.SetActive(true);
             PlayerPrefs.SetString("Days" + PlayerPrefs.GetInt(Days).ToString(), "selected");
             int money = PlayerPrefs.GetInt("Cash");
-            money +=Int32.Parse( dailyReward_Item_Properties[setday - Day].text_Value.text.ToString());
+            money +=Int32.Parse( dailyReward_Item_Properties[Day].text_Value.text.ToString());
             PlayerPrefs.SetInt("Cash", money);
         }
        
@@ -155,6 +156,17 @@ public class DailyReward_Item_Property
     public GameObject notSelected;
     public Text text_Value;
     public int value;
+
+    public  DailyReward_Item_Property(GameObject selected = null, GameObject notSelected = null, Text text_Value = null, int value=0)
+    {
+        this.selected = selected;
+        this.notSelected = notSelected;
+        this.text_Value = text_Value;
+        this.value = value;
+        this.text_Value.text = this.value.ToString();
+    }
+
+
 
 }
 
