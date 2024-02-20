@@ -25,7 +25,6 @@ public class LevelSpawner : MonoBehaviour
     {
         //if (PlayerPrefs.GetString("Mode") == "AllHair")
         //{
-
         //    AllHair.SetActive(true);
         //    character?.gameObject.SetActive(true);
         //}
@@ -51,7 +50,7 @@ public class LevelSpawner : MonoBehaviour
         //    BigAcne.SetActive(true);
         //    character?.gameObject.SetActive(true);
         //}
-        character.ChangeAppearance(0);
+        character.ChangeAppearance(PlayerPrefs.GetInt(CharacterController.SelectedCharacter));
         switch (levelName)
         {
             case "AllHair":
@@ -72,7 +71,7 @@ public class LevelSpawner : MonoBehaviour
                 BlackAcnes.SetActive(true);
                 break;
             case "BigAcne":
-                
+
                 BigAcne.SetActive(true);
                 character?.gameObject.SetActive(true);
                 break;

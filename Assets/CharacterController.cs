@@ -18,6 +18,8 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         LockAllAvatars();
+        UnlockCharacters();
+        ChangeCharacterAppearance();
     }
 
     // Update is called once per frame
@@ -40,6 +42,7 @@ public class CharacterController : MonoBehaviour
     public static void CreateSelectedAvatar(int number=0)
     {
         PlayerPrefs.SetInt(SelectedCharacter,number);
+        
     }
 
 
@@ -89,6 +92,26 @@ public class CharacterController : MonoBehaviour
     public void ChangeCharacterAppearance()
     {
         character.ChangeCharaterProperties();
+        int value = PlayerPrefs.GetInt(CharacterController.SelectedCharacter);
+        switch (value)
+        {
+            case 0:
+                AvatarList[0].transform.GetChild(0).gameObject.SetActive(true);
+                break;
+            case 1:
+                AvatarList[1].transform.GetChild(0).gameObject.SetActive(true);
+                break;
+            case 2:
+                AvatarList[2].transform.GetChild(0).gameObject.SetActive(true);
+                break;
+            case 3:
+                AvatarList[3].transform.GetChild(0).gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
+
+
 
     }
   

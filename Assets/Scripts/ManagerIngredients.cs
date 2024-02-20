@@ -28,12 +28,70 @@ public class ManagerIngredients : MonoBehaviour
     public Sprite IconTwoBigAcnes;
     void Awake()
     {
-        if(PlayerPrefs.GetString("Mode") == "")
-        {
-            CurrentEffecs = Random.Range(0, EffectShowUp.Length);
-            PlayerPrefs.SetString("Mode", EffectShowUp[CurrentEffecs].name);
-        }
+
+
+
+        //if(PlayerPrefs.GetString("Mode") == "")
+        //{
+        //    CurrentEffecs = Random.Range(0, EffectShowUp.Length);
+        //    PlayerPrefs.SetString("Mode", EffectShowUp[CurrentEffecs].name);
+        //}
+
+        //  int value = PlayerPrefs.GetInt("Day");
+
+
+        LevelChangeUponDay();
+
+
+
+
+
+
     }
+
+    private void LevelChangeUponDay()
+    {
+        int value = PlayerPrefs.GetInt("Day")%9;
+
+        switch (value)
+        {
+            case 0:
+                CurrentEffecs =0;
+               
+                break;
+            case 1:
+                CurrentEffecs = 1;
+                break;
+            case 2:
+                CurrentEffecs = 3;
+                break;
+            case 3:
+                CurrentEffecs = 2;
+                break;
+            case 4:
+                CurrentEffecs = 1;
+                break;
+            case 5:
+                CurrentEffecs = 3;
+                break;
+            case 6:
+                CurrentEffecs = 4;
+                break;
+            case 7:
+                CurrentEffecs = 1;
+                break;
+            case 8:
+                CurrentEffecs = 3;
+                break;
+            
+            default:
+                break;
+        }
+        PlayerPrefs.SetString("Mode", EffectShowUp[CurrentEffecs].name);
+
+    }
+
+
     void Update()
     {
         if(PlayerPrefs.GetString("Mode") == "")
