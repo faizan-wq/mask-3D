@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "121823030829",
+    "project_id": "mask-mixture-q1",
+    "storage_bucket": "mask-mixture-q1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121823030829:android:8f570cdbf596fbfa14d2a4",
+        "android_client_info": {
+          "package_name": "com.rat.maskmixture.facemask.diy.asmr.makeover"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG2o33lgUY1P00VAuH1CotNDMMN1fVPcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1296673006082708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4032622011195636}
+  - component: {fileID: 114553897339804136}
+  - component: {fileID: 1369369064}
+  m_Layer: 0
+  m_Name: MyIAPManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4032622011195636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296673006082708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114553897339804136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296673006082708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2dd885d08164f2786c5729abfc6e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  purchaseIDController:
+  - purchaseID: gold_pack_1
+    purchaseableType: 0
+    itemType: 0
+    price: 1.99
+    localPrice: 0
+  - purchaseID: gold_pack_2
+    purchaseableType: 0
+    itemType: 1
+    price: 4.99
+    localPrice: 0
+  - purchaseID: gold_pack_3
+    purchaseableType: 0
+    itemType: 2
+    price: 10.99
+    localPrice: 0
+  - purchaseID: gold_pack_4
+    purchaseableType: 0
+    itemType: 3
+    price: 20.99
+    localPrice: 20.99
+  - purchaseID: gold_pack_1_promo
+    purchaseableType: 0
+    itemType: 0
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: gold_pack_2_promo
+    purchaseableType: 0
+    itemType: 1
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: gold_pack_3_promo
+    purchaseableType: 0
+    itemType: 2
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: gold_pack_4_promo
+    purchaseableType: 0
+    itemType: 3
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: diamond_pack_1
+    purchaseableType: 0
+    itemType: 4
+    price: 2.99
+    localPrice: 2.99
+  - purchaseID: diamond_pack_1_promo
+    purchaseableType: 0
+    itemType: 4
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: diamond_pack_2_promo
+    purchaseableType: 0
+    itemType: 5
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: diamond_pack_2
+    purchaseableType: 0
+    itemType: 5
+    price: 4.99
+    localPrice: 4.99
+  - purchaseID: diamond_pack_3
+    purchaseableType: 0
+    itemType: 6
+    price: 10.99
+    localPrice: 10.99
+  - purchaseID: diamond_pack_3_promo
+    purchaseableType: 0
+    itemType: 6
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: diamond_pack_4_promo
+    purchaseableType: 0
+    itemType: 7
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: diamond_pack_4
+    purchaseableType: 0
+    itemType: 7
+    price: 20.99
+    localPrice: 20.99
+  - purchaseID: sale_pack_1
+    purchaseableType: 1
+    itemType: 8
+    price: 1.99
+    localPrice: 1.99
+  - purchaseID: sale_pack_2
+    purchaseableType: 1
+    itemType: 9
+    price: 2.99
+    localPrice: 2.99
+  - purchaseID: sale_pack_3
+    purchaseableType: 1
+    itemType: 10
+    price: 3.99
+    localPrice: 3.99
+  - purchaseID: sale_pack_4
+    purchaseableType: 1
+    itemType: 11
+    price: 4.99
+    localPrice: 4.99
+  - purchaseID: remove_ads
+    purchaseableType: 1
+    itemType: 12
+    price: 2.99
+    localPrice: 2.99
+  - purchaseID: remove_ads_promo
+    purchaseableType: 1
+    itemType: 12
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: grenade_pack
+    purchaseableType: 1
+    itemType: 15
+    price: 2.99
+    localPrice: 2.99
+  - purchaseID: grenade_pack_promo
+    purchaseableType: 1
+    itemType: 15
+    price: 0.99
+    localPrice: 0.99
+  - purchaseID: iv_awp
+    purchaseableType: 1
+    itemType: 14
+    price: 9.99
+    localPrice: 9.99
+--- !u!114 &1369369064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296673006082708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d109dbb9fd94b78b74ec98e5d4a449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeOut: 1
