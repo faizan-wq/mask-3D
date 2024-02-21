@@ -14,17 +14,7 @@ public class BlackBarBeforebanner : MonoBehaviour
         DontDestroyOnLoad(this);
         HideBlackBar();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public static void ShowBlackBar()
     {
         Instance?.transform.GetChild(0).gameObject.SetActive(true);

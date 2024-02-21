@@ -9,10 +9,7 @@ public class ManagerHomeLoop : MonoBehaviour
 
     [Header("Strings Controller")]
     public List<string> animationNames = new List<string>();
-    void Start()
-    {
-       // ListAnimationNames();
-    }
+  
     void Update()
     {
         CheckStatAnimation();

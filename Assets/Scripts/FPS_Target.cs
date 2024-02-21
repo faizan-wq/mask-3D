@@ -9,15 +9,5 @@ public class FPS_Target : MonoBehaviour
         Application.targetFrameRate = 90;
         DontDestroyOnLoad(this.gameObject);
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 }

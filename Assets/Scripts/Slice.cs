@@ -13,11 +13,7 @@ public class Slice : MonoBehaviour
         this.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+  
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "board")

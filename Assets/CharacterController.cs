@@ -14,30 +14,24 @@ public class CharacterController : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
+  
     void Start()
     {
-        LockAllAvatars();
+        //LockAllAvatars();
         UnlockCharacters();
         ChangeCharacterAppearance();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
+  
     #region Methods
 
-    private void LockAllAvatars()
-    {
-        foreach (var item in AvatarList)
-        {
-            item.interactable = false;
-        }
-    }
+    //private void LockAllAvatars()
+    //{
+    //    foreach (var item in AvatarList)
+    //    {
+    //        item.interactable = false;
+    //    }
+    //}
 
     public static void CreateSelectedAvatar(int number=0)
     {
@@ -77,6 +71,8 @@ public class CharacterController : MonoBehaviour
 
     private void AvatarListButtonFunc(int number)
     {
+        if (AvatarList.Count == 0)
+            return;
         AvatarList[number].interactable = true;
         AvatarList[number].transform.GetChild(0).gameObject.SetActive(false);
         AvatarList[number].onClick.AddListener(() =>
@@ -96,16 +92,16 @@ public class CharacterController : MonoBehaviour
         switch (value)
         {
             case 0:
-                AvatarList[0].transform.GetChild(0).gameObject.SetActive(true);
+                AvatarList[0].transform.GetChild(1).gameObject.SetActive(true);
                 break;
             case 1:
-                AvatarList[1].transform.GetChild(0).gameObject.SetActive(true);
+                AvatarList[1].transform.GetChild(1).gameObject.SetActive(true);
                 break;
             case 2:
-                AvatarList[2].transform.GetChild(0).gameObject.SetActive(true);
+                AvatarList[2].transform.GetChild(1).gameObject.SetActive(true);
                 break;
             case 3:
-                AvatarList[3].transform.GetChild(0).gameObject.SetActive(true);
+                AvatarList[3].transform.GetChild(1).gameObject.SetActive(true);
                 break;
             default:
                 break;

@@ -21,7 +21,7 @@ public class ItemsManager : MonoBehaviour
     [SerializeField] private GridLayoutGroup liquidItemGroup;
 
     [SerializeField] private GameObject ItemImage;
-
+    int childNumber = 0;
 
     private void Awake()
     {
@@ -29,20 +29,6 @@ public class ItemsManager : MonoBehaviour
         {
             Instance = this;
         }
-
-
-       
-
-
-    }
-
-    private void Start()
-    {
-
-
-     
-
-
 
     }
 
@@ -73,18 +59,22 @@ public class ItemsManager : MonoBehaviour
 
     private void CreatehammeingItems()
     {
+        childNumber = 0;
         foreach (var item in mashingItems)
         {
-            GameObject newObject = Instantiate(ItemImage);
-           
+            
+            //GameObject newObject = Instantiate(ItemImage);
+            GameObject newObject = mashingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
+
+
             newObject.name = item.hammeringItem.sprite.name;
             //newObject.AddComponent<Image>();
             
 
-             Button btn = newObject.AddComponent<Button>();
+             Button btn = newObject.GetComponent<Button>();
             
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.hammeringItem.sprite;
-            newObject.GetComponent<RectTransform>().parent = mashingItemGroup.GetComponent<RectTransform>();
+            //newObject.GetComponent<RectTransform>().parent = mashingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
 
@@ -104,7 +94,7 @@ public class ItemsManager : MonoBehaviour
 
             });
 
-
+            childNumber++;
 
         }
     }
@@ -113,20 +103,21 @@ public class ItemsManager : MonoBehaviour
 
     private void CreateChoopingItems()
     {
-        
+        childNumber = 0;
         foreach (var item in choopingItems)
         {
             //GameObject newObject = new GameObject();
-            GameObject newObject =  Instantiate(ItemImage);
+            GameObject newObject = choopingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
+            //GameObject newObject =  Instantiate(ItemImage);
 
 
             newObject.name = item.choopingItems.sprite.name;
             //newObject.AddComponent<Image>();
-            Button btn = newObject.AddComponent<Button>();
+            Button btn = newObject.GetComponent<Button>();
 
             //btn.image.sprite = item.choopingItems.sprite;
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.choopingItems.sprite;
-            newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
+            //newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
 
@@ -144,7 +135,7 @@ public class ItemsManager : MonoBehaviour
 
             });
 
-           
+            childNumber++;
 
         }
     }
@@ -166,21 +157,23 @@ public class ItemsManager : MonoBehaviour
 
     public void CreateliquidItems()
     {
-
+        childNumber = 0;
         int number=0;
         
         foreach (var item in liquidItems)
         {
             //GameObject newObject = new GameObject();
-            GameObject newObject = Instantiate(ItemImage);
+            //GameObject newObject = Instantiate(ItemImage);
+            GameObject newObject = choopingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
+
             int num = number;
             newObject.name = item.sprite.name;
             //newObject.AddComponent<Image>();
-            Button btn = newObject.AddComponent<Button>();
+            Button btn = newObject.GetComponent<Button>();
 
             //btn.image.sprite = item.sprite;
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
+            //newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
             btn.onClick.AddListener(() => {
 
                
@@ -196,7 +189,7 @@ public class ItemsManager : MonoBehaviour
 
             number++;
 
-
+            childNumber++;
         }
     }
 

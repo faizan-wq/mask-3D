@@ -32,11 +32,7 @@ public class LevelUIManager : MonoBehaviour
         NextScreen(MMP); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 
     public void NextScreen(Mask_Making_Level_Methods screenProcess)
     {

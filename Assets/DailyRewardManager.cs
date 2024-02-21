@@ -36,11 +36,7 @@ public class DailyRewardManager : MonoBehaviour
        EnableDailyRewardAd();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
     private void CreateDailyRewardValue()
     {

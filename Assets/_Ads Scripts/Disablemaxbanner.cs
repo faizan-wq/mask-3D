@@ -6,13 +6,7 @@ public class Disablemaxbanner : MonoBehaviour
 {
    [SerializeField]List<GameObject> panels;
     [SerializeField] List<GameObject> AvoidPanels;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+   
     void Update()
     {
 

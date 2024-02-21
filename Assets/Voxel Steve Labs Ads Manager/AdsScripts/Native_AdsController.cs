@@ -72,42 +72,7 @@ public class Native_AdsController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-
-        if (PlayerPrefs.GetInt("RemoveAds") == 0)
-        {
-            // if (this.unifiedNativeAdLoaded)
-            // {
-            //
-            //     unifiedNativeAdLoaded = false;
-            //     if (newNativeAd != null)
-            //     {
-            //         newNativeAd.Destroy();
-            //     }
-            //     this.newNativeAd = this.nativeAd;
-            //
-            //     if (newNativeAd.GetImageTextures().Count > 0)
-            //     {
-            //         mainImage.texture = this.newNativeAd.GetImageTextures()[0];
-            //         //imageObjs.Add(mainImage.gameObject);
-            //         //newNativeAd.RegisterImageGameObjects(imageObjs);
-            //
-            //     }
-            //     headline.text = this.newNativeAd.GetHeadlineText();
-            //     text_btn.text = newNativeAd.GetCallToActionText();
-            //     newNativeAd.RegisterCallToActionGameObject(text_btn.transform.parent.gameObject);
-            //     adChoice.texture = newNativeAd.GetAdChoicesLogoTexture();
-            //     mainBodyText.text = newNativeAd.GetBodyText();
-            //     nativePanel.SetActive(true);
-            // }
-
-
-            //........................................
-        }
-
-
-    }
+   
 
     public  void RequestNativeAd()
     {

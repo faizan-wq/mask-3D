@@ -23,11 +23,7 @@ public class LoadingAdScreen : MonoBehaviour
         StartCoroutine(HideScreenAfterWait(3));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
     private IEnumerator HideScreenAfterWait(float wait)
     {
         yield return new WaitForSecondsRealtime(wait);

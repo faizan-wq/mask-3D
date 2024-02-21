@@ -24,7 +24,6 @@ namespace GameAnalyticsSDK
 		// User failed a progression
 		Fail = 3,
         Restart=4
-
 	}
 
 	public enum GAResourceFlowType

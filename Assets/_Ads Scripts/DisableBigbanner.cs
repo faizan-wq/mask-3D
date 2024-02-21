@@ -6,12 +6,7 @@ public class DisableBigbanner : MonoBehaviour
 {
     [SerializeField] List<GameObject> panels;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
+  
 
 
     // Update is called once per frame

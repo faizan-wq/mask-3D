@@ -18,11 +18,7 @@ public class Knife : MonoBehaviour
         board = MaskMakingLevel.Instance.Board.transform.GetChild(0).GetChild(1).transform; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
     Vector3 temp=Vector3.zero;
     private void OnCollisionEnter(Collision collision)
     {

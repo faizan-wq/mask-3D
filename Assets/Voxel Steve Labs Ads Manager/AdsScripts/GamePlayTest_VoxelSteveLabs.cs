@@ -9,14 +9,9 @@ public class GamePlayTest_VoxelSteveLabs : MonoBehaviour {
     public GameObject gameOn;
     public GameObject lodingPannel;
 	// Use this for initialization
-	void Start () { 
-		
-	}
+
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
     public void btnPause() {
         pasuePannel.SetActive(true);
         gameOn.SetActive(false);
