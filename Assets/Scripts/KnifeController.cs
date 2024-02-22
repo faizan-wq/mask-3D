@@ -13,7 +13,7 @@ public class KnifeController : MonoBehaviour
     public bool HideAnimation;
     public GameObject TutorialScreen1;
     public GameObject TutorialScreen2;
-
+    [HideInInspector]public MaskMakingLevel maskMakingLevel;
     [HideInInspector]public Animator animator;
     [HideInInspector]public Knife knife;
 
@@ -26,7 +26,7 @@ public class KnifeController : MonoBehaviour
         animator = GetComponent<Animator>();
         knife = transform.GetChild(0).GetComponent<Knife>();
         TutorialScreen1.SetActive(true);
-
+        maskMakingLevel = MaskMakingLevel.Instance;
     }
 
     public void KnifeMoveToChoppingPosition()
@@ -34,7 +34,7 @@ public class KnifeController : MonoBehaviour
         TutorialScreen1.SetActive(false);
         animator.SetBool("StartingPosition", true);
         animator.transform.position = knifeStartingPosition.position;
-        MaskMakingLevel.Instance.EnableTaskPoint(0, 0);
+        maskMakingLevel.EnableTaskPoint(0, 0);
         Invoke(nameof(KnifeStartChopping), knifeWaitChoppingPosition);
     }
     private void KnifeStartChopping()
@@ -53,9 +53,11 @@ public class KnifeController : MonoBehaviour
            
 
             animator.SetFloat("ChoppingSpeed", 0);
+            maskMakingLevel.soundManager.PlayCompleteSoundClip("knife cutting", false);
             return;
         }
         animator.SetFloat("ChoppingSpeed", speed);
+        maskMakingLevel.soundManager.PlayCompleteSoundClip("knife cutting", true);
     }
     float value;
     public void KnifeMovementWithLerp(Vector3 starting, Vector3 ending, float speed)
@@ -64,8 +66,8 @@ public class KnifeController : MonoBehaviour
         {
             TutorialScreen1.SetActive(false);
             TutorialScreen2.SetActive(false);
-            MaskMakingLevel.Instance.EnableTaskPoint(0, 1);
-            MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
+            maskMakingLevel.EnableTaskPoint(0, 1);
+            maskMakingLevel.NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
 
             return;
         }

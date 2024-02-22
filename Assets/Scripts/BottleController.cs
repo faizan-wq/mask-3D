@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class BottleController : MonoBehaviour
 {
-
+    [HideInInspector] public MaskMakingLevel maskMakingLevel;
     public bool PouringMethodCalled;
     public List<Item> bottles;
     public List<Quaternion> eachBottleRotationLimit;
@@ -37,6 +37,7 @@ public class BottleController : MonoBehaviour
     {
         
         resetPosition = transform.position;
+        maskMakingLevel = MaskMakingLevel.Instance;
     }
 
     private void Update()
@@ -51,13 +52,20 @@ public class BottleController : MonoBehaviour
 
         if(Input.GetMouseButton(0) && !pouringInBowlIsComplete)
         {
+
             Tutorial2.SetActive(false);
+            Vector3 targetPosition = GetMouseWorldPosition() + bottleStarting.position;
+            Vector3 Transformer = new Vector3(targetPosition.x, selectedBottle.prefab.transform.position.y, selectedBottle.prefab.transform.position.z);
+            float LevelX = Mathf.Clamp(Transformer.x, -5 , 5);
+            selectedBottle.prefab.transform.position = new Vector3(LevelX, selectedBottle.prefab.transform.position.y, selectedBottle.prefab.transform.position.z);
+
             PouringWaterIntheBowl(true);
 
         }
         else
         {
             Tutorial2.SetActive(true);
+            
             PouringWaterIntheBowl(false);
         }
     }
@@ -67,14 +75,19 @@ public class BottleController : MonoBehaviour
 
 
     #region METHODS
-
+    Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = -Camera.main.transform.position.z;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
     public void  SelectedBottle(int number)
     {
         Tutorial1.SetActive(false);
         bottleSelected = number;
         EnableSelectedBottle();
 
-        MaskMakingLevel.Instance.bowlController.startAnimation = true;
+        maskMakingLevel.bowlController.startAnimation = true;
     }
 
     public void EnableSelectedBottle()
@@ -89,7 +102,7 @@ public class BottleController : MonoBehaviour
 
         selectedBottle = bottles[bottleSelected];
         selectedRotation = eachBottleRotationLimit[bottleSelected];
-        MaskMakingLevel.Instance.bowlController.ChangeColorOfwater(selectedBottle.color);
+        maskMakingLevel.bowlController.ChangeColorOfwater(selectedBottle.color);
         bottles[bottleSelected].prefab.SetActive(true);
         resetPosition = selectedBottle.prefab.transform.position; 
         BottleMoveToPosition();
@@ -141,10 +154,10 @@ public class BottleController : MonoBehaviour
         Vector3 pos = WaterShader.localPosition;
         pos.y = waterRise;
         WaterShader.localPosition = pos;
-        MaskMakingLevel.Instance.EnableTaskPoint(2, barProgressValue);
+        maskMakingLevel.EnableTaskPoint(2, barProgressValue);
         if (waterRise>= 3.21f)
         {
-            MaskMakingLevel.Instance.EnableTaskPoint(2, 1);
+            maskMakingLevel.EnableTaskPoint(2, 1);
             pouringInBowlIsComplete = true;
         }
         
@@ -160,13 +173,15 @@ public class BottleController : MonoBehaviour
 
            selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = true;
             selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+            maskMakingLevel.soundManager.PlayCompleteSoundClip("water pouring", true);
             WaterRising();
            
         }
         else
         {
             selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = false;
-            if(value<=0)
+            maskMakingLevel.soundManager.PlayCompleteSoundClip("water pouring", false);
+            if (value<=0)
             {
                 if(pouringInBowlIsComplete)
                 {
@@ -174,7 +189,7 @@ public class BottleController : MonoBehaviour
                     ResetBottlePosition = true;
                     Tutorial2.SetActive(false);
                     Tutorial1.SetActive(false);
-                    MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mixing);
+                    maskMakingLevel.NextMethod(Mask_Making_Level_Methods.Mixing);
                 }
                 
             }

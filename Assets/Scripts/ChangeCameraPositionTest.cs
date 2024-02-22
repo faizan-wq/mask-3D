@@ -27,7 +27,7 @@ public class ChangeCameraPositionTest : MonoBehaviour
     public void ChangeTrack(int value)
     {
         
-        StartCoroutine(ChangeCameraPositionAtCustomSpeed(value,0.05f));
+        StartCoroutine(ChangeCameraPositionAtCustomSpeed(value,0.1f));
 
 
         if (value == 3)

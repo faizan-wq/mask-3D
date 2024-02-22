@@ -258,16 +258,16 @@ namespace GD
            
 
 
-            GlobalConstant.ActionsAdsTimeLimit = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeActionsAdsTime").LongValue;
-            GlobalConstant.IsRewardedAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeRewardedAdCheck").BooleanValue;
-            GlobalConstant.IsInterstitialAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeInterstitialAdCheck").BooleanValue;
-            GlobalConstant.IsInterstitialMaxAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeIsInterstitialMaxAdCheck").BooleanValue;
-            GlobalConstant.IsInterstitialAdmobAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeIsInterstitialAdmobAdCheck").BooleanValue;
-            GlobalConstant.IsBannerAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeBannerAd").BooleanValue;
-            GlobalConstant.IsBigBannerFreeGoldAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeIsBigBannerFreeGoldAd").BooleanValue;
-            GlobalConstant.IsMaxBannerAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeMaxBannerAd").BooleanValue;
-            GlobalConstant.IsAdaptiveBannerAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeAdaptiveBannerAdCheck").BooleanValue;
-            GlobalConstant.isAppOpen = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("CrimeAppOpenCheck").BooleanValue;
+            GlobalConstant.ActionsAdsTimeLimit = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("InterstetialTimer").LongValue;
+            GlobalConstant.IsRewardedAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("RewardedAdCheck").BooleanValue;
+            GlobalConstant.IsInterstitialAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("InterstitialAdCheck").BooleanValue;
+            GlobalConstant.IsInterstitialMaxAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("InterstitialMaxAdCheck").BooleanValue;
+            GlobalConstant.IsInterstitialAdmobAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("InterstitialAdmobAdCheck").BooleanValue;
+            GlobalConstant.IsBannerAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("BannerAd").BooleanValue;
+            GlobalConstant.IsBigBannerFreeGoldAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("IsBigBannerFreeGoldAd").BooleanValue;
+            GlobalConstant.IsMaxBannerAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("MaxBannerAd").BooleanValue;
+            GlobalConstant.IsAdaptiveBannerAd = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("AdmobBannerAd").BooleanValue;
+            GlobalConstant.isAppOpen = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("AppOpenCheck").BooleanValue;
 
 #endif
             Debug.Log(GlobalConstant.ActionsAdsTimeLimit + "ActionsAdsTimeLimit");

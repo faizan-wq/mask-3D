@@ -9,6 +9,9 @@ public class HomeScene : MonoBehaviour
     [Header("Show View")]
     public GameObject ShowSettings;
     public GameObject ShowDaily;
+    public Button rewardButton;
+    public Transform DailyRewardParent;
+    
 
     [Header("UI")]
     public Image IconOne;
@@ -48,11 +51,21 @@ public class HomeScene : MonoBehaviour
         if (ShowBoolDaily)
         {
             ShowDaily.SetActive(true);
+           
         }
         else if(ShowBoolDaily == false)
         {
             ShowDaily.SetActive(false);
+           
+
         }
+    }
+    IEnumerator ApplyActionAfterWait()
+    {
+        (Instantiate(ShowDaily, new Vector3(0, 0, 0), Quaternion.identity) as GameObject).transform.SetParent(DailyRewardParent.transform);
+       
+        yield return new WaitForSeconds(1);
+        rewardButton.interactable = false;
     }
     public void StartRoomIn()
     {

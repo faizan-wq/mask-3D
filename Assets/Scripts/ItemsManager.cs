@@ -7,7 +7,7 @@ public class ItemsManager : MonoBehaviour
 {
 
     public static ItemsManager Instance;
-   
+    [HideInInspector]public MaskMakingLevel maskMakingLevel;
     [SerializeField] private GridLayoutGroup choopingItemGroup;
     [HideInInspector] public Item selectedItem;
    
@@ -38,6 +38,9 @@ public class ItemsManager : MonoBehaviour
         if (LevelUIManager.Instance == null)
             return;
 
+        maskMakingLevel = MaskMakingLevel.Instance;
+
+
         if (LevelUIManager.Instance.choppingItemsImages != null)
         {
             choopingItemGroup = LevelUIManager.Instance.choppingItemsImages;
@@ -50,8 +53,12 @@ public class ItemsManager : MonoBehaviour
         }
 
         if (LevelUIManager.Instance.bottleItemsImages != null)
+        {
             liquidItemGroup = LevelUIManager.Instance.bottleItemsImages;
+            ItemsManager.Instance.CreateliquidItems();
 
+
+        }
 
     }
 
@@ -81,12 +88,12 @@ public class ItemsManager : MonoBehaviour
                 int num = item.GetHashCode();
                 selectedItem = item.hammeringItem;
 
-                MaskMakingLevel.Instance.hammeringItemLimit = item.count;
+               maskMakingLevel.hammeringItemLimit = item.count;
                 //MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
                 //MaskMakingLevel.Instance.knifeController.knifeEndingPosition.position = item.knifeEndingPositions;
 
-                MaskMakingLevel.Instance.hammerController.SelectHammeringTutorial(0, false);
-                MaskMakingLevel.Instance.hammerController.SelectHammeringTutorial(1, true);
+                maskMakingLevel.hammerController.SelectHammeringTutorial(0, false);
+                maskMakingLevel.hammerController.SelectHammeringTutorial(1, true);
                 // InstatitateObject(item.hammeringItem.prefab, MaskMakingLevel.Instance.hammerController.firstHammerPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
@@ -104,10 +111,14 @@ public class ItemsManager : MonoBehaviour
     private void CreateChoopingItems()
     {
         childNumber = 0;
+        
         foreach (var item in choopingItems)
         {
             //GameObject newObject = new GameObject();
             GameObject newObject = choopingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
+           
+
+
             //GameObject newObject =  Instantiate(ItemImage);
 
 
@@ -121,9 +132,10 @@ public class ItemsManager : MonoBehaviour
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
 
-                int num = item.GetHashCode();
+                //int num = item.GetHashCode();
+               
                 selectedItem = item.choopingItems;
-                
+
                 MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
                 MaskMakingLevel.Instance.knifeController.knifeEndingPosition.position = item.knifeEndingPositions;
 
@@ -157,14 +169,14 @@ public class ItemsManager : MonoBehaviour
 
     public void CreateliquidItems()
     {
-        childNumber = 0;
+        int temp_counter = 0;
         int number=0;
-        
+       
         foreach (var item in liquidItems)
         {
             //GameObject newObject = new GameObject();
             //GameObject newObject = Instantiate(ItemImage);
-            GameObject newObject = choopingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
+            GameObject newObject = liquidItemGroup.GetComponent<RectTransform>().GetChild(temp_counter).gameObject;
 
             int num = number;
             newObject.name = item.sprite.name;
@@ -174,22 +186,23 @@ public class ItemsManager : MonoBehaviour
             //btn.image.sprite = item.sprite;
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.sprite;
             //newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
-            btn.onClick.AddListener(() => {
+            btn.onClick.AddListener(() =>
+            {
 
-               
+
                 MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
 
                 //InstatitateObject(item.prefab, MaskMakingLevel.Instance.bottleController.bottleStarting.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;
-                
+
 
             });
 
             number++;
 
-            childNumber++;
+            temp_counter++;
         }
     }
 

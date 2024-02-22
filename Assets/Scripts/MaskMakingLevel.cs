@@ -14,10 +14,13 @@ public class MaskMakingLevel : MonoBehaviour
 
     public static MaskMakingLevel Instance;
     public Mask_Making_Level_Type maskiMakingType;
+
     [SerializeField] private Mask_Making_Level_Methods currentMethod;
-    
+    public SoundManager soundManager;
+
+
     [Header("Camera")]
-    [SerializeField] private Camera camera;
+    public Camera camera;
     public ChangeCameraPositionTest changeCameraPositionTest; 
     [SerializeField] private List<Transform> cameraPositions;
    
@@ -139,6 +142,7 @@ public class MaskMakingLevel : MonoBehaviour
 
     public void EnableTaskPoint(int number,float value)
     {
+        soundManager.PlayQuickSoundClip("task complete");
         iconList[number].transform.GetChild(0).gameObject.SetActive(true);
         progressBarParent.rectTransform.GetChild(0).GetComponent<Image>().fillAmount = value;
         if(value==1)
@@ -321,6 +325,7 @@ public class MaskMakingLevel : MonoBehaviour
     {
         Board.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
         Board.transform.GetChild(0).transform.GetChild(0).DOLocalMove(new Vector3(0.0902f, 0.05301232f, 0.0352935f),2.5f).SetDelay(2).OnComplete(()=> {
+            soundManager.PlayQuickSoundClip("FRUIT DROP");
 
             UnParentObjectsInsideBoard();
             hammerController.GetTheHammer();
@@ -387,8 +392,8 @@ public class MaskMakingLevel : MonoBehaviour
     {
       if(!bottleController.PouringMethodCalled)
         {
-            MaskMakingLevel.Instance.EnableTaskPoint(2, 0);
-            ItemsManager.Instance.CreateliquidItems();
+            EnableTaskPoint(2, 0);
+            
             bottleController.Tutorial1.SetActive(true);
             LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Pouring);
             bottleController.PouringMethodCalled = true;
@@ -594,7 +599,7 @@ public class MaskMakingLevel : MonoBehaviour
             
             hammerController.GetTheHammer();
             NextMethod(Mask_Making_Level_Methods.Crushing);
-            LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Crushing);
+            //LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Crushing);
            
             hammeringProcessFinish = false;
             

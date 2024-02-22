@@ -334,7 +334,7 @@ public class TreeGrowUp : MonoBehaviour
                 yield return new WaitForSeconds(6f);
                 PlasticBox.Play("CloseBox");
                 SearchSource.Play();
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(4f);
                 FinishUI.SetActive(true);
                 AppelFinish.SetActive(true);
             }

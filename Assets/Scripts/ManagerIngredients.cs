@@ -56,14 +56,14 @@ public class ManagerIngredients : MonoBehaviour
         switch (value)
         {
             case 0:
-                CurrentEffecs =0;
+                CurrentEffecs =3;
                
                 break;
             case 1:
                 CurrentEffecs = 1;
                 break;
             case 2:
-                CurrentEffecs = 3;
+                CurrentEffecs = 0;
                 break;
             case 3:
                 CurrentEffecs = 2;
@@ -72,7 +72,7 @@ public class ManagerIngredients : MonoBehaviour
                 CurrentEffecs = 1;
                 break;
             case 5:
-                CurrentEffecs = 3;
+                CurrentEffecs = 0;
                 break;
             case 6:
                 CurrentEffecs = 4;
@@ -81,7 +81,7 @@ public class ManagerIngredients : MonoBehaviour
                 CurrentEffecs = 1;
                 break;
             case 8:
-                CurrentEffecs = 3;
+                CurrentEffecs = 0;
                 break;
             
             default:

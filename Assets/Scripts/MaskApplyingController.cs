@@ -120,14 +120,14 @@ public class MaskApplyingController : MonoBehaviour
           
         }
        
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         maskOnFace.SetActive(false);
       
         yield return new WaitForSeconds(0.3f);
         Character.Play("Happy01");
         //WinSource.Play();
         yield return new WaitForSeconds(2f);
-
+        MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
         FinishUIPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
         GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,18 +20,42 @@ public class GameManager : MonoBehaviour
     }
     public void SkipeBtnWin()
     {
-        PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 379);
-        PlayerPrefs.SetString("Mode", "");
-        PlayerPrefs.SetString("Scene", "");
-        SceneManager.LoadScene(0);
+        StartCoroutine(ApplyFunctionAfterWait(
+
+        ()=> {
+            PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 379);
+            PlayerPrefs.SetString("Mode", "");
+            PlayerPrefs.SetString("Scene", "");
+            SceneManager.LoadScene(0);
+
+
+
+        },1));
+
+
+      
     }
     public void RewaredBtnWin()
     {
-        PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 1137);
+        StartCoroutine(ApplyFunctionAfterWait(
+
+      () => {
+          PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 1137);
         PlayerPrefs.SetString("Mode", "");
         PlayerPrefs.SetString("Scene", "");
         SceneManager.LoadScene(0);
+
+      }, 1));
+
     }
+
+    IEnumerator  ApplyFunctionAfterWait(Action action, float value)
+    {
+        yield return new WaitForSeconds(value);
+        action?.Invoke();
+    }
+
+
     /// <summary>
     /// ///
     /// </summary>

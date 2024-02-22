@@ -8,10 +8,11 @@ using DG.Tweening;
 public class HammerController : MonoBehaviour
 {
     private Animator animator;
-
+    [HideInInspector] public MaskMakingLevel maskMakingLevel;
 
     private void Start()
     {
+        maskMakingLevel = MaskMakingLevel.Instance;
         animator = GetComponent<Animator>();
         hammerStartingPosition = transform.position;
        SetHammerCrushingPositions();
@@ -79,7 +80,13 @@ public class HammerController : MonoBehaviour
         Vector3 randomPosition = GetHammerCrushingPositionTransform();
         transform.position = randomPosition;
         StartCoroutine(ParticlePlayAfterWait(() => {
-            ParticleManager.Instance.PlayAnimation("Crushing Item", randomPosition - Vector3.up * 8, ItemsManager.Instance.selectedItem.color); }, 0.2f));
+            ParticleManager.Instance.PlayAnimation("Crushing Item", randomPosition - Vector3.up * 8, ItemsManager.Instance.selectedItem.color);
+            maskMakingLevel.soundManager.PlayQuickSoundClip("bowl hammer hit");
+            maskMakingLevel.soundManager.GetComponent<VibrationTest>().inputValue = "0,100,5,100";
+            maskMakingLevel.soundManager.GetComponent<VibrationTest>().TapVibratePattern();
+
+
+        }, 0.2f));
        
         transform.DOMove(randomPosition - Vector3.up * 8, 1f).SetEase(Ease.OutBounce).OnComplete(() => {
 
@@ -97,7 +104,7 @@ public class HammerController : MonoBehaviour
                 transform.DOJump(hammerStartingPosition, 5, 1, 0.5f).OnComplete(()=>
                 {
                     CrushingTutorial.SetActive(false);
-                    MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Pouring);
+                    maskMakingLevel.NextMethod(Mask_Making_Level_Methods.Pouring);
                  
                 }
                 );
@@ -108,6 +115,7 @@ public class HammerController : MonoBehaviour
 
         });
     }
+   
     private IEnumerator ParticlePlayAfterWait(Action a, float wait)
     {
         yield return new WaitForSeconds(wait);
@@ -151,7 +159,7 @@ public class HammerController : MonoBehaviour
 
     private bool HammerResetPosition()
     {
-        MaskMakingLevel.Instance.EnableTaskPoint(1, (float)hammerCrushedCount / hammerCrushedCountLimit);
+        maskMakingLevel.EnableTaskPoint(1, (float)hammerCrushedCount / hammerCrushedCountLimit);
         if (hammerCrushedCount < hammerCrushedCountLimit)
         {
          
@@ -163,7 +171,7 @@ public class HammerController : MonoBehaviour
     }
     public void GetTheHammer()
     {
-        transform.DOJump(firstHammerPosition.position, 1, 1, 4).OnComplete(() => {
+        transform.DOJump(firstHammerPosition.position, 1, 1, 1).OnComplete(() => {
 
             
             DoNotAllowCrushing = false;
@@ -188,7 +196,7 @@ public class HammerController : MonoBehaviour
 
     public void HammerMovesToMixingPosition()
     {
-        transform.DOJump(MixingStartingPosition.position, 1, 1, 4).OnComplete(() => {
+        transform.DOJump(MixingStartingPosition.position, 1, 1, 1).OnComplete(() => {
 
 
           
@@ -203,10 +211,10 @@ public class HammerController : MonoBehaviour
         SetHammerRotation(false);
         SetHammerModelCollider(false);
         RotatingTutorial.SetActive(false);
-        transform.DOJump(hammerStartingPosition, 5, 1, 4).OnComplete(() => {
+        transform.DOJump(hammerStartingPosition, 5, 1, 1).OnComplete(() => {
 
-            MaskMakingLevel.Instance.EnableTaskPoint(3, 1);
-            MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Injecting);
+            maskMakingLevel.EnableTaskPoint(3, 1);
+            maskMakingLevel.NextMethod(Mask_Making_Level_Methods.Injecting);
           
         });
     }
@@ -246,6 +254,7 @@ public class HammerController : MonoBehaviour
     public void SetHammerRotation(bool check)
     {
         animator.SetBool(Hammer_Rotating, check);
+        maskMakingLevel.soundManager.PlayCompleteSoundClip("bowl mixing", check);
     }
 
     private bool GetHammerRotation()

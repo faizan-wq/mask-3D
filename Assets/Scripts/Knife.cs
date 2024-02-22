@@ -7,6 +7,7 @@ public class Knife : MonoBehaviour
     private Transform board;
     private const string slice = "Slice of Items";
     [SerializeField] private List<Transform> rigidBodiesPositions;
+    public MaskMakingLevel maskMakingLevel;
     [Header(slice)]
     [SerializeField] private float jumpHeight=1;
     [SerializeField] private float sliceStep = 1;
@@ -15,11 +16,13 @@ public class Knife : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        board = MaskMakingLevel.Instance.Board.transform.GetChild(0).GetChild(1).transform; 
+        board = maskMakingLevel.Board.transform.GetChild(0).GetChild(1).transform; 
     }
 
    
     Vector3 temp=Vector3.zero;
+    int divider = 1;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "ChoppingItem")
@@ -29,21 +32,20 @@ public class Knife : MonoBehaviour
             {
                 //rigidbody.isKinematic = false;
                 ParticleManager.Instance.PlayAnimation("Cutting Item", rigidbody.position,ItemsManager.Instance.selectedItem.color);
-                Vector3 pos = rigidbody.transform.position - Vector3.right * (1+ sliceStep);
-                if (rigidBodiesPositions.Count != 0)
-                {
-                    pos.x = rigidBodiesPositions[rigidBodiesPositions.Count - 1].position.x ;
-                    pos += (1 + sliceStep) * Vector3.right;
-                    //pos += (1 / (difference+1)) * Vector3.right;
 
-                }
-
-
-                //rigidbody.transform.DOJump(rigidbody.transform.position + Vector3.left * (1 + sliceStep) + Vector3.right * (difference * 0.2f), jumpHeight, 1, 0.125f).OnStart(() =>
+                //Vector3 pos = rigidbody.transform.position - Vector3.right * (1+ sliceStep);
+                //if (rigidBodiesPositions.Count != 0)
                 //{
-                //    rigidbody.tag = "Untagged";
-                //});
-                rigidbody.transform.DOJump(pos /*+ Vector3.right * (difference * 0.2f)*/, jumpHeight, 1, 0.125f).OnStart(() => {
+                //    pos.x = rigidBodiesPositions[rigidBodiesPositions.Count - 1].position.x ;
+                //    pos += (1 + sliceStep) * Vector3.right;
+
+
+                //}
+
+
+
+                Vector3 pos = rigidbody.transform.position - Vector3.forward * (1+sliceStep)+Vector3.left*(1/(divider+1));
+                rigidbody.transform.DOJump(pos, jumpHeight, 1, 0.125f).OnStart(() => {
                     rigidbody.tag = "Untagged";
                 });
                 difference++;
@@ -53,6 +55,11 @@ public class Knife : MonoBehaviour
             }
          
         }
+    }
+    private void KnifeAnimationEffect()
+    {
+        maskMakingLevel.soundManager.GetComponent<VibrationTest>().inputValue = "0,100,5,100";
+        maskMakingLevel.soundManager.GetComponent<VibrationTest>().TapVibratePattern();
     }
     IEnumerator waitAndExecute(Rigidbody rigidbody, Transform parent, float wait)
     {
