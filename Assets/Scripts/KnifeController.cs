@@ -45,15 +45,21 @@ public class KnifeController : MonoBehaviour
       
 
     }
+    private void KnifeAnimationEffect()
+    {
+        maskMakingLevel.soundManager.GetComponent<VibrationTest>().inputValue = "0,100,5,100";
+        maskMakingLevel.soundManager.GetComponent<VibrationTest>().TapVibratePattern();
+      
+    }
     public void KnifeChoppingSpeed(float speed)
     {
 
         if (Vector3.Distance(animator.transform.position, knifeEndingPosition.position) <= 0.125f)
         {
-           
+            maskMakingLevel.soundManager.PlayCompleteSoundClip("knife cutting", false);
 
             animator.SetFloat("ChoppingSpeed", 0);
-            maskMakingLevel.soundManager.PlayCompleteSoundClip("knife cutting", false);
+           
             return;
         }
         animator.SetFloat("ChoppingSpeed", speed);

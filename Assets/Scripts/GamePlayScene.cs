@@ -34,4 +34,5 @@ public class GamePlayScene : MonoBehaviour
     [Header("UI Canvas Controller")]
     public Text CashhUI;
     public Text CashUIFinish;
+    public Text CashUIRoom;
 }

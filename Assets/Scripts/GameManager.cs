@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetString("Mode", "");
             PlayerPrefs.SetString("Scene", "");
             SceneManager.LoadScene(0);
-
+            PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
 
 
         },1));
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("Mode", "");
         PlayerPrefs.SetString("Scene", "");
         SceneManager.LoadScene(0);
+          PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
 
       }, 1));
 

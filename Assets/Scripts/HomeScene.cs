@@ -19,6 +19,11 @@ public class HomeScene : MonoBehaviour
 
     [Header("UI")]
     public Text ValueCoins;
+    private void Start()
+    {
+        dayLabel.text = "DAY" + (PlayerPrefs.GetInt("Days")+1).ToString();
+    }
+
     void Update()
     {
         ValueCoins.text = "" + PlayerPrefs.GetInt("Cash");
@@ -81,4 +86,5 @@ public class HomeScene : MonoBehaviour
     [Header("Boolean Manager")]
     internal bool ShowBoolSettings = false;
     internal bool ShowBoolDaily = false;
+    public Text dayLabel;
 }
