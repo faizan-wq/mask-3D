@@ -42,25 +42,25 @@ public class CharacterController : MonoBehaviour
 
     public void UnlockCharacters()
     {
-        int value = PlayerPrefs.GetInt("Day");
+        int value = PlayerPrefs.GetInt("Days");
 
         if (value >= 0)
         {
             AvatarListButtonFunc(0);
         }
 
-        if (value >= 4)
-        {
-            AvatarListButtonFunc(1);
-        }
-        if (value >= 10)
-        {
-            AvatarListButtonFunc(2);
-        }
-        if (value >= 15)
-        {
-            AvatarListButtonFunc(3);
-        }
+        //if (value >= 4)
+        //{
+        //    AvatarListButtonFunc(1);
+        //}
+        //if (value >= 10)
+        //{
+        //    AvatarListButtonFunc(2);
+        //}
+        //if (value >= 15)
+        //{
+        //    AvatarListButtonFunc(3);
+        //}
         //if (value >= 20)
         //{
         //    AvatarListButtonFunc(4);

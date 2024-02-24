@@ -116,7 +116,10 @@ public class MachineColla : MonoBehaviour
                 if (ListWeaponOne.activeSelf)
                 {
                     CrashAttack.Play();
-                    (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
+                    //(Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
+                    FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+
+                    cashTemp.MoveToTarget(diamondTarget, 20);
                     ListWeaponOne.gameObject.GetComponent<Animator>().Play("Attack");
                     SetShoot = SetShoot == 0 ? 1 : 0; 
                     if (SetShoot == 1 && TimeMove > 0)
@@ -131,7 +134,10 @@ public class MachineColla : MonoBehaviour
                 if (ListWeaponTwo.activeSelf)
                 {
                     CrashAttack.Play();
-                    (Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
+                    //(Instantiate(CoinsUI, CoinsUI.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ChckerContainer.transform);
+                    FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+
+                    cashTemp.MoveToTarget(diamondTarget, 20);
                     if (FillingBar.gameObject.GetComponent<Image>().fillAmount != 1)
                     {
                         ListWeaponTwo.gameObject.GetComponent<Animator>().Play("Attack");
@@ -250,4 +256,7 @@ public class MachineColla : MonoBehaviour
 
     [Header("Integer Controller")]
     internal int TimeMove = 20;
+
+    [Header("Diamond")]
+    public Transform diamondTarget;
 }

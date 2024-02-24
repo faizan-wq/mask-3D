@@ -86,7 +86,7 @@ public class HammerController : MonoBehaviour
 
         }, 0.2f));
        
-        transform.DOMove(randomPosition - Vector3.up * 8, 1f).SetEase(Ease.OutBounce).OnComplete(() => {
+        transform.DOMove(randomPosition - Vector3.up * 8, 0.6f).SetEase(Ease.OutBounce).OnComplete(() => {
 
             UpdateHammerCrushedCount();
            

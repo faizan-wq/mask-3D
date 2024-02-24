@@ -9,7 +9,7 @@ public class UnlockRoomsAndDailyReward : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(PlayerPrefs.GetInt("Days")>5)
+        if(PlayerPrefs.GetString("RoomsTutorialCheck") == "Complete")
         {
             room.interactable = true;
             room.transform.GetChild(0).gameObject.SetActive(false);

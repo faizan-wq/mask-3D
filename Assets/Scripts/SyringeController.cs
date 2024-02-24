@@ -111,6 +111,8 @@ public class SyringeController : MonoBehaviour
         Syringe.gameObject.SetActive(false);
         allowtabletMechanics = true;
         tablet.gameObject.SetActive(true);
+        Invoke(nameof(EnableTabletTutorial),1f);
+        
     }
 
     public void InjectionPushOrPull(bool check)
@@ -192,6 +194,7 @@ public class SyringeController : MonoBehaviour
     [Header(Tablet_Header)]
     [SerializeField] private Animator tablet;
     [SerializeField] private ParticleSystem tabletParticle;
+    public GameObject Tutorial2;
     private const string tabletInitiate = "Initiate";
     private bool tabletReachedPosition;
     private bool tabletMethodOnce;
@@ -208,6 +211,7 @@ public class SyringeController : MonoBehaviour
             if(Input.GetAxis("Mouse Y")>0.5f && Input.GetMouseButton(0))
             {
                 starttabletEffect = true;
+                Tutorial2.SetActive(false);
             }
         if(starttabletEffect)
         {
@@ -232,7 +236,10 @@ public class SyringeController : MonoBehaviour
         
     
     }
-
+    private void EnableTabletTutorial()
+    {
+        Tutorial2.SetActive(true);
+    }
     private void ChecktabletReachedDestination()
     {
        

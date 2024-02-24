@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ApplyFunctionAfterWait(
 
         ()=> {
-            PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 379);
+            PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 150);
             PlayerPrefs.SetString("Mode", "");
             PlayerPrefs.SetString("Scene", "");
             SceneManager.LoadScene(0);
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ApplyFunctionAfterWait(
 
       () => {
-          PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 1137);
+          PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 300);
         PlayerPrefs.SetString("Mode", "");
         PlayerPrefs.SetString("Scene", "");
         SceneManager.LoadScene(0);

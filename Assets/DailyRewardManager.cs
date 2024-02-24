@@ -10,15 +10,27 @@ public class DailyRewardManager : MonoBehaviour
     public int[] dailyRewardValues;
     private const string previousDate="PreviousDate";
     private const string todayDate = "todayDate";
-
     private const string Days = "DaysReward";
     
-
-
-
     public List<DailyReward_Item_Property> dailyReward_Item_Properties;
     private Transform temp_DailyReward=null;
     private DailyReward_Item_Property temp_Daily;
+    
+    
+    [Header("Timer")]
+    public Text timerText;
+    public int timeRestartAfterSeconds=21600;
+    private const string timerStoredValue = "timerStoredValue";
+    private const string timerDailyRewardAdButtonClicked = "DailyRewardAdButtonClicked";
+    public GameObject buttonWithoutAd;
+    public GameObject buttonWithAd;
+    public GameObject exclamationMark;
+    public FlyingDiamond flyingDiamondPrefab;
+    private WaitForSecondsRealtime waitForTimer =new WaitForSecondsRealtime(1);
+    private bool allowTimerDecreasing = true;
+    int tempTimerValue;
+    
+
 
     private void Awake()
     {
@@ -33,10 +45,125 @@ public class DailyRewardManager : MonoBehaviour
     {
         CreateDailyRewardValue();
         GetdailyReward();
-       EnableDailyRewardAd();
+        EnableDailyRewardAd();
+        TimerValueChange();
+
     }
 
-  
+
+    private void Update()
+    {
+        tempTimerValue = PlayerPrefs.GetInt(timerStoredValue);
+        if (tempTimerValue > 0)
+        {
+            
+            StartCoroutine(DecreasingTimerValue());
+            TimerValueChange();
+
+        }
+        
+    }
+
+
+    private void TimerValueChange()
+    {
+        string time_value_string="";
+
+        if(tempTimerValue>3600)
+        {
+            time_value_string +="0"+ (tempTimerValue / 3600).ToString()+ " : ";
+
+
+            if((tempTimerValue % 3600) / 60>9)
+            {
+                time_value_string += ((tempTimerValue % 3600) / 60).ToString();
+            }
+            else
+            {
+                time_value_string +="0" +((tempTimerValue % 3600) / 60).ToString();
+            }
+            time_value_string += " : ";
+
+
+            if (tempTimerValue % 60 > 9)
+            {
+                time_value_string += (tempTimerValue % 60).ToString();
+            }
+            else
+            {
+                time_value_string += "0" + (tempTimerValue % 60).ToString();
+            }
+
+
+
+        }
+        else if (tempTimerValue > 60)
+        {
+
+            time_value_string +=  "00 : ";
+
+            if ((tempTimerValue % 3600) / 60 > 9)
+            {
+                time_value_string += ((tempTimerValue % 3600) / 60).ToString();
+            }
+            else
+            {
+                time_value_string += "0" + ((tempTimerValue % 3600) / 60).ToString();
+            }
+            time_value_string += " : ";
+
+
+            if (tempTimerValue % 60 > 9)
+            {
+                time_value_string += (tempTimerValue % 60).ToString();
+            }
+            else
+            {
+                time_value_string += "0" + (tempTimerValue % 60).ToString();
+            }
+
+
+
+
+
+        }
+        else if (tempTimerValue > 0)
+        {
+
+            time_value_string = "00 : 00 : ";
+            if (tempTimerValue % 60 > 9)
+            {
+                time_value_string += (tempTimerValue % 60).ToString();
+            }
+            else
+            {
+                time_value_string += "0" + (tempTimerValue % 60).ToString();
+            }
+
+        }
+        else
+        {
+            time_value_string = "Get Your Reward";
+        }
+
+        timerText.text = time_value_string;
+
+    }
+
+
+    private IEnumerator DecreasingTimerValue()
+    {
+        allowTimerDecreasing = false;
+
+
+
+        yield return waitForTimer;
+
+        PlayerPrefs.SetInt(timerStoredValue, tempTimerValue - 1);
+        allowTimerDecreasing = true;
+
+
+    }
 
     private void CreateDailyRewardValue()
     {
@@ -44,37 +171,81 @@ public class DailyRewardManager : MonoBehaviour
         {
             temp_DailyReward = DailyRewardParent.GetChild(i);
            
-            //temp_Daily.notSelected = temp_DailyReward.GetChild(0).gameObject;
-            //temp_Daily.text_Value = temp_DailyReward.GetChild(3).GetComponent<Text>();
-            //temp_Daily.selected = temp_DailyReward.GetChild(4).gameObject;
-            //temp_Daily.text_Value.text = dailyRewardValues[i].ToString();
             dailyReward_Item_Properties.Add(new DailyReward_Item_Property(temp_DailyReward.GetChild(4).gameObject, temp_DailyReward.GetChild(0).gameObject, temp_DailyReward.GetChild(3).GetComponent<Text>(), dailyRewardValues[i]));
            
         }
 
     }
+
+    private void exclamatoryMarkStatus(bool status)
+    {
+        if (PlayerPrefs.GetString("RoomsTutorialCheck") == "Complete")
+        {
+
+
+            exclamationMark.SetActive(status);
+        }    
+        else
+        {
+            exclamationMark.SetActive(false);
+        }
+    }
+
+
     private void GetdailyReward()
     {
-        if (PlayerPrefs.GetString(previousDate) == "")
+        
+        //////////////////////       Latest Logic with Numbers                          ////////////////////
+        
+        
+        if(PlayerPrefs.GetInt(timerStoredValue)!=0)
         {
-            DateTime day = DateTime.Now;
-            PlayerPrefs.SetString(previousDate, day.ToString());
-            PlayerPrefs.SetString(todayDate, day.ToString());
-            PlayerPrefs.SetInt(Days, 0);
+            buttonWithoutAd.SetActive(false);
+            exclamatoryMarkStatus(false);
         }
         else
         {
-            var today = DateTime.Now;
-            var previousDay = DateTime.Parse(PlayerPrefs.GetString(previousDate).ToString());
-            var difference = today - previousDay;
-
-            if (difference.Days > 0)
-            {
-                PlayerPrefs.SetString(previousDate,today.ToString());
-                PlayerPrefs.SetInt(Days, PlayerPrefs.GetInt(Days )+1);
-            }
+            
+            exclamatoryMarkStatus(true);
 
         }
+      
+        if(PlayerPrefs.GetInt(timerDailyRewardAdButtonClicked)==0 && PlayerPrefs.GetInt(timerStoredValue) != 0)
+        {
+            buttonWithAd.SetActive(true);
+            
+           
+        }
+        else
+        {
+            buttonWithAd.SetActive(false);
+           
+         
+        }
+
+        
+        ///////////////////////     Previous Logic By Date                 /////////////////////
+        
+        //if (PlayerPrefs.GetString(previousDate) == "")
+        //{
+        //    DateTime day = DateTime.Now;
+        //    PlayerPrefs.SetString(previousDate, day.ToString());
+        //    PlayerPrefs.SetString(todayDate, day.ToString());
+        //    PlayerPrefs.SetInt(Days, 0);
+        //}
+        //else
+        //{
+        //    var today = DateTime.Now;
+        //    var previousDay = DateTime.Parse(PlayerPrefs.GetString(previousDate).ToString());
+        //    var difference = today - previousDay;
+
+        //    if (difference.Days > 0)
+        //    {
+        //        PlayerPrefs.SetString(previousDate,today.ToString());
+        //        PlayerPrefs.SetInt(Days, PlayerPrefs.GetInt(Days )+1);
+        //    }
+
+        //}
         
 
 
@@ -84,11 +255,7 @@ public class DailyRewardManager : MonoBehaviour
     {
         int Day = PlayerPrefs.GetInt(Days);
       
-
-       
-
         string value = PlayerPrefs.GetString("Days" + PlayerPrefs.GetInt(Days).ToString());
-
 
         for (int i = 0; i < Day; i++)
         {
@@ -118,6 +285,20 @@ public class DailyRewardManager : MonoBehaviour
     }
     public void RewardCollection()
     {
+
+        if (PlayerPrefs.GetInt(timerStoredValue) == 0)
+        {
+
+            PlayerPrefs.SetInt(timerStoredValue, timeRestartAfterSeconds);
+  
+        }
+        else if (PlayerPrefs.GetInt(timerDailyRewardAdButtonClicked) == 0)
+        {
+            PlayerPrefs.SetInt(timerDailyRewardAdButtonClicked, 1);
+        }
+        GetdailyReward();
+
+
         int Day = PlayerPrefs.GetInt(Days);
         string value = PlayerPrefs.GetString("Days" + PlayerPrefs.GetInt(Days).ToString());
        
@@ -126,22 +307,14 @@ public class DailyRewardManager : MonoBehaviour
             dailyReward_Item_Properties[ Day].notSelected.SetActive(true);
             dailyReward_Item_Properties[ Day].selected.SetActive(true);
             PlayerPrefs.SetString("Days" + PlayerPrefs.GetInt(Days).ToString(), "selected");
+            PlayerPrefs.SetInt(Days, Day + 1);
             int money = PlayerPrefs.GetInt("Cash");
             money +=Int32.Parse( dailyReward_Item_Properties[Day].text_Value.text.ToString());
             PlayerPrefs.SetInt("Cash", money);
         }
        
 
-
     }
-
-
-  
-
-
-
-
-
 
 }
 [Serializable]

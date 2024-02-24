@@ -292,7 +292,12 @@ public class TreeGrowUp : MonoBehaviour
             Debug.Log("RandomAppel:"+ RandomAppel);
             if(RandomAppel < ListAppels.Length - 1)
             {
-                (Instantiate(Cash, Cash.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ContainerCash.transform);
+                //(Instantiate(Cash, Cash.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ContainerCash.transform);
+               FlyingDiamond cashTemp= DailyRewardManager.Instance.flyingDiamondPrefab;
+                
+                cashTemp.MoveToTarget(diamondTarget, 20);
+
+
                 FillingBar.GetComponent<Image>().fillAmount += 0.1428571428571429f;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Appel>().IsAppel = true;
@@ -373,6 +378,9 @@ public class TreeGrowUp : MonoBehaviour
     public GameObject Scaler;
     public GameObject BasketBox;
 
+
+
+
     [Header("Boolean Manager")]
     internal bool CheckActiveDirection = true;
     internal bool StartMoving = true;
@@ -383,4 +391,9 @@ public class TreeGrowUp : MonoBehaviour
     internal bool CheckCameraMoving = false;
     internal bool CheckLoader = true;
     internal bool Verifie = true;
+
+
+    [Header("Diamond")]
+    public Transform diamondTarget;
+
 }

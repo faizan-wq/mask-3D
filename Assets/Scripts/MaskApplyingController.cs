@@ -12,6 +12,7 @@ public class MaskApplyingController : MonoBehaviour
     [SerializeField] private Animator Character;
 
     [SerializeField] private GameObject maskOnFace;
+    public GameObject Tutorial;
     private bool maskReachedPositionOnce = false;
     private bool processComplete;
 
@@ -24,6 +25,7 @@ public class MaskApplyingController : MonoBehaviour
         {
             UpdateMaskRenderer();
             mask.gameObject.SetActive(true);
+            Tutorial.SetActive(true);
             MaskMakingLevel.Instance.changeCameraPositionTest.ChangeTrack(3);
             maskApplyingOnce = true;
         }
@@ -69,7 +71,8 @@ public class MaskApplyingController : MonoBehaviour
         {
            
             mask.SetFloat("Speed", 1);
-           
+            Tutorial.SetActive(false);
+
         }
     }
     private void ReachedTargetOnce()

@@ -19,11 +19,16 @@ public class MaskMakingMachine : MonoBehaviour
 
     public void EnableButtonPressed()
     {
-        MaskMakingLevel.Instance.maskMakingController.Tutorial2.SetActive(true);
+        StartCoroutine(PlayFunctionAfterWait());
         machineButtonPressComplete = true;
     }
 
-   
+   IEnumerator PlayFunctionAfterWait()
+    {
+        yield return new WaitForSeconds(1);
+        MaskMakingLevel.Instance.maskMakingController.Tutorial2.SetActive(true);
+
+    }
 
 
    // public void Enable

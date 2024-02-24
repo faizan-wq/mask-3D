@@ -96,7 +96,7 @@ public class CreatorMilkUI : MonoBehaviour
             StartMovingBarrel = IsActive;
         }
     }
-    public void StartDragings(bool IsDeagging) 
+    public void StartDragings(bool IsDeagging)
     {
         if (StartDraging)
         {
@@ -115,25 +115,25 @@ public class CreatorMilkUI : MonoBehaviour
             MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, CameraPos.transform.position, 0.2f);
             Barrel.transform.position = Vector3.Lerp(Barrel.transform.position, BarrelPos.transform.position, 0.1f);
             float DistanceBtw = Vector3.Distance(MainCamera.transform.position, CameraPos.transform.position);
-            if(DistanceBtw < 0.1f)
+            if (DistanceBtw < 0.1f)
             {
                 TaskTwo.transform.GetChild(0).gameObject.SetActive(true);
                 FinishItCollecting = false;
             }
-        }else if(FinishItCollecting == false && FinishDrooping)
+        } else if (FinishItCollecting == false && FinishDrooping)
         {
             if (StartMovingBarrel)
             {
-                if(MovingFilling != 0 && FinishDrooping)
+                if (MovingFilling != 0 && FinishDrooping)
                 {
                     ContainerBar.gameObject.SetActive(true);
                     FillingBar.gameObject.SetActive(true);
                     FillingBar.fillAmount = MovingFilling;
-                    if(FillingBar.fillAmount == 1)
+                    if (FillingBar.fillAmount == 1)
                     {
                         FillingBar.gameObject.SetActive(false);
                         ContainerBar.gameObject.SetActive(false);
-                       
+
                         TaskThree.transform.GetChild(0).gameObject.SetActive(true);
                         FinishDrooping = false;
                     }
@@ -163,15 +163,15 @@ public class CreatorMilkUI : MonoBehaviour
                     CheckCourotine = true;
                 }
             }
-        }else if(FinishDrooping == false)
+        } else if (FinishDrooping == false)
         {
-            if(CheckCloseFinish == false)
+            if (CheckCloseFinish == false)
             {
                 Barrel.gameObject.SetActive(false);
                 MainCamera.gameObject.transform.position = Vector3.Lerp(MainCamera.transform.position, CameraSecondPos.transform.position, 0.1f);
                 MainCamera.transform.eulerAngles = Vector3.Lerp(MainCamera.transform.eulerAngles, CameraSecondPos.transform.eulerAngles, 0.1f);
                 float PosLenght = Vector3.Distance(MainCamera.transform.position, CameraSecondPos.transform.position);
-                if(PosLenght < 0.1f)
+                if (PosLenght < 0.1f)
                 {
                     FillingBar.fillAmount = 0f;
                     TakeEffect.Play();
@@ -179,26 +179,31 @@ public class CreatorMilkUI : MonoBehaviour
                     CheckCloseFinish = true;
                 }
             }
-            else if(CheckCloseFinish == true)
+            else if (CheckCloseFinish == true)
             {
                 if (HideUIWheenClick)
                 {
                     UIFinishStep.gameObject.SetActive(false);
                 } else { UIFinishStep.gameObject.SetActive(true); }
-                if(HideUIWheenClick == true && SpawnCoolder == true)
+                if (HideUIWheenClick == true && SpawnCoolder == true)
                 {
                     MachineGenerator.Play("CreateMilkMachine");
                     int RandomSelection = Random.Range(0, ListMilks.Length);
                     ListMilks[RandomSelection].gameObject.SetActive(true);
-                    (Instantiate(PrefabeUICoin, new Vector3(0,0,0), Quaternion.identity) as GameObject).transform.SetParent(ContainerUICoin.transform);
+                    (Instantiate(PrefabeUICoin, new Vector3(0, 0, 0), Quaternion.identity) as GameObject).transform.SetParent(ContainerUICoin.transform);
+
+                    FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+
+                    cashTemp.MoveToTarget(diamondTarget, 20);
+
                     SpawnCoolder = false;
                 }
-                else if(FillingBar.fillAmount < 1)
+                else if (FillingBar.fillAmount < 1)
                 {
                     ContainerBar.gameObject.SetActive(true);
                     FillingBar.gameObject.SetActive(true);
                     FillingBar.fillAmount = MovingUI;
-                }else if(FillingBar.fillAmount >= 1)
+                } else if (FillingBar.fillAmount >= 1)
                 {
                     ClickedUI.gameObject.SetActive(false);
                     ContainerBar.gameObject.SetActive(false);
@@ -224,7 +229,7 @@ public class CreatorMilkUI : MonoBehaviour
         {
             // The animator is still playing an animation           
         }
-        else if(MovingFilling == 0)
+        else if (MovingFilling == 0)
         {
             if (WeaponOne.activeSelf == true && CheckClicked == true && ClickedUI.gameObject.activeSelf == true && FillingBar.fillAmount != 1 && StopClicking == false)
             {
@@ -291,7 +296,7 @@ public class CreatorMilkUI : MonoBehaviour
     {
         TaskFour.transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
-        
+
         BoxAnimated.Play("CloseCartonBox");
         StartCoroutine(StateFinish());
     }
@@ -324,7 +329,7 @@ public class CreatorMilkUI : MonoBehaviour
             //TaskThree.transform.GetChild(0).gameObject.SetActive(true);
             ContainerBar.gameObject.SetActive(false);
             FillingBar.gameObject.SetActive(false);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             TutorialUIContainer.gameObject.SetActive(true);
             ClickedUI.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             TakeEffect.Play();
@@ -386,4 +391,8 @@ public class CreatorMilkUI : MonoBehaviour
     public float MaxXMove = 50f;
     public float MovingFilling = 0;
     public float MovingUI;
+
+    [Header("Diamond")]
+    public Transform diamondTarget;
+
 }

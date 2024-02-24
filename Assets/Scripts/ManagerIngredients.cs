@@ -31,15 +31,6 @@ public class ManagerIngredients : MonoBehaviour
 
 
 
-        //if(PlayerPrefs.GetString("Mode") == "")
-        //{
-        //    CurrentEffecs = Random.Range(0, EffectShowUp.Length);
-        //    PlayerPrefs.SetString("Mode", EffectShowUp[CurrentEffecs].name);
-        //}
-
-        //  int value = PlayerPrefs.GetInt("Day");
-
-
         LevelChangeUponDay();
 
 
@@ -51,7 +42,7 @@ public class ManagerIngredients : MonoBehaviour
 
     private void LevelChangeUponDay()
     {
-        int value = PlayerPrefs.GetInt("Day")%9;
+        int value = PlayerPrefs.GetInt("Days") %9;
 
         switch (value)
         {
