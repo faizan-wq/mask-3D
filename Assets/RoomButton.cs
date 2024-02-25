@@ -50,12 +50,7 @@ public class RoomButton : MonoBehaviour
         
         button.onClick.AddListener(()=> {
 
-            PlayerPrefs.SetInt(storingName, 1);
-            itemToUnlock.SetActive(true);
-            roomsController.SetSecondVirtualcameratarget(itemToUnlock.transform,cameraPositionNumber);
-
-            obj.SetActive(false);
-
+            StartCoroutine(CreateChangeButton(obj, storingName));
 
         });
 
@@ -67,7 +62,17 @@ public class RoomButton : MonoBehaviour
 
 
     }
+    IEnumerator CreateChangeButton(GameObject obj, string storingName)
+    {
+       
+        roomsController.SetSecondVirtualcameratarget(itemToUnlock.transform, cameraPositionNumber);
+        yield return new WaitForSeconds(3);
+        PlayerPrefs.SetInt(storingName, 1);
+        itemToUnlock.SetActive(true);
 
+
+        obj.SetActive(false);
+    }
 
 
 

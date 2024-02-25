@@ -91,15 +91,20 @@ public class RoomsController : MonoBehaviour
 
     }
     public void SetSecondVirtualcameratarget(Transform trans, int cameraPos) {
-        virtualCameraSecond.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = cameraPos;
-        virtualCameraSecond.LookAt = trans;
-        virtualCameraSecond.Priority = 20;
+        
 
-        Invoke(nameof(ResetCameraPriority), 3f);
+        StartCoroutine(ResetCameraPriority(trans,cameraPos));
 
     }
-    private void ResetCameraPriority()
+    private IEnumerator ResetCameraPriority(Transform trans, int cameraPos)
     {
+        allowCameraMovement = false;
+        virtualCameraSecond.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = cameraPos;
+        virtualCameraSecond.LookAt = trans;
+        yield return new WaitForSeconds(1);
+        virtualCameraSecond.Priority = 20;
+        yield return new WaitForSeconds(3);
+        allowCameraMovement = true;
         virtualCameraSecond.Priority = 0;
 
     }

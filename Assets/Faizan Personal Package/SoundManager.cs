@@ -5,24 +5,134 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
+    [Header("Audio Clips")]
     public List<Sound> sounds;
-
+    
+    
+    [Header("Audio Sources")]
     [SerializeField]private AudioSource completeSound;
     [SerializeField] private AudioSource quickSound;
     [SerializeField] private AudioSource BGSound;
 
+    [Header("Buttons")]
+    public Setting_Buttons musicBtn;
+    public Setting_Buttons soundBtn;
+    public Setting_Buttons vibrationBtn;
+
+    [Header("Old Audio Sources")]
+    public List<AudioSource> subGameSounds;
+
+
+
     private const string Music = "Music";
     private const string Sound = "Sound";
-    private const string Vibrations = "Sound";
+    private const string Vibrations = "Vibration";
 
+    private void Start()
+    {
+        MusicEffectResult();
+        SoundEffectResult();
+        VibrationEffectResult();
+    }
+
+    public void MusicEffect()
+    {
+
+        SetPlayerPrefValue(Music);
+
+        MusicEffectResult();
+
+    }
+    private void MusicEffectResult()
+    {
+
+     
+
+        if (!GetPlayerPrefValue(Music))
+        {
+            musicBtn.Button_Off.SetActive(true);
+            musicBtn.Button_On.SetActive(false);
+            BGSound.Stop();
+
+        }
+        else
+        {
+            musicBtn.Button_Off.SetActive(false);
+            musicBtn.Button_On.SetActive(true);
+            BGSound.Play();
+        }
+
+    }
+
+
+    public void SoundEffect()
+    {
+        SetPlayerPrefValue(Sound);
+        SoundEffectResult();
+
+    }
+    private void SoundEffectResult()
+    {
+       
+        if (!GetPlayerPrefValue(Sound))
+        {
+            soundBtn.Button_Off.SetActive(true);
+            soundBtn.Button_On.SetActive(false);
+            foreach (var item in subGameSounds)
+            {
+                item.volume = 0;
+            }
+            completeSound.Stop();
+            quickSound.Stop();
+        }
+        else
+        {
+
+            foreach (var item in subGameSounds)
+            {
+                item.volume = 1;
+            }
+
+            soundBtn.Button_Off.SetActive(false);
+            soundBtn.Button_On.SetActive(true);
+        }
+
+    }
+
+
+    public void VibrationEffect()
+    {
+        SetPlayerPrefValue(Vibrations);
+
+        VibrationEffectResult();
+    }
+
+
+    private void VibrationEffectResult()
+    {
+       
+
+        if (!GetPlayerPrefValue(Sound))
+        {
+            vibrationBtn.Button_Off.SetActive(true);
+            vibrationBtn.Button_On.SetActive(false);
+        }
+        else
+        {
+            vibrationBtn.Button_Off.SetActive(true);
+            vibrationBtn.Button_On.SetActive(false);
+        }
+    }
 
 
     public void PlayCompleteSoundClip(string name, bool check)
     {
 
         if (!GetPlayerPrefValue(Sound))
+        {
+           
             return;
+        }
 
         AudioClip clip = GetAudioClip(name);
 
@@ -42,7 +152,10 @@ public class SoundManager : MonoBehaviour
     {
 
         if (!GetPlayerPrefValue(Sound))
+        {
             return;
+
+        }
 
         AudioClip clip = GetAudioClip(name);
 
@@ -87,6 +200,16 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public void SetPlayerPrefValue(string name)
+    {
+        if (PlayerPrefs.GetInt(name) == 0)
+
+            PlayerPrefs.SetInt(name,1);
+        else
+            PlayerPrefs.SetInt(name, 0);
+        
+    }
+
 
 
 }
@@ -96,3 +219,15 @@ public struct Sound
     public string name;
     public AudioClip clip;
 }
+
+[Serializable]
+public struct Setting_Buttons
+{
+
+    public GameObject Button_On;
+    public GameObject Button_Off;
+
+
+
+}
+
