@@ -110,8 +110,11 @@ public class SyringeController : MonoBehaviour
         MaskMakingLevel.Instance.EnableTaskPoint(4, 1);
         Syringe.gameObject.SetActive(false);
         allowtabletMechanics = true;
+
+
+
         tablet.gameObject.SetActive(true);
-        Invoke(nameof(EnableTabletTutorial),1f);
+        Invoke(nameof(EnableTabletTutorial),0.1f);
         
     }
 

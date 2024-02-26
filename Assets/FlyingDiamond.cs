@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+
+
 using Random = UnityEngine.Random;
 public class FlyingDiamond : MonoBehaviour
 {
@@ -12,14 +15,16 @@ public class FlyingDiamond : MonoBehaviour
     
     
 
-   public void MoveToTarget(Transform target,int value)
+   public void MoveToTarget(Transform target,int value,Action action=null )
     {
+        if(action!=null)
+            OnDiamondCollection = action;
         gameObject.SetActive(true);
-        StartCoroutine(GiveTarget(target,value));
+        StartCoroutine(GiveTarget(target,value,action));
     }
 
-
-    private IEnumerator GiveTarget(Transform target,int value)
+    private Action OnDiamondCollection;
+    private IEnumerator GiveTarget(Transform target,int value, Action action=null)
     {
         Vector2 randomPos;
         foreach (var item in diamonds)
@@ -45,6 +50,9 @@ public class FlyingDiamond : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + value);
         gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        if(OnDiamondCollection!=null)
+            OnDiamondCollection.Invoke();
 
 
     }

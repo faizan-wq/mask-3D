@@ -270,16 +270,16 @@ namespace GD
             GlobalConstant.isAppOpen = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("AppOpenCheck").BooleanValue;
 
 #endif
-            Debug.Log(GlobalConstant.ActionsAdsTimeLimit + "ActionsAdsTimeLimit");
-            Debug.Log(GlobalConstant.IsRewardedAd + "IsRewardedAd");
-            Debug.Log(GlobalConstant.IsInterstitialAd + "IsInterstitialAd");
-            Debug.Log(GlobalConstant.IsInterstitialMaxAd + "CrimeIsInterstitialMaxAdCheck");
-            Debug.Log(GlobalConstant.IsInterstitialAdmobAd + "CrimeIsInterstitialAdmobAdCheck");
-            Debug.Log(GlobalConstant.IsBannerAd + "IsBannerAd");
+            Debug.Log(GlobalConstant.ActionsAdsTimeLimit + "InterstetialTimer");
+            Debug.Log(GlobalConstant.IsRewardedAd + "RewardedAdCheck");
+            Debug.Log(GlobalConstant.IsInterstitialAd + "InterstitialAdCheck");
+            Debug.Log(GlobalConstant.IsInterstitialMaxAd + "InterstitialMaxAdCheck");
+            Debug.Log(GlobalConstant.IsInterstitialAdmobAd + "InterstitialAdmobAdCheck");
+            Debug.Log(GlobalConstant.IsBannerAd + "BannerAd");
             Debug.Log(GlobalConstant.IsBigBannerFreeGoldAd + "IsBigBannerFreeGoldAd");
-            Debug.Log(GlobalConstant.IsMaxBannerAd + "IsMaxBannerAd");
-            Debug.Log(GlobalConstant.IsAdaptiveBannerAd + "IsAdaptiveBannerAd");
-            Debug.Log(GlobalConstant.isAppOpen + "isAppOpen");
+            Debug.Log(GlobalConstant.IsMaxBannerAd + "MaxBannerAd");
+            Debug.Log(GlobalConstant.IsAdaptiveBannerAd + "AdmobBannerAd");
+            Debug.Log(GlobalConstant.isAppOpen + "AppOpenCheck");
         }
 
         void InitializeFirebase()
@@ -307,29 +307,31 @@ namespace GD
             // server
             // yet, or if we ask for values that the server doesn't have:
 
+          
+
 #if UNITY_IOS
-            defaults.Add("CrimeActionsAdsTime", 40);
-            defaults.Add("CrimeRewardedAdCheck", true);
-            defaults.Add("CrimeInterstitialAdCheck", true);
-            defaults.Add("CrimeIsInterstitialMaxAdCheck", true);
-            defaults.Add("CrimeIsInterstitialAdmobAdCheck", true);
-            defaults.Add("CrimeBannerAd", true);
-            defaults.Add("CrimeIsBigBannerFreeGoldAd", true);
-            defaults.Add("CrimeMaxBannerAd", true);
-            defaults.Add("CrimeAdaptiveBannerAdCheck", true);
-            defaults.Add("CrimeAppOpenCheck", true);
+            defaults.Add("InterstetialTimer", 40);
+            defaults.Add("RewardedAdCheck", true);
+            defaults.Add("InterstitialAdCheck", true);
+            defaults.Add("InterstitialMaxAdCheck", true);
+            defaults.Add("InterstitialAdmobAdCheck", true);
+            defaults.Add("BannerAd", true);
+            defaults.Add("IsBigBannerFreeGoldAd", true);
+            defaults.Add("MaxBannerAd", true);
+            defaults.Add("AdmobBannerAd", true);
+            defaults.Add("AppOpenCheck", true);
 
 #elif UNITY_ANDROID
-            defaults.Add("CrimeActionsAdsTime", 40);
-            defaults.Add("CrimeRewardedAdCheck", true);
-            defaults.Add("CrimeInterstitialAdCheck", true);
-            defaults.Add("CrimeIsInterstitialMaxAdCheck", true);
-            defaults.Add("CrimeIsInterstitialAdmobAdCheck", true);
-            defaults.Add("CrimeBannerAd", true);
-            defaults.Add("CrimeIsBigBannerFreeGoldAd", true);
-            defaults.Add("CrimeMaxBannerAd", true);
-            defaults.Add("CrimeAdaptiveBannerAdCheck", true);
-            defaults.Add("CrimeAppOpenCheck", true);
+            defaults.Add("InterstetialTimer", 40);
+            defaults.Add("RewardedAdCheck", true);
+            defaults.Add("InterstitialAdCheck", true);
+            defaults.Add("InterstitialMaxAdCheck", true);
+            defaults.Add("InterstitialAdmobAdCheck", true);
+            defaults.Add("BannerAd", true);
+            defaults.Add("IsBigBannerFreeGoldAd", true);
+            defaults.Add("MaxBannerAd", true);
+            defaults.Add("AdmobBannerAd", true);
+            defaults.Add("AppOpenCheck", true);
 
 
 #endif

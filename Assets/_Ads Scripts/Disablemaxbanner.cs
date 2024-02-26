@@ -54,8 +54,8 @@ public class Disablemaxbanner : MonoBehaviour
     private bool otherpanelsAreOff()
     {
 
-        if (LoadingAdScreen.isShowing)
-            return true;
+        //if (LoadingAdScreen.isShowing)
+        //    return true;
 
 
         foreach (var item in AvoidPanels)

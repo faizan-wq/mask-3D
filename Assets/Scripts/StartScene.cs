@@ -40,7 +40,7 @@ public class StartScene : MonoBehaviour
                 CheckLoaded = true;
             }else if(PlayerPrefs.GetString("Scene") != "")
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
                 CheckLoaded = true;
             }
         }

@@ -196,7 +196,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!4 &273
 Transform:
@@ -216,7 +216,7 @@ Transform:
   - {fileID: 428}
   - {fileID: 515850955}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!4 &428
 Transform:
@@ -7244,7 +7244,7 @@ Transform:
   m_Children:
   - {fileID: 2135144910}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: -0}
 --- !u!1001 &105291949
 PrefabInstance:
@@ -27846,18 +27846,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 974348805}
-        m_TargetAssemblyTypeName: DailyRewardManager, Assembly-CSharp
-        m_MethodName: RewardCollection
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &608784141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44658,6 +44646,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830566091}
   m_CullTransparentMesh: 1
+--- !u!1 &856792350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856792352}
+  - component: {fileID: 856792351}
+  m_Layer: 0
+  m_Name: BigbannerAd Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &856792351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856792350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f299802e5ecc1c40b87d17f9c872606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels:
+  - {fileID: 2076196021}
+--- !u!4 &856792352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856792350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &856873582
 GameObject:
   m_ObjectHideFlags: 0
@@ -45022,6 +45056,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ui button
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 956197344}
+        m_TargetAssemblyTypeName: HomeScene, Assembly-CSharp
+        m_MethodName: StartRoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &863152058
@@ -50909,7 +50955,7 @@ Transform:
   m_Children:
   - {fileID: 105291950}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &974348805
 MonoBehaviour:
@@ -98295,7 +98341,7 @@ Transform:
   - {fileID: 148285490}
   - {fileID: 156890470}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1559451590
 GameObject:
@@ -117110,6 +117156,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955770003}
   m_Mesh: {fileID: 4300000, guid: dd0cd00c14621924395bc144b0ad3015, type: 2}
+--- !u!1 &1959883636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959883638}
+  - component: {fileID: 1959883637}
+  m_Layer: 0
+  m_Name: BannerAd Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1959883637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959883636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a884908a43664cba8a22cb73c0fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels:
+  - {fileID: 6333585007765907605}
+  - {fileID: 5796872726803734228}
+  - {fileID: 148285485}
+  AvoidPanels:
+  - {fileID: 2076196021}
+--- !u!4 &1959883638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959883636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1960356560
 GameObject:
   m_ObjectHideFlags: 0
@@ -127949,7 +128045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 554767619222139915, guid: 59cc4ea6b14594c48910fc1c2d84cf3c, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 554767619222139915, guid: 59cc4ea6b14594c48910fc1c2d84cf3c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -128959,18 +129055,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ui button
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 974348805}
-        m_TargetAssemblyTypeName: DailyRewardManager, Assembly-CSharp
-        m_MethodName: RewardCollection
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 974348805}
@@ -136627,6 +136711,18 @@ MonoBehaviour:
           m_StringArgument: ui button
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 956197344}
+        m_TargetAssemblyTypeName: HomeScene, Assembly-CSharp
+        m_MethodName: ISDailyReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &6011668134218190732
 RectTransform:
   m_ObjectHideFlags: 0
@@ -139723,6 +139819,18 @@ MonoBehaviour:
           m_StringArgument: ui button
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 956197344}
+        m_TargetAssemblyTypeName: HomeScene, Assembly-CSharp
+        m_MethodName: ISDailyReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6333186428354254595
 GameObject:
   m_ObjectHideFlags: 0
@@ -139974,6 +140082,18 @@ MonoBehaviour:
           m_StringArgument: ui button
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 956197344}
+        m_TargetAssemblyTypeName: HomeScene, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6333332733116857381
 GameObject:
   m_ObjectHideFlags: 0
@@ -140169,6 +140289,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ui button
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 956197344}
+        m_TargetAssemblyTypeName: HomeScene, Assembly-CSharp
+        m_MethodName: StartRoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6333425962831108539

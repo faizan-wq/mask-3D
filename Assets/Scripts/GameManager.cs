@@ -14,39 +14,60 @@ public class GameManager : MonoBehaviour
     public GameObject PanelSettings;
     public GameObject PanelPause;
 
+
+    public Transform diamondTarget;
+
     void Start()
     {
         CheckingDone();
     }
     public void SkipeBtnWin()
     {
-        StartCoroutine(ApplyFunctionAfterWait(
 
-        ()=> {
-            PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 150);
-            PlayerPrefs.SetString("Mode", "");
-            PlayerPrefs.SetString("Scene", "");
-            SceneManager.LoadScene(0);
-            PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
+        FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+        StartCoroutine(ApplyFunctionAfterWait(delegate {
+            cashTemp.MoveToTarget(diamondTarget, 150, () =>
+{
 
 
+PlayerPrefs.SetString("Mode", "");
+PlayerPrefs.SetString("Scene", "");
+SceneManager.LoadScene("Start");
+PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
+
+
+});
         },1));
-
+      
 
       
+
+
+
+
+
     }
     public void RewaredBtnWin()
     {
-        StartCoroutine(ApplyFunctionAfterWait(
 
-      () => {
-          PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 300);
-        PlayerPrefs.SetString("Mode", "");
-        PlayerPrefs.SetString("Scene", "");
-        SceneManager.LoadScene(0);
-          PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
+        AdMob_GF.rewardedAd.OnUserEarnedReward += delegate {
 
-      }, 1));
+            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+
+            cashTemp.MoveToTarget(diamondTarget, 300, delegate {
+
+
+
+                PlayerPrefs.SetString("Mode", "");
+                PlayerPrefs.SetString("Scene", "");
+                SceneManager.LoadScene(1);
+                PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
+
+
+
+            });
+
+        };
 
     }
 
