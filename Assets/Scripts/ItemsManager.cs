@@ -70,18 +70,30 @@ public class ItemsManager : MonoBehaviour
         foreach (var item in mashingItems)
         {
             
-            //GameObject newObject = Instantiate(ItemImage);
             GameObject newObject = mashingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
+            Button btn = newObject.GetComponent<Button>();
 
+            if (childNumber >= 1)
+            {
+                btn.interactable = false;
+                Button adButton = newObject.transform.GetChild(1).GetComponent<Button>();
+                adButton.onClick.AddListener(() => {
+
+                    AdMob_GF.ShowRewardedAdmobOrInterstitial();
+                    btn.interactable = true;
+                    adButton.gameObject.SetActive(false);
+
+                });
+
+            }
 
             newObject.name = item.hammeringItem.sprite.name;
-            //newObject.AddComponent<Image>();
             
 
-             Button btn = newObject.GetComponent<Button>();
-            
+
+
+
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.hammeringItem.sprite;
-            //newObject.GetComponent<RectTransform>().parent = mashingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
 
@@ -89,12 +101,9 @@ public class ItemsManager : MonoBehaviour
                 selectedItem = item.hammeringItem;
 
                maskMakingLevel.hammeringItemLimit = item.count;
-                //MaskMakingLevel.Instance.knifeController.knifeStartingPosition.position = item.knifeStartingPositions;
-                //MaskMakingLevel.Instance.knifeController.knifeEndingPosition.position = item.knifeEndingPositions;
-
+            
                 maskMakingLevel.hammerController.SelectHammeringTutorial(0, false);
                 maskMakingLevel.hammerController.SelectHammeringTutorial(1, true);
-                // InstatitateObject(item.hammeringItem.prefab, MaskMakingLevel.Instance.hammerController.firstHammerPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;
@@ -114,25 +123,31 @@ public class ItemsManager : MonoBehaviour
         
         foreach (var item in choopingItems)
         {
-            //GameObject newObject = new GameObject();
+            
+
             GameObject newObject = choopingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
-           
+            Button btn = newObject.GetComponent<Button>();
+            if (childNumber>=1)
+            {
+                btn.interactable = false;
+                Button adButton = newObject.transform.GetChild(1).GetComponent<Button>();
+                adButton.onClick.AddListener(()=> {
 
+                    AdMob_GF.ShowRewardedAdmobOrInterstitial();
+                    btn.interactable = true;
+                    adButton.gameObject.SetActive(false);
 
-            //GameObject newObject =  Instantiate(ItemImage);
+                });
 
+            }
 
             newObject.name = item.choopingItems.sprite.name;
-            //newObject.AddComponent<Image>();
-            Button btn = newObject.GetComponent<Button>();
+           
 
-            //btn.image.sprite = item.choopingItems.sprite;
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.choopingItems.sprite;
-            //newObject.GetComponent<RectTransform>().parent = choopingItemGroup.GetComponent<RectTransform>();
             newObject.transform.localScale = Vector3.one;
             btn.onClick.AddListener(() => {
 
-                //int num = item.GetHashCode();
                
                 selectedItem = item.choopingItems;
 
@@ -171,28 +186,42 @@ public class ItemsManager : MonoBehaviour
     {
         int temp_counter = 0;
         int number=0;
-       
+        
         foreach (var item in liquidItems)
         {
-            //GameObject newObject = new GameObject();
-            //GameObject newObject = Instantiate(ItemImage);
+            
             GameObject newObject = liquidItemGroup.GetComponent<RectTransform>().GetChild(temp_counter).gameObject;
-
-            int num = number;
-            newObject.name = item.sprite.name;
-            //newObject.AddComponent<Image>();
             Button btn = newObject.GetComponent<Button>();
 
-            //btn.image.sprite = item.sprite;
+            int num = number;
+
+            if (num >= 1)
+            {
+                btn.interactable = false;
+                Button adButton = newObject.transform.GetChild(1).GetComponent<Button>();
+                adButton.onClick.AddListener(() => {
+
+                    AdMob_GF.ShowRewardedAdmobOrInterstitial();
+                    btn.interactable = true;
+                    adButton.gameObject.SetActive(false);
+
+                });
+
+            }
+
+
+
+            newObject.name = item.sprite.name;
+          
             btn.transform.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //newObject.GetComponent<RectTransform>().parent = liquidItemGroup.GetComponent<RectTransform>();
+        
             btn.onClick.AddListener(() =>
             {
 
 
                 MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
 
-                //InstatitateObject(item.prefab, MaskMakingLevel.Instance.bottleController.bottleStarting.position);
+               
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;

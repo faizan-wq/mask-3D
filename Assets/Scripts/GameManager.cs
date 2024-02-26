@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using GD;
 public class GameManager : MonoBehaviour
 {
     [Header("Show UI")]
@@ -26,50 +26,30 @@ public class GameManager : MonoBehaviour
 
         FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
         StartCoroutine(ApplyFunctionAfterWait(delegate {
-            cashTemp.MoveToTarget(diamondTarget, 150, () =>
-{
-
-
-PlayerPrefs.SetString("Mode", "");
-PlayerPrefs.SetString("Scene", "");
-SceneManager.LoadScene("Start");
-PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
-
-
-});
+            cashTemp.MoveToTarget(diamondTarget, 150,null );
+            Invoke(nameof(GameComplete), 2);
+           
         },1));
       
 
-      
-
-
-
-
-
     }
+    private void GameComplete()
+    {
+        PlayerPrefs.SetString("Mode", "");
+        PlayerPrefs.SetString("Scene", "");
+        SceneManager.LoadScene("Start");
+        PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
+    }
+
+
+
     public void RewaredBtnWin()
     {
-
-        AdMob_GF.rewardedAd.OnUserEarnedReward += delegate {
-
-            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
-
-            cashTemp.MoveToTarget(diamondTarget, 300, delegate {
-
-
-
-                PlayerPrefs.SetString("Mode", "");
-                PlayerPrefs.SetString("Scene", "");
-                SceneManager.LoadScene(1);
-                PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
-
-
-
-            });
-
-        };
-
-    }
+        FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+        
+        AdMob_GF.ShowRewardedAdmobOrInterstitial();
+        Invoke(nameof(GameComplete), 2);
+    }  
 
     IEnumerator  ApplyFunctionAfterWait(Action action, float value)
     {

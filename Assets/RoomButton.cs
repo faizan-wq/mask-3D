@@ -33,34 +33,55 @@ public class RoomButton : MonoBehaviour
         {
             addButton.gameObject.SetActive(true);
             price.transform.parent.gameObject.SetActive(false);
+
+
+            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+
+            AdMob_GF.ShowRewardedAdmobOrInterstitial();
+            Invoke(nameof(UnlockComplete), 2);
+        }
+        else
+        {
+
+            addButton.gameObject.SetActive(false);
+            price.transform.parent.gameObject.SetActive(true);
+
+            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+
+            AdMob_GF.ShowRewardedAdmobOrInterstitial();
+            Invoke(nameof(UnlockComplete), 2);
         }
        
         
+      
+
+
+
+
+
+
+
+
+    }
+    private void UnlockComplete()
+    {
         GameObject obj = gameObject;
         string storingName = type.ToString() + roomType.ToString() + obj.name;
 
 
-      if (PlayerPrefs.GetInt(storingName) ==1)
+        if (PlayerPrefs.GetInt(storingName) == 1)
         {
             obj.SetActive(false);
             itemToUnlock.transform.localScale = Vector3.one;
             itemToUnlock.SetActive(true);
             return;
         }
-        
-        button.onClick.AddListener(()=> {
+
+        button.onClick.AddListener(() => {
 
             StartCoroutine(CreateChangeButton(obj, storingName));
 
         });
-
-
-
-
-
-
-
-
     }
     IEnumerator CreateChangeButton(GameObject obj, string storingName)
     {
