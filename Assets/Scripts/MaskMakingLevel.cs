@@ -16,7 +16,7 @@ public class MaskMakingLevel : MonoBehaviour
     public Mask_Making_Level_Type maskiMakingType;
 
     [SerializeField] private Mask_Making_Level_Methods currentMethod;
-    public SoundManager soundManager;
+    [HideInInspector]public SoundManager soundManager;
 
 
     [Header("Camera")]
@@ -82,6 +82,7 @@ public class MaskMakingLevel : MonoBehaviour
 
 
 
+
     private void Start()
     {
         if(knifeController == null)
@@ -104,6 +105,9 @@ public class MaskMakingLevel : MonoBehaviour
 
         if (maskApplyingController == null)
             maskApplyingController = GameObject.FindAnyObjectByType<MaskApplyingController>();
+
+        soundManager = ParticleManager.Instance.soundManager;
+
 
         //NextBtnChopping();
        
@@ -586,6 +590,7 @@ public class MaskMakingLevel : MonoBehaviour
     {
         if(!hammeingProcessStart)
         {
+            MaskMakingLevel.Instance.EnableTaskPoint(0, 0);
             LevelUIManager.Instance.NextScreen(currentMethod);
             hammerController.SelectHammeringTutorial(0, true);
             hammeingProcessStart = true;
@@ -599,8 +604,8 @@ public class MaskMakingLevel : MonoBehaviour
             
             hammerController.GetTheHammer();
             NextMethod(Mask_Making_Level_Methods.Crushing);
-            //LevelUIManager.Instance.NextScreen(Mask_Making_Level_Methods.Crushing);
-           
+            MaskMakingLevel.Instance.EnableTaskPoint(0, 1);
+
             hammeringProcessFinish = false;
             
         }

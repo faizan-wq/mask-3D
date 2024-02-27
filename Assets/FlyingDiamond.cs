@@ -17,8 +17,8 @@ public class FlyingDiamond : MonoBehaviour
 
    public void MoveToTarget(Transform target,int value,Action action=null )
     {
-        if(action!=null)
-            OnDiamondCollection = action;
+        OnDiamondCollection = null;
+        OnDiamondCollection = action;
         gameObject.SetActive(true);
         StartCoroutine(GiveTarget(target,value,action));
     }
@@ -33,7 +33,7 @@ public class FlyingDiamond : MonoBehaviour
           
             item.gameObject.SetActive (true);
             randomPos = new Vector2(item.position.x,item.position.y)+  new Vector2(Random.RandomRange(-200f, 200f), Random.RandomRange(-200f, 200f));
-            
+            ParticleManager.Instance.soundManager.PlayQuickSoundClip("coin");
             item.DOMove(randomPos, 0.125f);
         }
 
@@ -44,15 +44,15 @@ public class FlyingDiamond : MonoBehaviour
         foreach (var item in diamonds)
         {
            
-            item.DOMove(target.position, timeDifference-number*0.02f).OnComplete(()=> { item.gameObject.SetActive(false); });
+            item.DOMove(target.position, timeDifference-number*0.02f).OnComplete(()=> { item.gameObject.SetActive(false); ParticleManager.Instance.soundManager.PlayQuickSoundClip("coin"); });
             number++;
         }
         yield return new WaitForSeconds(0.5f);
         PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + value);
         gameObject.SetActive(false);
         yield return new WaitForSeconds(1);
-        if(OnDiamondCollection!=null)
-            OnDiamondCollection.Invoke();
+       
+            OnDiamondCollection?.Invoke();
 
 
     }

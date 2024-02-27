@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GD;
 public class GameManager : MonoBehaviour
@@ -16,40 +17,67 @@ public class GameManager : MonoBehaviour
 
 
     public Transform diamondTarget;
+    [HideInInspector]public SoundManager soundManager;
+
 
     void Start()
     {
+        soundManager = ParticleManager.Instance.soundManager;
         CheckingDone();
     }
     public void SkipeBtnWin()
     {
 
         FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
-        StartCoroutine(ApplyFunctionAfterWait(delegate {
-            cashTemp.MoveToTarget(diamondTarget, 150,null );
-            Invoke(nameof(GameComplete), 2);
+        cashTemp.MoveToTarget(diamondTarget, 150, null);
+        //StartCoroutine(ApplyFunctionAfterWait(delegate
+        //{
+          
            
-        },1));
-      
+
+        //}, 0));
+        Invoke(nameof(GameComplete), 2);
 
     }
     private void GameComplete()
     {
         PlayerPrefs.SetString("Mode", "");
         PlayerPrefs.SetString("Scene", "");
+        Debug.Log("Andar AA agaya");
         SceneManager.LoadScene("Start");
         PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
     }
 
 
 
-    public void RewaredBtnWin()
+    public void RewaredBtnWin(Button btn)
     {
         FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
         
-        AdMob_GF.ShowRewardedAdmobOrInterstitial();
-        Invoke(nameof(GameComplete), 2);
+        
+
+        GD.Controller.Instance.RewardedVideo(result => {
+
+            if (result)
+            {
+
+                btn.interactable = false;
+                Invoke(nameof(GameComplete), 2);
+            }
+           
+
+        });
+
+
+
+       
     }  
+    public void ButtonSound()
+    {
+        soundManager.PlayQuickSoundClip("soundManager");
+    }
+
+
 
     IEnumerator  ApplyFunctionAfterWait(Action action, float value)
     {

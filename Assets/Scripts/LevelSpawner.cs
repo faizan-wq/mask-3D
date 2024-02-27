@@ -15,7 +15,8 @@ public class LevelSpawner : MonoBehaviour
 
     public string levelName= "AllHair";
     public Character character;
-
+    public static bool isCokeLevel;
+    public static bool isMilk;
 
    
     void Start()

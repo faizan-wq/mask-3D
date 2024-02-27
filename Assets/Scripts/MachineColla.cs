@@ -199,33 +199,57 @@ public class MachineColla : MonoBehaviour
     }
     public void WeaponOne()
     {
-        FillingBar.SetActive(true);
-        FillingContainer.SetActive(true);
-        TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
-        EffectDone.Play();
-        EffectDone.gameObject.GetComponent<AudioSource>().Play();
-        ////////
-        MachineSelector.SetActive(true);
-        MachineBox.SetActive(true);
-        StartShooting = true;
-        ListWeaponOne.SetActive(true);
-        SelectIntegritiy.SetActive(false);
-        Container.SetActive(false);
+
+        GD.Controller.Instance.RewardedVideo(result => {
+
+            if (result)
+            {
+                FillingBar.SetActive(true);
+                FillingContainer.SetActive(true);
+                TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
+                EffectDone.Play();
+                EffectDone.gameObject.GetComponent<AudioSource>().Play();
+                ////////
+                MachineSelector.SetActive(true);
+                MachineBox.SetActive(true);
+                StartShooting = true;
+                ListWeaponOne.SetActive(true);
+                SelectIntegritiy.SetActive(false);
+                Container.SetActive(false);
+            }
+
+
+        });
+
+
+       
     }
     public void WeaponTwo()
     {
-        FillingBar.SetActive(true);
-        FillingContainer.SetActive(true);
-        TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
-        EffectDone.Play();
-        EffectDone.gameObject.GetComponent<AudioSource>().Play();
-        ////////
-        MachineSelector.SetActive(true);
-        MachineBox.SetActive(true);
-        StartShooting = true;
-        ListWeaponTwo.SetActive(true);
-        SelectIntegritiy.SetActive(false);
-        Container.SetActive(false);
+        GD.Controller.Instance.RewardedVideo(result => {
+
+            if (result)
+            {
+                FillingBar.SetActive(true);
+                FillingContainer.SetActive(true);
+                TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
+                EffectDone.Play();
+                EffectDone.gameObject.GetComponent<AudioSource>().Play();
+                ////////
+                MachineSelector.SetActive(true);
+                MachineBox.SetActive(true);
+                StartShooting = true;
+                ListWeaponTwo.SetActive(true);
+                SelectIntegritiy.SetActive(false);
+                Container.SetActive(false);
+            }
+
+
+        });
+
+
+
+     
     }
     IEnumerator loadingFinish()
     {

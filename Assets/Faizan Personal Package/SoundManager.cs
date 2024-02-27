@@ -22,14 +22,18 @@ public class SoundManager : MonoBehaviour
     [Header("Old Audio Sources")]
     public List<AudioSource> subGameSounds;
 
-
+    private VibrationTest vibrationTest;
 
     private const string Music = "Music";
     private const string Sound = "Sound";
     private const string Vibrations = "Vibration";
 
+
+
+
     private void Start()
     {
+        vibrationTest = GetComponent<VibrationTest>();
         MusicEffectResult();
         SoundEffectResult();
         VibrationEffectResult();
@@ -119,8 +123,8 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            vibrationBtn.Button_Off.SetActive(true);
-            vibrationBtn.Button_On.SetActive(false);
+            vibrationBtn.Button_Off.SetActive(false);
+            vibrationBtn.Button_On.SetActive(true);
         }
     }
 
@@ -168,12 +172,14 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    public void PlayVibration(string name, string value)
+    public void PlayVibration(string value)
     {
         if (!GetPlayerPrefValue(Vibrations))
-            return;
-
-
+        {
+            vibrationTest.inputValue = value;
+            vibrationTest.TapVibratePattern();
+        }
+       
 
 
     }

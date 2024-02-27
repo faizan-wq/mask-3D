@@ -83,8 +83,8 @@ namespace GD
 
             Debug.Log("RewardedVideo");
 
-            AdMob_GF.ShowRewardedAdmobOrInterstitial();
-            //LoadingAdScreen.instance.ShowLoadingAdScreen(delegate { AdMob_GF.ShowRewardedAdmobOrInterstitial(); });
+            //AdMob_GF.ShowRewardedAdmobOrInterstitial();
+            LoadingAdScreen.instance.ShowLoadingAdScreen(delegate { AdMob_GF.ShowRewardedAdmobOrInterstitial(); });
             VideoEvent("Click");
         }
 

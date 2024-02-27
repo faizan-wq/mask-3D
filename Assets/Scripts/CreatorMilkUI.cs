@@ -46,8 +46,15 @@ public class CreatorMilkUI : MonoBehaviour
         TaskFour.SetActive(true);
         FillingBar.fillAmount = 0f;
     }
+
+    private bool setTwoAd = false;
+    private bool setThreeAd = false;
+
+
     public void SetOne()
     {
+
+
         ManagerSpawning.ContainerUI.SetActive(false);
         ManagerSpawning.CreatorMilkUI.SetActive(false);
         TakeEffect.Play();
@@ -58,23 +65,47 @@ public class CreatorMilkUI : MonoBehaviour
     }
     public void SetTwo()
     {
-        ManagerSpawning.ContainerUI.SetActive(false);
-        ManagerSpawning.CreatorMilkUI.SetActive(false);
-        TakeEffect.Play();
-        Complete.Play();
-        WeaponTwo.SetActive(true);
-        ClickedUI.gameObject.SetActive(true);
-        TaskOne.transform.GetChild(0).gameObject.SetActive(true);
+
+        GD.Controller.Instance.RewardedVideo(result => {
+
+            if (result)
+            {
+
+                ManagerSpawning.ContainerUI.SetActive(false);
+                ManagerSpawning.CreatorMilkUI.SetActive(false);
+                TakeEffect.Play();
+                Complete.Play();
+                WeaponTwo.SetActive(true);
+                ClickedUI.gameObject.SetActive(true);
+                TaskOne.transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+
+        });
+
+       
     }
     public void SetThree()
     {
-        ManagerSpawning.ContainerUI.SetActive(false);
-        ManagerSpawning.CreatorMilkUI.SetActive(false);
-        TakeEffect.Play();
-        Complete.Play();
-        WeaponThree.SetActive(true);
-        ClickedUI.gameObject.SetActive(true);
-        TaskOne.transform.GetChild(0).gameObject.SetActive(true);
+
+        GD.Controller.Instance.RewardedVideo(result => {
+
+            if (result)
+            {
+                ManagerSpawning.ContainerUI.SetActive(false);
+                ManagerSpawning.CreatorMilkUI.SetActive(false);
+                TakeEffect.Play();
+                Complete.Play();
+                WeaponThree.SetActive(true);
+                ClickedUI.gameObject.SetActive(true);
+                TaskOne.transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+
+        });
+
+
+       
     }
     public void SetActive(bool CheckDone)
     {

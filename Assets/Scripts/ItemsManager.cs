@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,9 @@ public class ItemsManager : MonoBehaviour
     [SerializeField] private GridLayoutGroup liquidItemGroup;
 
     [SerializeField] private GameObject ItemImage;
+    [HideInInspector]public SoundManager soundManager;
+
+
     int childNumber = 0;
 
     private void Awake()
@@ -30,6 +34,10 @@ public class ItemsManager : MonoBehaviour
             Instance = this;
         }
 
+    }
+    private void Start()
+    {
+        soundManager = ParticleManager.Instance.soundManager;
     }
 
     public void InvokeAfterWait()
@@ -73,20 +81,7 @@ public class ItemsManager : MonoBehaviour
             GameObject newObject = mashingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
             Button btn = newObject.GetComponent<Button>();
 
-            if (childNumber >= 1)
-            {
-                btn.interactable = false;
-                Button adButton = newObject.transform.GetChild(1).GetComponent<Button>();
-                adButton.onClick.AddListener(() => {
-
-                    AdMob_GF.ShowRewardedAdmobOrInterstitial();
-                    btn.interactable = true;
-                    adButton.gameObject.SetActive(false);
-
-                });
-
-            }
-
+          
             newObject.name = item.hammeringItem.sprite.name;
             
 
@@ -106,9 +101,37 @@ public class ItemsManager : MonoBehaviour
                 maskMakingLevel.hammerController.SelectHammeringTutorial(1, true);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
+                soundManager.PlayQuickSoundClip("ui button");
                 btn.interactable = false;
 
             });
+
+            if (childNumber >= 2)
+            {
+                btn.interactable = false;
+                Button adButton = newObject.GetComponent<RectTransform>().GetChild(1).GetComponent<Button>();
+                adButton.gameObject.SetActive(true);
+                adButton.onClick.AddListener(() => {
+
+                    GD.Controller.Instance.RewardedVideo(result => { 
+                    
+                    if(result)
+                        {
+                            btn.interactable = true;
+                            adButton.gameObject.SetActive(false);
+                        }
+                    else
+                        {
+
+                        }
+                    
+                    });
+                  
+                  
+
+                });
+
+            }
 
             childNumber++;
 
@@ -127,19 +150,7 @@ public class ItemsManager : MonoBehaviour
 
             GameObject newObject = choopingItemGroup.GetComponent<RectTransform>().GetChild(childNumber).gameObject;
             Button btn = newObject.GetComponent<Button>();
-            if (childNumber>=1)
-            {
-                btn.interactable = false;
-                Button adButton = newObject.transform.GetChild(1).GetComponent<Button>();
-                adButton.onClick.AddListener(()=> {
-
-                    AdMob_GF.ShowRewardedAdmobOrInterstitial();
-                    btn.interactable = true;
-                    adButton.gameObject.SetActive(false);
-
-                });
-
-            }
+            
 
             newObject.name = item.choopingItems.sprite.name;
            
@@ -158,10 +169,38 @@ public class ItemsManager : MonoBehaviour
                 InstatitateObject(item.choopingItems.prefab, MaskMakingLevel.Instance.choppingItemPosition.position);
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
+                soundManager.PlayQuickSoundClip("ui button");
                 btn.interactable = false;
 
             });
 
+
+            if (childNumber >= 2)
+            {
+                btn.interactable = false;
+                Button adButton = newObject.GetComponent<RectTransform>().GetChild(1).GetComponent<Button>();
+                adButton.gameObject.SetActive(true);
+                adButton.onClick.AddListener(() => {
+
+
+                    GD.Controller.Instance.RewardedVideo(result => {
+
+                        if(result)
+                        {
+                            btn.interactable = true;
+                            adButton.gameObject.SetActive(false);
+                        }
+                    
+
+                    });
+
+
+                        //AdMob_GF.ShowRewardedAdmobOrInterstitial();
+                  
+
+                });
+
+            }
             childNumber++;
 
         }
@@ -184,6 +223,31 @@ public class ItemsManager : MonoBehaviour
 
     public void CreateliquidItems()
     {
+
+        if(LevelSpawner.isCokeLevel)
+        {
+            Item temp = new Item(liquidItems[5]);
+            Item item2 = new Item(liquidItems[0]);
+
+            
+             liquidItems[0] = temp;
+            liquidItems[5] = item2;
+
+
+        }
+        if (LevelSpawner.isMilk)
+        {
+            Item temp = new Item(liquidItems[4]);
+            Item item2 = new Item(liquidItems[0]);
+
+            liquidItems[0] = temp;
+            liquidItems[4] = item2;
+        }
+
+
+
+
+
         int temp_counter = 0;
         int number=0;
         
@@ -195,20 +259,7 @@ public class ItemsManager : MonoBehaviour
 
             int num = number;
 
-            if (num >= 1)
-            {
-                btn.interactable = false;
-                Button adButton = newObject.transform.GetChild(1).GetComponent<Button>();
-                adButton.onClick.AddListener(() => {
-
-                    AdMob_GF.ShowRewardedAdmobOrInterstitial();
-                    btn.interactable = true;
-                    adButton.gameObject.SetActive(false);
-
-                });
-
-            }
-
+          
 
 
             newObject.name = item.sprite.name;
@@ -218,16 +269,71 @@ public class ItemsManager : MonoBehaviour
             btn.onClick.AddListener(() =>
             {
 
+               
 
-                MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
+                if(LevelSpawner.isCokeLevel)
+                {
+                    if(num==5)
+                    {
+                        MaskMakingLevel.Instance.bottleController.SelectedBottle(0);
+                    }
+                    else if(num == 0)
+                    {
+                        MaskMakingLevel.Instance.bottleController.SelectedBottle(5);
+                    }
+                   
+
+
+                }
+                else if(LevelSpawner.isMilk)
+                {
+                    if (num == 4)
+                    {
+                        MaskMakingLevel.Instance.bottleController.SelectedBottle(0);
+                    }
+                    else if (num == 0)
+                    {
+                        MaskMakingLevel.Instance.bottleController.SelectedBottle(4);
+                    }
+
+                }
+                else
+                {
+                    MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
+                }
+              
 
                
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
                 choopingItemGroup.GetComponent<RectTransform>().parent.parent.gameObject.SetActive(false);
                 btn.interactable = false;
-
+                soundManager.PlayQuickSoundClip("ui button");
 
             });
+            if (num >= 1)
+            {
+                btn.interactable = false;
+                Button adButton = newObject.GetComponent<RectTransform>().GetChild(1).GetComponent<Button>();
+                adButton.gameObject.SetActive(true);
+                adButton.onClick.AddListener(() => {
+
+                   
+
+                    GD.Controller.Instance.RewardedVideo(result => {
+
+                        if (result)
+                        {
+                            btn.interactable = true;
+                            adButton.gameObject.SetActive(false);
+                        }
+
+
+                    });
+
+
+                });
+
+            }
 
             number++;
 

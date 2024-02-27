@@ -14,42 +14,44 @@ public class RoomButton : MonoBehaviour
     private Text price;
     private GameObject addButton;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-
         button = GetComponent<Button>();
         price = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>();
         price.text = cashRequiredToUnlock.ToString();
         addButton = transform.GetChild(0).GetChild(1).gameObject;
+    }
+    private void Start()
+    {
+        UnlockComplete();
+    }
+    private void Update()
+    {
         CheckButtonStatus();
     }
 
-   
 
     private void CheckButtonStatus()
     {
+
+     
 
         if (cashRequiredToUnlock > PlayerPrefs.GetInt("Cash"))
         {
             addButton.gameObject.SetActive(true);
             price.transform.parent.gameObject.SetActive(false);
+         
+           
 
 
-            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
-
-            AdMob_GF.ShowRewardedAdmobOrInterstitial();
-            Invoke(nameof(UnlockComplete), 2);
         }
         else
         {
 
             addButton.gameObject.SetActive(false);
             price.transform.parent.gameObject.SetActive(true);
-
-            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
-
-            AdMob_GF.ShowRewardedAdmobOrInterstitial();
-            Invoke(nameof(UnlockComplete), 2);
+         
+            //Invoke(nameof(UnlockComplete), 2);
         }
        
         
@@ -63,7 +65,7 @@ public class RoomButton : MonoBehaviour
 
 
     }
-    private void UnlockComplete()
+    public void UnlockComplete()
     {
         GameObject obj = gameObject;
         string storingName = type.ToString() + roomType.ToString() + obj.name;
@@ -79,7 +81,38 @@ public class RoomButton : MonoBehaviour
 
         button.onClick.AddListener(() => {
 
-            StartCoroutine(CreateChangeButton(obj, storingName));
+          
+
+            if (cashRequiredToUnlock > PlayerPrefs.GetInt("Cash"))
+            {
+               
+
+                GD.Controller.Instance.RewardedVideo(result => {
+
+                    if (result)
+                    {
+                        StartCoroutine(CreateChangeButton(obj, storingName));
+
+                    }
+
+
+                });
+
+
+            }
+            else
+            {
+
+               
+                PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") - cashRequiredToUnlock);
+                StartCoroutine(CreateChangeButton(obj, storingName));
+
+            }
+
+
+
+
+           
 
         });
     }
@@ -87,8 +120,10 @@ public class RoomButton : MonoBehaviour
     {
        
         roomsController.SetSecondVirtualcameratarget(itemToUnlock.transform, cameraPositionNumber);
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("start_01");
         yield return new WaitForSeconds(3);
         PlayerPrefs.SetInt(storingName, 1);
+        ParticleManager.Instance.PlayAnimation("Unlocking Room", itemToUnlock.transform.position);
         itemToUnlock.SetActive(true);
 
 

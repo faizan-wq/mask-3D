@@ -7,7 +7,8 @@ public class ParticleManager : MonoBehaviour
 {
     public static ParticleManager Instance;
     [SerializeField] private List<ParticleProperties> particles;
-    
+    public SoundManager soundManager;
+
 
 
 

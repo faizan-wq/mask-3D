@@ -10,6 +10,16 @@ public class Item
     public GameObject prefab;
     public Color color;
     public Item_Type itemType;
+    public Item(Item obj)
+    {
+        this.sprite=obj.sprite;
+        this.prefab=obj.prefab;
+        this.color=obj.color;
+        this.itemType=obj.itemType;
+
+    }
+    
+
 
 }
 

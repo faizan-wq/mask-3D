@@ -26,6 +26,7 @@ public class ManagerIngredients : MonoBehaviour
     [Header("BigAcne Sprites")]
     public Sprite IconOneBigAcne;
     public Sprite IconTwoBigAcnes;
+    public int selectedLevel=-1;
     void Awake()
     {
 
@@ -42,13 +43,17 @@ public class ManagerIngredients : MonoBehaviour
 
     private void LevelChangeUponDay()
     {
+        if(selectedLevel!=-1)
+        {
+            PlayerPrefs.SetInt("Days", selectedLevel);
+        }
         int value = PlayerPrefs.GetInt("Days") %9;
 
         switch (value)
         {
             case 0:
                 CurrentEffecs =3;
-               
+                LevelSpawner.isCokeLevel = false;
                 break;
             case 1:
                 CurrentEffecs = 1;
@@ -58,21 +63,29 @@ public class ManagerIngredients : MonoBehaviour
                 break;
             case 3:
                 CurrentEffecs = 2;
+                LevelSpawner.isMilk = true;
                 break;
             case 4:
                 CurrentEffecs = 1;
+                LevelSpawner.isMilk = true;
                 break;
             case 5:
                 CurrentEffecs = 0;
+                LevelSpawner.isMilk = true;
                 break;
             case 6:
                 CurrentEffecs = 4;
+                LevelSpawner.isMilk = false;
+                LevelSpawner.isCokeLevel = true;
+
                 break;
             case 7:
                 CurrentEffecs = 1;
+                LevelSpawner.isCokeLevel = true;
                 break;
             case 8:
                 CurrentEffecs = 0;
+                LevelSpawner.isCokeLevel = true;
                 break;
             
             default:

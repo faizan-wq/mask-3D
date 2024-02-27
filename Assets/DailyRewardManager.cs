@@ -8,6 +8,7 @@ public class DailyRewardManager : MonoBehaviour
     public static DailyRewardManager Instance;
     public RectTransform DailyRewardParent;
     public int[] dailyRewardValues;
+    public GameObject target;
     private const string previousDate="PreviousDate";
     private const string todayDate = "todayDate";
     private const string Days = "DaysReward";
@@ -200,18 +201,21 @@ public class DailyRewardManager : MonoBehaviour
         
         if(PlayerPrefs.GetInt(timerStoredValue)!=0)
         {
+            
             buttonWithoutAd.SetActive(false);
+            buttonWithoutAd.GetComponent<Button>().interactable = true;
             exclamatoryMarkStatus(false);
         }
         else
         {
-            
+           
             exclamatoryMarkStatus(true);
 
         }
       
         if(PlayerPrefs.GetInt(timerDailyRewardAdButtonClicked)==0 && PlayerPrefs.GetInt(timerStoredValue) != 0)
         {
+           
             buttonWithAd.SetActive(true);
             
            
@@ -219,8 +223,8 @@ public class DailyRewardManager : MonoBehaviour
         else
         {
             buttonWithAd.SetActive(false);
-           
-         
+            buttonWithAd.GetComponent<Button>().interactable = true;
+
         }
 
         
@@ -283,8 +287,132 @@ public class DailyRewardManager : MonoBehaviour
 
 
     }
+
+    public void RewardWithoutAd()
+    {
+
+
+        buttonWithoutAd.GetComponent<Button>().interactable = false;
+
+
+
+        if (PlayerPrefs.GetInt(timerStoredValue) == 0)
+        {
+
+            PlayerPrefs.SetInt(timerStoredValue, timeRestartAfterSeconds);
+
+        }
+        else if (PlayerPrefs.GetInt(timerDailyRewardAdButtonClicked) == 0)
+        {
+            PlayerPrefs.SetInt(timerDailyRewardAdButtonClicked, 1);
+        }
+
+        GetdailyReward();
+
+
+        int Day = PlayerPrefs.GetInt(Days);
+        string value = PlayerPrefs.GetString("Days" + PlayerPrefs.GetInt(Days).ToString());
+
+        if (value == "")
+        {
+            dailyReward_Item_Properties[Day].notSelected.SetActive(true);
+            dailyReward_Item_Properties[Day].selected.SetActive(true);
+            PlayerPrefs.SetString("Days" + PlayerPrefs.GetInt(Days).ToString(), "selected");
+            PlayerPrefs.SetInt(Days, Day + 1);
+            FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+            int money = PlayerPrefs.GetInt("Cash");
+            money += Int32.Parse(dailyReward_Item_Properties[Day].text_Value.text.ToString());
+            cashTemp.MoveToTarget(target.transform, money, delegate {
+
+
+              
+             
+
+
+            });
+
+
+
+
+
+
+            //PlayerPrefs.SetInt("Cash", money);
+        }
+
+
+
+    }
+    public void RewardWithAd()
+    {
+        GD.Controller.Instance.RewardedVideo(result => {
+
+            if (result)
+            {
+                buttonWithAd.GetComponent<Button>().interactable = false;
+
+
+
+                if (PlayerPrefs.GetInt(timerStoredValue) == 0)
+                {
+
+                    PlayerPrefs.SetInt(timerStoredValue, timeRestartAfterSeconds);
+
+                }
+                else if (PlayerPrefs.GetInt(timerDailyRewardAdButtonClicked) == 0)
+                {
+                    PlayerPrefs.SetInt(timerDailyRewardAdButtonClicked, 1);
+                }
+
+                GetdailyReward();
+
+
+                int Day = PlayerPrefs.GetInt(Days);
+                string value = PlayerPrefs.GetString("Days" + PlayerPrefs.GetInt(Days).ToString());
+
+                if (value == "")
+                {
+                    dailyReward_Item_Properties[Day].notSelected.SetActive(true);
+                    dailyReward_Item_Properties[Day].selected.SetActive(true);
+                    PlayerPrefs.SetString("Days" + PlayerPrefs.GetInt(Days).ToString(), "selected");
+                    PlayerPrefs.SetInt(Days, Day + 1);
+
+
+                    FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+                    int money = PlayerPrefs.GetInt("Cash");
+                    money += Int32.Parse(dailyReward_Item_Properties[Day].text_Value.text.ToString());
+                    cashTemp.MoveToTarget(target.transform, money, delegate {
+
+                   
+
+
+                    });
+
+
+
+
+
+
+                    //PlayerPrefs.SetInt("Cash", money);
+                }
+
+
+            }
+
+
+        });
+
+
+
+
+
+    }
+
     public void RewardCollection()
     {
+
+
+
+
 
         if (PlayerPrefs.GetInt(timerStoredValue) == 0)
         {

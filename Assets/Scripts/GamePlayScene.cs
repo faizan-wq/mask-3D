@@ -15,6 +15,7 @@ public class GamePlayScene : MonoBehaviour
     {
         RotatorPoint.transform.Rotate(0, +0.3f,0);CashhUI.text = "" + PlayerPrefs.GetInt("Cash");
         CashUIFinish.text = "" + PlayerPrefs.GetInt("Cash");
+        CashUIRoom.text ="" + PlayerPrefs.GetInt("Cash"); ;
     }
     public void SetSceneFinish()
     {

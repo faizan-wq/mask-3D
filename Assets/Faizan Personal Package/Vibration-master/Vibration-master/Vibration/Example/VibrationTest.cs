@@ -1,12 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////
-//  
-// @author Benoît Freslon @benoitfreslon
-// https://github.com/BenoitFreslon/Vibration
-// https://benoitfreslon.com
-//
-////////////////////////////////////////////////////////////////////////////////
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,18 +24,7 @@ public class VibrationTest : MonoBehaviour
 
     }
 
-    public void TapVibrate ()
-    {
-        Vibration.Vibrate ();
-    }
-
-    public void TapVibrateCustom ()
-    {
-#if UNITY_ANDROID
-      //  Vibration.VibrateAndroid ( int.Parse ( inputTime.text ) );
-#endif
-    }
-
+  
     public void TapVibratePattern ()
     {
         string[] patterns = inputValue.Replace ( " ", "" ).Split ( ',' );
@@ -56,25 +37,6 @@ public class VibrationTest : MonoBehaviour
 #endif
     }
 
-    public void TapCancelVibrate ()
-    {
-#if UNITY_ANDROID
-        Vibration.CancelAndroid();
-#endif
-    }
 
-    public void TapPopVibrate ()
-    {
-        Vibration.VibratePop ();
-    }
-
-    public void TapPeekVibrate ()
-    {
-        Vibration.VibratePeek ();
-    }
-
-    public void TapNopeVibrate ()
-    {
-        Vibration.VibrateNope ();
-    }
+   
 }

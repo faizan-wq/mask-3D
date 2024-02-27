@@ -48363,6 +48363,7 @@ MonoBehaviour:
   IconTwoBlackAcnes: {fileID: 21300000, guid: cf0fc29ede11ab849974f63a6d2fc265, type: 3}
   IconOneBigAcne: {fileID: 21300000, guid: 0f563b74781c53c49a071d538b0e990b, type: 3}
   IconTwoBigAcnes: {fileID: 21300000, guid: 077c384d97381384eae0b9975dc63ca1, type: 3}
+  selectedLevel: -1
 --- !u!1 &939968879
 GameObject:
   m_ObjectHideFlags: 0
@@ -50971,6 +50972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DailyRewardParent: {fileID: 6011398406828232971}
   dailyRewardValues: 2b010000570200008f01000057020000250200005e01000090010000e803000090010000c2010000c2010000c2010000f4010000f4010000f40100002602000026020000580200005802000020030000
+  target: {fileID: 6333236008670809273}
   dailyReward_Item_Properties: []
   timerText: {fileID: 5901647791506397425}
   timeRestartAfterSeconds: 21600
@@ -128200,7 +128202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &5796914461224460931
 GameObject:
   m_ObjectHideFlags: 0

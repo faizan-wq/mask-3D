@@ -71,7 +71,7 @@ public class AdMob_GF : MonoBehaviour
 
     public static GameObject rewardedInterstitial;
     public static AdMob_GF Instance;
-    public static int oneMinuteTime=0;
+    public static float oneMinuteTime=0;
     //..................................
     public enum RequestFloorType
     {
@@ -508,10 +508,11 @@ public class AdMob_GF : MonoBehaviour
             return;
 
         IsRewardedInterstitial = IsRewarded;
-        AdsManager.isInterstialAdPresent = true;
+     
         if (interstitial != null && interstitial.IsLoaded())
         {
             isInterstialAdPresent = false;
+          
             // FloorType = RequestFloorType.AllPrice;
             debugmsg = " AllPrice Show ";
             interstitial.Show();
@@ -664,7 +665,7 @@ public class AdMob_GF : MonoBehaviour
         {
             rewardedAd.Show();
             isInterstialAdPresent = true;
-            AdsManager.isInterstialAdPresent = true;
+         
         }
         else
         {
@@ -709,8 +710,8 @@ public class AdMob_GF : MonoBehaviour
         if (rewardedAd.IsLoaded())
         {
             rewardedAd.Show();
-            isInterstialAdPresent = true;
-            AdsManager.isInterstialAdPresent = true;
+            isInterstialAdPresent = false;
+           
         }
         else
         {
@@ -861,7 +862,7 @@ public class AdMob_GF : MonoBehaviour
         //    GD.Controller.Instance.ActionVideo(true);
         //    IsRewardedInterstitial = false;
         //}
-
+        AdsManager.isInterstialAdPresent = false;
         RequestInterstitial();
     }
 
@@ -883,6 +884,7 @@ public class AdMob_GF : MonoBehaviour
     {
         MonoBehaviour.print(
         "HandleRewardedAdFailedToLoad event received with message: " + args.Message);
+      
     }
 
     public static void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -894,6 +896,7 @@ public class AdMob_GF : MonoBehaviour
     {
         MonoBehaviour.print(
         "HandleRewardedAdFailedToShow event received with message: " + args.Message);
+       
     }
 
     public static void HandleRewardedAdClosed(object sender, EventArgs args)
@@ -906,7 +909,7 @@ public class AdMob_GF : MonoBehaviour
         {
             CreateAndLoadRewardedAd();
         }
-
+       
         //MonoBehaviour.print("HandleRewardedAdClosed event received");
     }
 
@@ -974,7 +977,7 @@ public class AdMob_GF : MonoBehaviour
             return;
         }
 
-        if (isInterstialAdPresent || AdsManager.isInterstialAdPresent)
+        if (isInterstialAdPresent || AdsManager.isInterstialAdPresent || AdsManager.isRewardedShowing)
             return;
 
 
@@ -1015,9 +1018,10 @@ public class AdMob_GF : MonoBehaviour
                 allowBannerAdMobAppOpen = false;
                 allowBannerMaxAppOpen = false;
                 allowBigBannerAdAppOpen = false;
-
                
-              
+
+
+
 
 
                 AppOpenToggle();
@@ -1037,6 +1041,7 @@ public class AdMob_GF : MonoBehaviour
             allowBannerAdMobAppOpen = false;
             allowBannerMaxAppOpen = false;
             allowBigBannerAdAppOpen = false;
+          
             MobileAdsEventExecutor.ExecuteInUpdate(() =>
             {
                 // statusText.text = "AppOpenAd present failed, error: " + msg;
@@ -1054,7 +1059,7 @@ public class AdMob_GF : MonoBehaviour
             allowBannerAdMobAppOpen = false;
             allowBannerMaxAppOpen = false;
             allowBigBannerAdAppOpen = false;
-            
+           
             if (isBannerAdMob)
             {
                 HideBanner(true);
@@ -1120,7 +1125,7 @@ public class AdMob_GF : MonoBehaviour
             if (isInterstialAdPresent || AdsManager.isInterstialAdPresent)
             {
                 isInterstialAdPresent = false;
-                AdsManager.isInterstialAdPresent = false;
+               
                 return;
             }
             ShowAppOpenAd();
