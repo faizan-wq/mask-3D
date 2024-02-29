@@ -1207,7 +1207,7 @@ public class AdMob_GF : MonoBehaviour
         }
 
         string BigBannerIds = "";
-        BigBannerIds = "ca-app-pub-3940256099942544/6300978111";
+        BigBannerIds = "ca-app-pub-1042488596199134/5145422375";
 #if UNITY_IOS
         BigBannerIds = "ca-app-pub-9339267581233229/4752115296";
 #endif
