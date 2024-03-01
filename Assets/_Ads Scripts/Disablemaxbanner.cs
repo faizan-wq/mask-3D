@@ -4,60 +4,58 @@ using UnityEngine;
 
 public class Disablemaxbanner : MonoBehaviour
 {
-   [SerializeField]List<GameObject> panels;
+    [SerializeField] List<GameObject> panels;
     [SerializeField] List<GameObject> AvoidPanels;
-   
+ 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
     void Update()
     {
 
 
-        if(otherpanelsAreOff())
+        if (otherpanelsAreOff())
         {
 
-            if(AdMob_GF.isBannerAdMob)
+            if (AdMob_GF.isBannerMax || AdMob_GF.isBannerAdMob)
             {
-                AdMob_GF.HideBanner();
+
+                AdMob_GF.CommonHideBanner();
+
+
             }
 
 
-            //if (AdMob_GF.isBannerMax)
-            //{
-
-            //    AdsManager.Instance.HideBanner();
-            //    AdMob_GF.HideBanner();
-            //}
-           
-            
         }
         else
         {
 
-
-            if(!AdMob_GF.isBannerAdMob)
+            if (!AdMob_GF.isBannerMax || !AdMob_GF.isBannerAdMob)
             {
-                AdMob_GF.ShowBanner();
+
+                AdMob_GF.CommonBannerShow();
+
+
             }
 
-            //if (!AdMob_GF.isBannerMax)
-            //{
 
-            //    //AdsManager.Instance.ShowBanner();
-            //    AdMob_GF.ShowBanner();
-            //}
-           
+
         }
-        
 
-     
+
+
     }
 
     private bool otherpanelsAreOff()
     {
 
-        //if (LoadingAdScreen.isShowing)
-        //    return true;
-
-
+        if (LoadingAdScreen.isShowing)
+            return true;
+    
         foreach (var item in AvoidPanels)
         {
             if (item.activeInHierarchy)

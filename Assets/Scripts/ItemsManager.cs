@@ -117,7 +117,8 @@ public class ItemsManager : MonoBehaviour
                     
                     if(result)
                         {
-                            btn.interactable = true;
+                            //btn.interactable = true;
+                            btn.onClick?.Invoke();
                             adButton.gameObject.SetActive(false);
                         }
                     else
@@ -187,7 +188,8 @@ public class ItemsManager : MonoBehaviour
 
                         if(result)
                         {
-                            btn.interactable = true;
+                            //btn.interactable = true;
+                            btn.onClick?.Invoke();
                             adButton.gameObject.SetActive(false);
                         }
                     
@@ -302,6 +304,11 @@ public class ItemsManager : MonoBehaviour
                     MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
                 }
               
+                if(item.prefab.name== "WineBottle")
+                {
+                    soundManager.PlayQuickSoundClip("ChampagneOpen");
+                }
+
 
                
                 btn.GetComponentInParent<ScrollRect>().gameObject.SetActive(false);
@@ -323,7 +330,8 @@ public class ItemsManager : MonoBehaviour
 
                         if (result)
                         {
-                            btn.interactable = true;
+                            //btn.interactable = true;
+                            btn.onClick?.Invoke();
                             adButton.gameObject.SetActive(false);
                         }
 

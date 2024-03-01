@@ -297,7 +297,7 @@ public class TreeGrowUp : MonoBehaviour
                 
                 cashTemp.MoveToTarget(diamondTarget, 20);
 
-
+                ParticleManager.Instance.soundManager.PlayVibration("0,100,5,100");
                 FillingBar.GetComponent<Image>().fillAmount += 0.1428571428571429f;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Appel>().IsAppel = true;
@@ -335,8 +335,16 @@ public class TreeGrowUp : MonoBehaviour
 
                 yield return new WaitForSeconds(1.8f);
                 BoxColliderHidden.SetActive(false);
+                foreach (GameObject appel in selectedApples)
+                {
+                    appel.GetComponent<Appel>().enabled = false;
+                    appel.transform.SetParent(null);
+
+                }
                 BasketBox.GetComponent<Animator>().Play("Controller");
-                yield return new WaitForSeconds(6f);
+                yield return new WaitForSeconds(5f);
+                BasketBox.SetActive(false);
+                yield return new WaitForSeconds(1f);
                 PlasticBox.Play("CloseBox");
                 SearchSource.Play();
                 yield return new WaitForSeconds(4f);

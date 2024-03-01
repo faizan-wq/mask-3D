@@ -25,7 +25,7 @@ public class AdsManager : MonoBehaviour
     private int rewardedRetryAttempt;
     public MaxSdkBase.BannerPosition maxBannerPosition;
     public static AdsManager Instance;
-    public static bool isRewardedShowing;
+    public static bool isMaxBannerInitialized = false;
 
     private void Awake()
     {
@@ -40,14 +40,16 @@ public class AdsManager : MonoBehaviour
         {
             // AppLovin SDK is initialized, configure and start loading ads.
             Debug.Log("MAX SDK Initialized");
-            if(!GD.Controller.stopAds)
+            if (!GD.Controller.stopAds)
                 GD.Controller.allowFirebaseAds = true;
             InitializeInterstitialAds();
             InitializeRewardedAds();
             InitializeBannerAds();
             //InitializeAppOpen();
             // InitializeMRecAds();
-           
+
+
+
             //GadsmeSDK.Init();
         };
 
@@ -56,9 +58,8 @@ public class AdsManager : MonoBehaviour
             MaxSdk.SetSdkKey(MaxSdkKey);
             MaxSdk.InitializeSdk();
         }
-       
-    }
 
+    }
 
     #region Interstitial Ad Methods
 
@@ -77,7 +78,6 @@ public class AdsManager : MonoBehaviour
         MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         // Load the first interstitial
         LoadInterstitial();
-       
     }
 
     public void LoadInterstitial()
@@ -96,30 +96,27 @@ public class AdsManager : MonoBehaviour
 
         Debug.Log("Interstetial Ads are playing");
         isRewardedIntestitial = _isRewardedIntestitial;
-      
+
         if (MaxSdk.IsInterstitialReady(InterstitialAdUnitId) /*&& GlobalConstant.IsInterstitialMaxAd*/)
         {
-            
-            MaxSdk.ShowInterstitial(InterstitialAdUnitId);
             isInterstialAdPresent = true;
-
-
+            MaxSdk.ShowInterstitial(InterstitialAdUnitId);
             AnalyticsManagerProgression.instance.InterstitialEvent("Max Interstetial Ad Called");
-            return; 
+            return;
         }
-        else if(AdMob_GF.IsInterstitialReady(AdMob_GF.RequestFloorType.AllPrice) /*&& GlobalConstant.IsInterstitialAdmobAd*/ )
+        else if (AdMob_GF.IsInterstitialReady(AdMob_GF.RequestFloorType.AllPrice) /*&& GlobalConstant.IsInterstitialAdmobAd*/ )
         {
 
-            isInterstialAdPresent = true;
+
             AdMob_GF.ShowInterstitial();
             AnalyticsManagerProgression.instance.InterstitialEvent("Admob Interstetial Ad Called");
-           
-            
+            isInterstialAdPresent = true;
 
-           
+
+
         }
 
-        if(!GlobalConstant.IsInterstitialMaxAd)
+        if (!GlobalConstant.IsInterstitialMaxAd)
         {
             return;
         }
@@ -131,7 +128,6 @@ public class AdsManager : MonoBehaviour
         // Interstitial ad is ready to be shown. MaxSdk.IsInterstitialReady(interstitialAdUnitId) will now return 'true'
         // interstitialStatusText.text = "Loaded";
         Debug.Log("Interstitial loaded");
-       
 
         // Reset retry attempt
         interstitialRetryAttempt = 0;
@@ -171,7 +167,7 @@ public class AdsManager : MonoBehaviour
         {
             Controller.Instance.ActionVideo(true);
         }
-        isInterstialAdPresent = false;
+
         LoadInterstitial();
     }
 
@@ -214,24 +210,21 @@ public class AdsManager : MonoBehaviour
         if (!GlobalConstant.IsRewardedAd)
             return;
 
-         
+
         Debug.Log("Rewarded Ad is Showing");
         AnalyticsManagerProgression.instance.VideoEvent("Rewarded ad");
-
         if (MaxSdk.IsRewardedAdReady(RewardedAdUnitId))
         {
-            isInterstialAdPresent = false;
-            isRewardedShowing = true;
+            isInterstialAdPresent = true;
+
             MaxSdk.ShowRewardedAd(RewardedAdUnitId, PlayerPrefs.GetString("RewardedAdPlacement", "default"));
         }
         else
         {
-            isInterstialAdPresent = false;
-            isRewardedShowing = true;
             //AdMob_GF.AdmobRewardedShow();
             AdMob_GF.ShowRewardedAdmob();
         }
-       
+
     }
 
     private void OnRewardedAdLoadedEvent(string adUnitId)
@@ -253,7 +246,6 @@ public class AdsManager : MonoBehaviour
         double retryDelay = Math.Pow(2, rewardedRetryAttempt);
         IsRewardedLoaded = false;
         Invoke("LoadRewardedAd", (float)retryDelay);
-        AdsManager.isInterstialAdPresent = true;
 
     }
 
@@ -279,8 +271,6 @@ public class AdsManager : MonoBehaviour
         // Rewarded ad is hidden. Pre-load the next ad
         Debug.Log("Rewarded ad dismissed");
         LoadRewardedAd();
-        AdsManager.isInterstialAdPresent = true;
-        isRewardedShowing = false;
     }
 
     private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward)
@@ -308,11 +298,11 @@ public class AdsManager : MonoBehaviour
         {
             MaxSdk.ShowAppOpenAd(AppOpenAdUnitId);
         }
-        //else
-        //{
-        //    //  MaxSdk.LoadAppOpenAd(AppOpenAdUnitId);
-        //    AdMob_GF.ShowRewardedAdmob();
-        //}
+        else
+        {
+            //  MaxSdk.LoadAppOpenAd(AppOpenAdUnitId);
+            AdMob_GF.ShowRewardedAdmob();
+        }
     }
 
     public void ShowAdIfReady()
@@ -334,7 +324,7 @@ public class AdsManager : MonoBehaviour
         MaxSdk.LoadAppOpenAd(AppOpenAdUnitId);
     }
 
- 
+
 
     public void OnApplicationPause(bool paused)
     {
@@ -347,7 +337,7 @@ public class AdsManager : MonoBehaviour
         //        return;
         //    }
         //     //ShowAdIfReady();
-            
+
         //}
     }
 
@@ -357,30 +347,22 @@ public class AdsManager : MonoBehaviour
 
     private void InitializeBannerAds()
     {
+
+
+
         MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnBannerAdLoadedEvent;
         MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         MaxSdk.CreateBanner(BannerAdUnitId, maxBannerPosition);
 
         // Set background or background color for banners to be fully functional.
+        MaxSdk.SetBannerExtraParameter(BannerAdUnitId, "adaptive_banner", "true");
         MaxSdk.SetBannerBackgroundColor(BannerAdUnitId, Color.black);
+
+        isMaxBannerInitialized = true;
+
     }
 
-    public void ToggleBannerVisibility()
-    {
-        //if (!isBannerShowing)
-        //{
-        //    MaxSdk.ShowBanner(BannerAdUnitId);
-        //    // showBannerButton.GetComponentInChildren<Text>().text = "Hide Banner";
-        //}
-        //else
-        //{
-        //    MaxSdk.HideBanner(BannerAdUnitId);
-        //    // showBannerButton.GetComponentInChildren<Text>().text = "Show Banner";
-        //}
-
-        //isBannerShowing = !isBannerShowing;
-    }
 
     public void ShowBanner()
     {
@@ -390,12 +372,12 @@ public class AdsManager : MonoBehaviour
         if (!GlobalConstant.IsMaxBannerAd)
             return;
 
-                
+
         AdMob_GF.isBannerMax = true;
-        
+
         MaxSdk.ShowBanner(BannerAdUnitId);
-        
-        BlackBarBeforebanner.ShowBlackBar();
+
+
         Debug.Log("ShowMaxBanner");
     }
 
@@ -407,17 +389,17 @@ public class AdsManager : MonoBehaviour
         return _isBannerReady;
     }
 
-    public void HideBanner(bool callback=false)
+    public void HideBanner(bool callback = false)
     {
         MaxSdk.HideBanner(BannerAdUnitId);
         Debug.Log("HideMaxBanner");
         AdMob_GF.isBannerMax = false;
 
-      
-        BlackBarBeforebanner.HideBlackBar();
 
 
-        if(callback)
+
+
+        if (callback)
         {
             AdMob_GF.allowBannerMaxAppOpen = true;
         }
@@ -425,17 +407,24 @@ public class AdsManager : MonoBehaviour
 
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        
+
         Debug.Log("Max banner is loaded");
-      
+
     }
 
     private void OnBannerAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
-        AdsManager.Instance.HideBanner();
+        isMaxBannerInitialized = false;
+        if (!isMaxBannerInitialized)
+        {
+            InitializeBannerAds();
+            isMaxBannerInitialized = true;
+        }
+
+
         Debug.Log("Max banner is failed");
-     
-       
+
+
     }
 
     #endregion

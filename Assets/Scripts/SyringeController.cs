@@ -130,12 +130,15 @@ public class SyringeController : MonoBehaviour
         if(check)
         {
             Tutorial.SetActive(false);
+           
             SetAnimatorParameter(speedSyringe,0.25f);
+            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("BubbleSound", true);
         }
         else
         {
             Tutorial.SetActive(true);
             SetAnimatorParameter(speedSyringe, 0f);
+            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("BubbleSound", false);
         }
         MaskMakingLevel.Instance.progressBarParent.gameObject.SetActive(false);
         if (Syringe.GetComponent<Syringe>().SyringPullCheck)
@@ -168,6 +171,7 @@ public class SyringeController : MonoBehaviour
     private void EnableSyringeLiquidParticles(bool check)
     {
         syringeParticles.gameObject.SetActive(check);
+        ParticleManager.Instance.soundManager.PlayCompleteSoundClip("BubbleSound", false);
         if (check)
         {
            

@@ -30,12 +30,6 @@ public class GameManager : MonoBehaviour
 
         FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
         cashTemp.MoveToTarget(diamondTarget, 150, null);
-        //StartCoroutine(ApplyFunctionAfterWait(delegate
-        //{
-          
-           
-
-        //}, 0));
         Invoke(nameof(GameComplete), 2);
 
     }
@@ -60,8 +54,9 @@ public class GameManager : MonoBehaviour
 
             if (result)
             {
-
+                
                 btn.interactable = false;
+                cashTemp.MoveToTarget(diamondTarget, 300, null);
                 Invoke(nameof(GameComplete), 2);
             }
            

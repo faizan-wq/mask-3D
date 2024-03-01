@@ -11,7 +11,7 @@ using com.adjust.sdk;
 // Example script showing how to invoke the Google Mobile Ads Unity plugin.
 public class AdMob_GF : MonoBehaviour
 {
-    private static BannerView bannerView, bigBannerView;
+    public static BannerView bannerView, bigBannerView;
     public static BannerView bigBannerViewFreeGold;
     private static BannerView bannerViewAdaptive;
     public static InterstitialAd interstitial;
@@ -71,8 +71,10 @@ public class AdMob_GF : MonoBehaviour
 
     public static GameObject rewardedInterstitial;
     public static AdMob_GF Instance;
-    public static float oneMinuteTime=0;
-    //..................................
+    public static float oneMinuteTime = 0;
+    public static bool AdmobBannerInitialized = false;
+
+
     public enum RequestFloorType
     {
         Mediation,
@@ -97,9 +99,6 @@ public class AdMob_GF : MonoBehaviour
     void Start()
     {
         // MobileAds.SetiOSAppPauseOnBackground(true);
-        
-        
-        
         MobileAds.Initialize(HandleInitCompleteAction);
 
         // Initialize the Google Mobile Ads SDK.
@@ -262,7 +261,9 @@ public class AdMob_GF : MonoBehaviour
         {
             if (!GD.Controller.stopAds)
                 GD.Controller.allowFirebaseAds = true;
+
             RequestBanner();
+
             RequestBigBanner();
 
             RequestInterstitial();
@@ -317,7 +318,11 @@ public class AdMob_GF : MonoBehaviour
         {
             tempAdPosition = adPosition;
         }
+        if(bannerView!=null)
+            bannerView.Destroy();
 
+
+        bannerView = null;
         // Create a 320x50 banner at the top of the screen.
         if (bannerView == null)
         {
@@ -335,7 +340,9 @@ public class AdMob_GF : MonoBehaviour
         //adRequest.Extras.Add("collapsible", "bottom");
         // Load a banner ad.
         bannerView.LoadAd(adRequest);
-        HideBanner();
+
+        AdmobBannerInitialized = true;
+        CommonHideBanner();
     }
 
     public static void RequestBannerAdaptive()
@@ -482,17 +489,63 @@ public class AdMob_GF : MonoBehaviour
 
 
     public static bool IsInterstitialReady(RequestFloorType type)
+    //public static bool IsInterstitialReady()
     {
-        
-        if (interstitial != null && interstitial.IsLoaded())
+        switch (type)
         {
-            debugmsg = "Mediation AllPrice Loaded ";
-            return true;
+            //case RequestFloorType.Mediation:
+            //    if (interstitialMediation.IsLoaded())
+            //    {
+            //        debugmsg = "Mediation Add Loaded ";
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        RequestInterstitialMediation();
+
+            //    }
+            //    break;
+
+            //case RequestFloorType.High:
+            //    if (interstitialHighFloor.IsLoaded())
+            //    {
+            //        debugmsg = "Mediation High Loaded ";
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        RequestInterstitialHighFloor();
+
+            //    }
+            //    break;
+
+            //case RequestFloorType.Meduim:
+            //    if (interstitialMediumfloor.IsLoaded())
+            //    {
+            //        debugmsg = "Mediation medium Loaded ";
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        RequestInterstitialMediumFloor();
+
+            //    }
+            //    break;
+
+            case RequestFloorType.AllPrice:
+                if (interstitial != null && interstitial.IsLoaded())
+                {
+                    debugmsg = "Mediation AllPrice Loaded ";
+                    return true;
+                }
+                else
+                {
+                    RequestInterstitial();
+                }
+
+                break;
         }
-        else
-        {
-            RequestInterstitial();
-        }
+
         return false;
     }
 
@@ -508,11 +561,10 @@ public class AdMob_GF : MonoBehaviour
             return;
 
         IsRewardedInterstitial = IsRewarded;
-     
+        AdsManager.isInterstialAdPresent = true;
         if (interstitial != null && interstitial.IsLoaded())
         {
             isInterstialAdPresent = false;
-          
             // FloorType = RequestFloorType.AllPrice;
             debugmsg = " AllPrice Show ";
             interstitial.Show();
@@ -531,9 +583,9 @@ public class AdMob_GF : MonoBehaviour
         if (bannerView != null)
         {
             bannerView.Hide();
-            
+            //Debug.Log("HideBanner");
         }
-        Debug.Log("Hide Banner");
+
 
         isBannerAdMob = false;
 
@@ -565,11 +617,43 @@ public class AdMob_GF : MonoBehaviour
         {
             isBannerAdMob = true;
             bannerView.Show();
-            
-            Debug.Log("Show Banner");
+            Debug.Log("ShowBanner");
         }
 
     }
+    public static void CommonBannerShow()
+    {
+        if (!GD.Controller.allowFirebaseAds)
+            return;
+
+        if (AdsManager.isMaxBannerInitialized)
+        {
+            AdsManager.Instance.ShowBanner();
+        }
+        else if (bannerView != null && AdmobBannerInitialized)
+        {
+            AdMob_GF.ShowBanner();
+        }
+        BlackBarBeforebanner.ShowBlackBar();
+
+    }
+    public static void CommonHideBanner()
+    {
+        if (!GD.Controller.allowFirebaseAds)
+            return;
+
+        if (AdsManager.isMaxBannerInitialized)
+        {
+            AdsManager.Instance.HideBanner();
+        }
+        else if (bannerView != null && AdmobBannerInitialized)
+        {
+            AdMob_GF.HideBanner();
+        }
+        BlackBarBeforebanner.HideBlackBar();
+    }
+
+
     public static void ShowRectbanner()
     {
         if (!GD.Controller.allowFirebaseAds)
@@ -665,7 +749,7 @@ public class AdMob_GF : MonoBehaviour
         {
             rewardedAd.Show();
             isInterstialAdPresent = true;
-         
+            AdsManager.isInterstialAdPresent = true;
         }
         else
         {
@@ -710,8 +794,8 @@ public class AdMob_GF : MonoBehaviour
         if (rewardedAd.IsLoaded())
         {
             rewardedAd.Show();
-            isInterstialAdPresent = false;
-           
+            isInterstialAdPresent = true;
+            AdsManager.isInterstialAdPresent = true;
         }
         else
         {
@@ -806,7 +890,18 @@ public class AdMob_GF : MonoBehaviour
 
     static void HandleAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
+        AdmobBannerInitialized = false;
+        if (!AdmobBannerInitialized)
+        {
+            RequestBanner();
+            CommonHideBanner();
+            AdmobBannerInitialized = true;
+        }
+
         //  print("HandleFailedToReceiveAd event received with message");
+
+
+
     }
 
     static void HandleAdOpened(object sender, EventArgs args)
@@ -841,7 +936,7 @@ public class AdMob_GF : MonoBehaviour
 
     static void HandleInterstitialFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-      
+        debugmsg = "HandleInterstitialFailedToLoad event received with message";
         print("HandleInterstitialFailedToLoad event received with message");
     }
 
@@ -857,12 +952,12 @@ public class AdMob_GF : MonoBehaviour
 
     static void HandleInterstitialClosed(object sender, EventArgs args)
     {
-        //if (IsRewardedInterstitial)
-        //{
-        //    GD.Controller.Instance.ActionVideo(true);
-        //    IsRewardedInterstitial = false;
-        //}
-        AdsManager.isInterstialAdPresent = false;
+        if (IsRewardedInterstitial)
+        {
+            GD.Controller.Instance.ActionVideo(true);
+            IsRewardedInterstitial = false;
+        }
+
         RequestInterstitial();
     }
 
@@ -884,7 +979,6 @@ public class AdMob_GF : MonoBehaviour
     {
         MonoBehaviour.print(
         "HandleRewardedAdFailedToLoad event received with message: " + args.Message);
-      
     }
 
     public static void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -896,7 +990,6 @@ public class AdMob_GF : MonoBehaviour
     {
         MonoBehaviour.print(
         "HandleRewardedAdFailedToShow event received with message: " + args.Message);
-       
     }
 
     public static void HandleRewardedAdClosed(object sender, EventArgs args)
@@ -909,7 +1002,7 @@ public class AdMob_GF : MonoBehaviour
         {
             CreateAndLoadRewardedAd();
         }
-       
+
         //MonoBehaviour.print("HandleRewardedAdClosed event received");
     }
 
@@ -977,7 +1070,7 @@ public class AdMob_GF : MonoBehaviour
             return;
         }
 
-        if (isInterstialAdPresent || AdsManager.isInterstialAdPresent || AdsManager.isRewardedShowing)
+        if (isInterstialAdPresent || AdsManager.isInterstialAdPresent)
             return;
 
 
@@ -1012,13 +1105,11 @@ public class AdMob_GF : MonoBehaviour
                 if (allowBigBannerAdAppOpen)
                 {
 
-                    ShowRectbanner();
-
+                    CommonBannerShow();
                 }
                 allowBannerAdMobAppOpen = false;
                 allowBannerMaxAppOpen = false;
                 allowBigBannerAdAppOpen = false;
-               
 
 
 
@@ -1041,7 +1132,6 @@ public class AdMob_GF : MonoBehaviour
             allowBannerAdMobAppOpen = false;
             allowBannerMaxAppOpen = false;
             allowBigBannerAdAppOpen = false;
-          
             MobileAdsEventExecutor.ExecuteInUpdate(() =>
             {
                 // statusText.text = "AppOpenAd present failed, error: " + msg;
@@ -1059,21 +1149,24 @@ public class AdMob_GF : MonoBehaviour
             allowBannerAdMobAppOpen = false;
             allowBannerMaxAppOpen = false;
             allowBigBannerAdAppOpen = false;
-           
-            if (isBannerAdMob)
-            {
-                HideBanner(true);
-            }
-            //if (isBannerMax)
+
+            //if(isBannerAdMob)
+            //{
+            //    AdMob_GF.HideBanner(true);
+            //}
+            //if(isBannerMax)
             //{
             //    AdsManager.Instance.HideBanner(true);
 
             //}
+
+            CommonHideBanner();
+
             if (isBigBanner)
             {
                 HideBigBanner(true);
             }
-            BlackBarBeforebanner.HideBlackBar();
+            //BlackBarBeforebanner.HideBlackBar();
             MobileAdsEventExecutor.ExecuteInUpdate(() => { Debug.Log("AppOpenAd presented."); });
         };
         this.ad.OnAdDidRecordImpression += (sender, args) =>
@@ -1125,7 +1218,7 @@ public class AdMob_GF : MonoBehaviour
             if (isInterstialAdPresent || AdsManager.isInterstialAdPresent)
             {
                 isInterstialAdPresent = false;
-               
+                AdsManager.isInterstialAdPresent = false;
                 return;
             }
             ShowAppOpenAd();
@@ -1191,6 +1284,9 @@ public class AdMob_GF : MonoBehaviour
 
     #region Big Banner
 
+    public const bool TestIds = false;
+
+
     public static void RequestBigBanner()
     {
 
@@ -1207,14 +1303,15 @@ public class AdMob_GF : MonoBehaviour
         }
 
         string BigBannerIds = "";
+#if UNITY_ANDROID
         BigBannerIds = "ca-app-pub-1042488596199134/5145422375";
-#if UNITY_IOS
+#elif UNITY_IOS
         BigBannerIds = "ca-app-pub-9339267581233229/4752115296";
 #endif
-        //if (TestIds)
-        //{
-        //BigBannerIds = "ca-app-pub-3940256099942544/6300978111";
-        //}
+        if (TestIds)
+        {
+            BigBannerIds = "ca-app-pub-3940256099942544/6300978111";
+        }
 
         // Register for ad events.
         //    adSize1 = ;
@@ -1302,7 +1399,7 @@ public class AdMob_GF : MonoBehaviour
 
 
     #region Big Banner Free Gold
-    public const bool TestIds = true;
+  
     public static void RequestBigBannerFreeGold()
     {
 

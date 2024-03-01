@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MaskApplyingController : MonoBehaviour
 {
@@ -13,9 +14,12 @@ public class MaskApplyingController : MonoBehaviour
 
     [SerializeField] private GameObject maskOnFace;
     public GameObject Tutorial;
+    public GameObject PoisonParticle;
+    public GameObject poisonface;
+    public GameObject vomitParticle;
     private bool maskReachedPositionOnce = false;
     private bool processComplete;
-
+    private Transform Characterparent;
 
 
     private bool maskApplyingOnce;
@@ -25,6 +29,7 @@ public class MaskApplyingController : MonoBehaviour
         {
             UpdateMaskRenderer();
             mask.gameObject.SetActive(true);
+            EnablePoisonParticle();
             Tutorial.SetActive(true);
             MaskMakingLevel.Instance.changeCameraPositionTest.ChangeTrack(3);
             maskApplyingOnce = true;
@@ -39,6 +44,28 @@ public class MaskApplyingController : MonoBehaviour
         ApplyingMaskComplete();
     }
 
+
+    private void EnablePoisonParticle()
+    {
+        if (MaskMakingLevel.Instance.bottleController.selectedBottle.prefab.name == "Chemical X")
+        {
+            PoisonParticle.SetActive(true);
+           
+            PoisonParticle.GetComponent<PlayParticleAAfterWait>().deathEffectStart = true;
+        }
+    }
+    private void Enablefacemask()
+    {
+        if (MaskMakingLevel.Instance.bottleController.selectedBottle.prefab.name == "Chemical X")
+        {
+            poisonface.SetActive(true);
+
+            poisonface.GetComponent<PlayParticleAAfterWait>().deathEffectStart = true;
+
+            Characterparent = Character.transform.parent;
+
+        }
+    }
 
 
 
@@ -71,6 +98,7 @@ public class MaskApplyingController : MonoBehaviour
         {
            
             mask.SetFloat("Speed", 1);
+
             Tutorial.SetActive(false);
 
         }
@@ -83,8 +111,17 @@ public class MaskApplyingController : MonoBehaviour
         if (!maskReachedPositionOnce)
         {
             MaskToTarget.SetActive(false);
+            Enablefacemask();
+
             maskOnFace.SetActive(true);
 
+            if (ItemsManager.Instance.selectedItem.itemType != Item_Type.Good || MaskMakingLevel.Instance.bottleController.selectedBottle.itemType != Item_Type.Good)
+            {
+                
+                maskOnFace.GetComponent<Animator>().SetFloat("Speed", 0f);
+
+            }
+           
             maskReachedPositionOnce = true;
         }
     }
@@ -102,8 +139,21 @@ public class MaskApplyingController : MonoBehaviour
 
         if(!processComplete)
         {
-            StartCoroutine(TakingOfSuccess());
-           
+
+            if (ItemsManager.Instance.selectedItem.itemType == Item_Type.Good && MaskMakingLevel.Instance.bottleController.selectedBottle.itemType == Item_Type.Good)
+            {
+                StartCoroutine(TakingOfSuccess());
+
+            }
+            else if (MaskMakingLevel.Instance.bottleController.selectedBottle.prefab.name == "Chemical X")
+            {
+                StartCoroutine(FailureVomit());
+
+            }
+            else
+            {
+                StartCoroutine(FailureSad());
+            }
             processComplete = true;
         }
 
@@ -128,16 +178,83 @@ public class MaskApplyingController : MonoBehaviour
       
         yield return new WaitForSeconds(0.3f);
         Character.Play("Happy01");
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("Girl happy");
         //WinSource.Play();
         yield return new WaitForSeconds(2f);
         MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
         FinishUIPanel.SetActive(true);
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("camera Sound");
         yield return new WaitForSeconds(2f);
         GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();
         Controller.SkipBtn.SetActive(true);
     }
 
 
+
+
+
+    IEnumerator FailureVomit()
+    {
+        MaskMakingLevel.Instance.EnableTaskPoint(6, 1);
+        Transform maskParent = maskOnFace.transform.parent;
+        for (int i = 0; i < maskParent.childCount; i++)
+        {
+            if (maskParent.GetChild(i).gameObject != maskOnFace)
+            {
+                maskParent.GetChild(i).gameObject.SetActive(false);
+            }
+
+        }
+
+
+
+        
+        yield return new WaitForSeconds(0.3f);
+        Character.Play("FemaleStanding01");
+        vomitParticle.SetActive(true);
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("Vomit Sound Effect");
+        Characterparent.DOLocalRotate(Vector3.up * 360, 1f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear);
+
+
+        //WinSource.Play();
+        yield return new WaitForSeconds(2f);
+        MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
+        FinishUIPanel.SetActive(true);
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("camera Sound");
+        yield return new WaitForSeconds(2f);
+        GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();
+        Controller.SkipBtn.SetActive(true);
+    }
+
+    IEnumerator FailureSad()
+    {
+        MaskMakingLevel.Instance.EnableTaskPoint(6, 1);
+        Transform maskParent = maskOnFace.transform.parent;
+        for (int i = 0; i < maskParent.childCount; i++)
+        {
+            if (maskParent.GetChild(i).gameObject != maskOnFace)
+            {
+                maskParent.GetChild(i).gameObject.SetActive(false);
+            }
+
+        }
+
+
+
+
+        yield return new WaitForSeconds(0.3f);
+        Character.Play("Sad01");
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("Cry Sound");
+
+        //WinSource.Play();
+        yield return new WaitForSeconds(2f);
+        MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
+        FinishUIPanel.SetActive(true);
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("camera Sound");
+        yield return new WaitForSeconds(2f);
+        GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();
+        Controller.SkipBtn.SetActive(true);
+    }
 
 
 

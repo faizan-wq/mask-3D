@@ -27,6 +27,9 @@ public class BottleController : MonoBehaviour
     private float waterRise= -1.4f;
    
     public bool pouringInBowlIsComplete;
+    public GameObject poisonParticle;
+    
+
     private bool ResetBottlePosition;
     
     
@@ -101,6 +104,14 @@ public class BottleController : MonoBehaviour
         Debug.Log("bottle Selected:" + bottleSelected);
 
         selectedBottle = bottles[bottleSelected];
+        if(selectedBottle.prefab.name== "WineBottle")
+        {
+            ParticleManager.Instance.soundManager.PlayQuickSoundClip("ChampagneOpen");
+        }
+       
+
+
+
         selectedRotation = eachBottleRotationLimit[bottleSelected];
         maskMakingLevel.bowlController.ChangeColorOfwater(selectedBottle.color);
         bottles[bottleSelected].prefab.SetActive(true);
@@ -147,6 +158,7 @@ public class BottleController : MonoBehaviour
     }
 
     float barProgressValue;
+
     private void WaterRising()
     {
         waterRise = Mathf.Clamp(waterRise + Time.deltaTime, -2.13f, 3.21f);
@@ -154,6 +166,23 @@ public class BottleController : MonoBehaviour
         Vector3 pos = WaterShader.localPosition;
         pos.y = waterRise;
         WaterShader.localPosition = pos;
+        if(waterRise>=1f)
+        {
+
+            Debug.Log("Poison is Called");
+
+            if (selectedBottle.prefab.name == "Chemical X")
+            {
+
+                //if (!poisonParticle.activeSelf)
+                {
+
+                    poisonParticle.SetActive(true);
+                    poisonParticle.GetComponent<PlayParticleAAfterWait>().deathEffectStart = true;
+                }
+            }
+        }
+       
         maskMakingLevel.EnableTaskPoint(2, barProgressValue);
         if (waterRise>= 3.21f)
         {
@@ -174,6 +203,7 @@ public class BottleController : MonoBehaviour
            selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = true;
             selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
             maskMakingLevel.soundManager.PlayCompleteSoundClip("water pouring", true);
+
             WaterRising();
            
         }

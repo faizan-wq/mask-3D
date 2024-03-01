@@ -11,6 +11,7 @@ public class MaskMakingController : MonoBehaviour
     [SerializeField] private Animator takingMaskOff;
     public GameObject Tutorial1;
     public GameObject Tutorial2;
+    public GameObject PoisonParticle;
     private bool masktakingStarted;
    
     private bool shakingOfMachineStarted;
@@ -30,13 +31,14 @@ public class MaskMakingController : MonoBehaviour
         {
             ChangeColorOfMask();
             PerformAnimationMaskmaking("Shake");
-           
+            ParticleManager.Instance.soundManager.PlayVibration("0,100,5,100");
             shakingOfMachineStarted = true;
         }
         if(!pressingOfMachineStarted && maskMakingMachine.GetComponent<MaskMakingMachine>().machineShakingComplete && Input.GetMouseButton(0))
         {
             Tutorial1.SetActive(false);
             PerformAnimationMaskmaking("Pressed");
+            Invoke(nameof(EnablePoisonParticle), 0.5f);
             pressingOfMachineStarted = true;
         }
         if(maskMakingMachine.GetComponent<MaskMakingMachine>().machineButtonPressComplete)
@@ -48,7 +50,15 @@ public class MaskMakingController : MonoBehaviour
 
     }
 
-
+    private void EnablePoisonParticle()
+    {
+        if(MaskMakingLevel.Instance.bottleController.selectedBottle.prefab.name== "Chemical X")
+        {
+            PoisonParticle.SetActive(true);
+            PoisonParticle.transform.SetParent(takingMaskOff.transform);
+            PoisonParticle.GetComponent<PlayParticleAAfterWait>().deathEffectStart = true;
+        }
+    }
     private void ChangeColorOfMask()
     {
         foreach (var item in mask.GetComponent<MeshRenderer>().materials)
@@ -115,6 +125,7 @@ public class MaskMakingController : MonoBehaviour
 
             Tutorial2.SetActive(false);
             masktakingOffThreshold = Mathf.Clamp(-Mouse_Y * 100, 0, 1);
+            ParticleManager.Instance.soundManager.PlayQuickSoundClip("JellySmashSound");
             takingMaskOff.SetFloat("Speed", 1);
 
 

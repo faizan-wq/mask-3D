@@ -146,7 +146,8 @@ public class MaskMakingLevel : MonoBehaviour
 
     public void EnableTaskPoint(int number,float value)
     {
-        soundManager.PlayQuickSoundClip("task complete");
+        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+        ParticleManager.Instance.soundManager.PlayVibration("0,100,5,100");
         iconList[number].transform.GetChild(0).gameObject.SetActive(true);
         progressBarParent.rectTransform.GetChild(0).GetComponent<Image>().fillAmount = value;
         if(value==1)
@@ -437,6 +438,7 @@ public class MaskMakingLevel : MonoBehaviour
            
             
             hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 30);
+            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", true);
             bowlController.UpdateColorChangingEffect();
             //if(!mixingParticlelPlayed)
             //{
@@ -451,13 +453,14 @@ public class MaskMakingLevel : MonoBehaviour
        else
         {
             hammerController.HammerRotationEffect(0);
+            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", false);
         }
 
        if(bowlController.checkColorChangedCompletely)
         {
             mixingComplete = true;
-           
-           
+
+            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", false);
             hammerController.ResetToStartingPosition();
         }
 
@@ -516,6 +519,7 @@ public class MaskMakingLevel : MonoBehaviour
             else
             {
                 syringeController.InjectionPushOrPull(false);
+               
             }
 
 
@@ -529,6 +533,7 @@ public class MaskMakingLevel : MonoBehaviour
         }
         else
         {
+           
             syringeController.MoveTabletMethodIitiate();
         }
     }

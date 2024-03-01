@@ -116,7 +116,7 @@ public class SoundManager : MonoBehaviour
     {
        
 
-        if (!GetPlayerPrefValue(Sound))
+        if (!GetPlayerPrefValue(Vibrations))
         {
             vibrationBtn.Button_Off.SetActive(true);
             vibrationBtn.Button_On.SetActive(false);

@@ -33,11 +33,15 @@ public class InterstetialController : MonoBehaviour
         {
 
             //AdMob_GF.ShowInterstitial();
-            LoadingAdScreen.instance.ShowLoadingAdScreen(()=> { AdsManager.Instance.ShowInterstitial(false); });
             
+            if(Input.GetMouseButtonDown(0))
+            {
+                LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+
+                AdMob_GF.oneMinuteTime = 0;
 
 
-            AdMob_GF.oneMinuteTime = 0;
+            }
 
 
         }

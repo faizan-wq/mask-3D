@@ -212,16 +212,19 @@ public class CreatorMilkUI : MonoBehaviour
             }
             else if (CheckCloseFinish == true)
             {
+                tutorial.SetActive(true);
                 if (HideUIWheenClick)
                 {
                     UIFinishStep.gameObject.SetActive(false);
                 } else { UIFinishStep.gameObject.SetActive(true); }
                 if (HideUIWheenClick == true && SpawnCoolder == true)
                 {
+                    
                     MachineGenerator.Play("CreateMilkMachine");
                     int RandomSelection = Random.Range(0, ListMilks.Length);
                     ListMilks[RandomSelection].gameObject.SetActive(true);
-                    (Instantiate(PrefabeUICoin, new Vector3(0, 0, 0), Quaternion.identity) as GameObject).transform.SetParent(ContainerUICoin.transform);
+
+                    //(Instantiate(PrefabeUICoin, new Vector3(0, 0, 0), Quaternion.identity) as GameObject).transform.SetParent(ContainerUICoin.transform);
 
                     FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
 
@@ -326,8 +329,9 @@ public class CreatorMilkUI : MonoBehaviour
     IEnumerator LoadingFinish()
     {
         TaskFour.transform.GetChild(0).gameObject.SetActive(true);
+        tutorial.SetActive(false);
         yield return new WaitForSeconds(3f);
-
+        
         BoxAnimated.Play("CloseCartonBox");
         StartCoroutine(StateFinish());
     }
@@ -425,5 +429,6 @@ public class CreatorMilkUI : MonoBehaviour
 
     [Header("Diamond")]
     public Transform diamondTarget;
+    public GameObject tutorial;
 
 }

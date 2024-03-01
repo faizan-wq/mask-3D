@@ -93,31 +93,31 @@ public class LevelUIManager : MonoBehaviour
 
     private void ProcessMashing()
     {
-        EnableScreen(1);
+        //EnableScreen(2);
     }
     private void ProcessPouring()
     {
-        EnableScreen(2);
+        EnableScreen(1);
     }
     private void ProcessMixing()
     {
-        EnableScreen(3);
+        //EnableScreen(3);
     }
     private void ProcessTablet()
     {
-        EnableScreen(4);
+        //EnableScreen(4);
     }
     private void ProcessMaking()
     {
-        EnableScreen(5);
+        //EnableScreen(5);
     }
     private void ProcessApplying()
     {
-        EnableScreen(6);
+        //EnableScreen(6);
     }
     private void ProcessComplete()
     {
-        EnableScreen(7);
+        EnableScreen(2);
     }
 
     private void EnableScreen(int num)
@@ -127,7 +127,7 @@ public class LevelUIManager : MonoBehaviour
 
     private void  ProcessHammering()
     {
-        EnableScreen(7);
+        EnableScreen(2);
     }
 
 

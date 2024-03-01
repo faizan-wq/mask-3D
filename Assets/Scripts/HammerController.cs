@@ -251,7 +251,7 @@ public class HammerController : MonoBehaviour
     public void SetHammerRotation(bool check)
     {
         animator.SetBool(Hammer_Rotating, check);
-        maskMakingLevel.soundManager.PlayCompleteSoundClip("bowl mixing", check);
+     
     }
 
     private bool GetHammerRotation()
