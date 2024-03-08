@@ -147,7 +147,7 @@ public class MaskMakingLevel : MonoBehaviour
     public void EnableTaskPoint(int number,float value)
     {
         ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
-        ParticleManager.Instance.soundManager.PlayVibration("0,100,5,100");
+        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
         iconList[number].transform.GetChild(0).gameObject.SetActive(true);
         progressBarParent.rectTransform.GetChild(0).GetComponent<Image>().fillAmount = value;
         if(value==1)

@@ -47,7 +47,7 @@ public class KnifeController : MonoBehaviour
     }
     private void KnifeAnimationEffect()
     {
-        maskMakingLevel.soundManager.PlayVibration("0,100,5,100");
+        maskMakingLevel.soundManager.PlayVibration("0,200,0,200");
       
     }
     public void KnifeChoppingSpeed(float speed)

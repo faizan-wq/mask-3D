@@ -31,7 +31,7 @@ public class MaskMakingController : MonoBehaviour
         {
             ChangeColorOfMask();
             PerformAnimationMaskmaking("Shake");
-            ParticleManager.Instance.soundManager.PlayVibration("0,100,5,100");
+            ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
             shakingOfMachineStarted = true;
         }
         if(!pressingOfMachineStarted && maskMakingMachine.GetComponent<MaskMakingMachine>().machineShakingComplete && Input.GetMouseButton(0))

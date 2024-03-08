@@ -13,8 +13,8 @@ public class VibrationTest : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        Vibration.Init ();
-        Debug.Log ( "Application.isMobilePlatform: " + Application.isMobilePlatform );
+        //Vibration.Init ();
+        //Debug.Log ( "Application.isMobilePlatform: " + Application.isMobilePlatform );
         //txtAndroidVersion.text = "Android Version: " + Vibration.AndroidVersion.ToString ();
     }
 

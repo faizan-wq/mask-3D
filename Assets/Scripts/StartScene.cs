@@ -1,60 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
-using TMPro;
+using DG.Tweening;
 
 public class StartScene : MonoBehaviour
 {
     [Header("Text Show")]
     public Text ValuePrecent;
-    public Text LevelLoaderSynce;
+
+    private void OnEnable()
+    {
+        LoadingProgress.fillAmount = 0;
+        
+    }
 
     private void Start()
     {
-        LoaderTime = Levels.Length - 1;
-        LoadingProgress.fillAmount = 0f;
+      
+        LoadingProgress.DOFillAmount(1, 3).OnUpdate(() => {
+
+            ValuePrecent.text = (Convert.ToInt32(LoadingProgress.fillAmount * 100)).ToString() + "%";
+
+
+        }).OnComplete(() => {
+            SceneChange();
+        });
+
     }
-    private void Update()
+    private void SceneChange()
     {
-        if(LoadingProgress.fillAmount < 1 && LoaderTime > 0)
+        if (PlayerPrefs.GetString("Scene") == "")
         {
-            LoadingProgress.fillAmount += Time.deltaTime / 5;
-            ValuePrecent.text = "" + (int)(LoadingProgress.fillAmount * 100) + "%";
-            LevelLoaderSynce.text = Levels[LoaderTime];
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
         }
-        else if(LoadingProgress.fillAmount == 1 && LoaderTime > 0)
+        else if (PlayerPrefs.GetString("Scene") != "")
         {
-            if (PlayerPrefs.GetString("Scene") == "") { LoadingTime = Random.Range(1, 7); }
-            else { LoadingTime = Random.Range(0.1f, 0.5f); }
-            LoaderTime -= 1;
-            LoadingProgress.fillAmount = 0f;
-        }
-        else if (CheckLoaded == false)
-        {
-            LoadingProgress.fillAmount = 1f;
-            if(PlayerPrefs.GetString("Scene") == "")
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                CheckLoaded = true;
-            }else if(PlayerPrefs.GetString("Scene") != "")
-            {
-                SceneManager.LoadScene(3);
-                CheckLoaded = true;
-            }
+            SceneManager.LoadScene(3);
+
         }
     }
     [Header("UI")]
     public Image LoadingProgress;
 
-    [Header("Integer Controller")]
-    internal int LoaderTime = 0;
-    internal float LoadingTime = 1;
-
-    [Header("Checker Strings")]
-    public string[] Levels = new string[4];
-
-    [Header("Boolean Manager")]
-    internal bool CheckLoaded = false;
 }

@@ -12,11 +12,13 @@ public class TutorialHider : MonoBehaviour
     void Start()
     {
         canvas = GetComponent<Canvas>();
+        StartCoroutine(waitAndHide());
     }
 
     IEnumerator waitAndHide()
     {
         yield return new WaitForSeconds(wait);
+        Debug.Log("canvas is reated");
         canvas.enabled = false;
 
     }

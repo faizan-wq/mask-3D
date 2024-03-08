@@ -15,7 +15,7 @@ public class SplahLoadingScreen : MonoBehaviour
         text = loading.transform.GetChild(0).GetComponent<Text>();
         loading.DOFillAmount(1, 3).OnUpdate(()=> {
 
-            text.text = (Convert.ToInt32(loading.fillAmount * 100)).ToString();
+            text.text = (Convert.ToInt32(loading.fillAmount * 100)).ToString()+"%";
 
 
         }).OnComplete(() => {

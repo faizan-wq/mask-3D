@@ -96,7 +96,18 @@ public class TreeGrowUp : MonoBehaviour
             
             DoneLevel.Play();
             DoneLevel.gameObject.GetComponent<AudioSource>().Play();
-            TakeHand = true; HandObj.SetActive(true);
+           
+            HandObj.SetActive(true);
+            Vector3 PositionMoveTo = new Vector3(0, 6.71f, -29.13f);
+           
+            HandObj.transform.DOLocalMove(PositionMoveTo,0.5f).OnComplete(()=> {
+
+                TakeHand = true;
+                tapToDrop.SetActive(true);
+                Invoke(nameof(DisableTapToPlay),3);
+
+            });
+            
             FinishGrowing = false;
         }
         else
@@ -104,6 +115,13 @@ public class TreeGrowUp : MonoBehaviour
 
         }
     }
+
+    private void DisableTapToPlay()
+    {
+        tapToDrop.SetActive(false);
+    }
+
+
     private bool barIsComplete=false;
     private bool barIsCompletOnce = false;
 
@@ -112,9 +130,9 @@ public class TreeGrowUp : MonoBehaviour
         ManagerFirstMove();
         if (TakeHand)
         {
-            //HandObj.SetActive(true);
-            Vector3 PositionMoveTo = new Vector3(0, 6.71f, -29.13f);
-            HandObj.transform.localPosition = Vector3.Lerp(HandObj.transform.localPosition, PositionMoveTo, 0.05f);
+           
+            //Vector3 PositionMoveTo = new Vector3(0, 6.71f, -29.13f);
+            //HandObj.transform.localPosition = Vector3.Lerp(HandObj.transform.localPosition, PositionMoveTo, 0.05f);
             if (FillingBar.GetComponent<Image>().fillAmount == 1f)
             {
                 if (!barIsCompletOnce)
@@ -203,8 +221,8 @@ public class TreeGrowUp : MonoBehaviour
             {
                 FillingBar.gameObject.GetComponent<Image>().fillAmount = (float)(Scaler.transform.localScale.x / 4.25f);
                 Vector3 newPosition = GetMouseWorldPosition() + offset;
-                float MaxMovement = Mathf.Clamp(newPosition.x, -3f, 3f);
-                float MaxMovementY = Mathf.Clamp(newPosition.y, -5.9f, 5.9f);
+                float MaxMovement = Mathf.Clamp(newPosition.x, horizontal_Min, horizontal_Max);
+                float MaxMovementY = Mathf.Clamp(newPosition.y, vertical_Min, vertical_Max);
                 WaterCan.transform.localPosition = new Vector3(MaxMovement, MaxMovementY, 0);
                 if (WaterCan.transform.localPosition.x > 0 && CheckActiveDirection)
                 {
@@ -289,7 +307,7 @@ public class TreeGrowUp : MonoBehaviour
         {
             //int RandomAppel = UnityEngine.Random.Range(0, ListAppels.Length);
             
-            Debug.Log("RandomAppel:"+ RandomAppel);
+            
             if(RandomAppel < ListAppels.Length - 1)
             {
                 //(Instantiate(Cash, Cash.transform.position, Quaternion.identity) as GameObject).transform.SetParent(ContainerCash.transform);
@@ -297,7 +315,7 @@ public class TreeGrowUp : MonoBehaviour
                 
                 cashTemp.MoveToTarget(diamondTarget, 20);
 
-                ParticleManager.Instance.soundManager.PlayVibration("0,100,5,100");
+                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
                 FillingBar.GetComponent<Image>().fillAmount += 0.1428571428571429f;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Appel>().IsAppel = true;
@@ -374,6 +392,8 @@ public class TreeGrowUp : MonoBehaviour
     [Header("UI Controller Manager")]
     public GameObject HandObj;
     public GameObject HandTutorial;
+    public GameObject tapToDrop;
+
 
     [Header("Particle System")]
     public ParticleSystem WaterEffect;
@@ -403,5 +423,11 @@ public class TreeGrowUp : MonoBehaviour
 
     [Header("Diamond")]
     public Transform diamondTarget;
+
+
+    [Header("Limits")]
+    public float horizontal_Min, horizontal_Max;
+    public float vertical_Min, vertical_Max;
+
 
 }

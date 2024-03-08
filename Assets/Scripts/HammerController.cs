@@ -80,7 +80,7 @@ public class HammerController : MonoBehaviour
         StartCoroutine(ParticlePlayAfterWait(() => {
             ParticleManager.Instance.PlayAnimation("Crushing Item", randomPosition - Vector3.up * 8, ItemsManager.Instance.selectedItem.color);
             maskMakingLevel.soundManager.PlayQuickSoundClip("bowl hammer hit");
-            maskMakingLevel.soundManager.PlayVibration("0,100,5,100");
+            maskMakingLevel.soundManager.PlayVibration("0,200,0,200");
 
 
         }, 0.2f));

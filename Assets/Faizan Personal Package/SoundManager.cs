@@ -33,6 +33,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
+        Vibration.Init();
         vibrationTest = GetComponent<VibrationTest>();
         MusicEffectResult();
         SoundEffectResult();
@@ -174,7 +175,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayVibration(string value)
     {
-        if (!GetPlayerPrefValue(Vibrations))
+        if (GetPlayerPrefValue(Vibrations))
         {
             vibrationTest.inputValue = value;
             vibrationTest.TapVibratePattern();

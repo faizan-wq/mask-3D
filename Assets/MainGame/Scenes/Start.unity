@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 49}
   - component: {fileID: 38}
   - component: {fileID: 71}
+  - component: {fileID: 72}
   m_Layer: 5
   m_Name: UILoadingProgress
   m_TagString: Untagged
@@ -934,6 +935,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &72
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b7fe6d4ea82724f8ade14d5fed55b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  number: 0
+  anim_Text: {fileID: 60}
+  loadingSlider: {fileID: 66}
 --- !u!1 &192009201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,11 +1151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ValuePrecent: {fileID: 62}
-  LevelLoaderSynce: {fileID: 60}
   LoadingProgress: {fileID: 66}
   Levels:
-  - Loading ...
-  - Loading ...
+  - Loading...
 --- !u!4 &1245007351
 Transform:
   m_ObjectHideFlags: 0
@@ -1244,7 +1258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ValuePrecent: {fileID: 62}
-  LevelLoaderSynce: {fileID: 60}
   LoadingProgress: {fileID: 66}
   Levels:
   - Loading textures...
