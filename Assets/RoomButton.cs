@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class RoomButton : MonoBehaviour
 {
     public ButtonType type;
@@ -13,6 +14,7 @@ public class RoomButton : MonoBehaviour
     public int cameraPositionNumber;
     private Text price;
     private GameObject addButton;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -79,30 +81,36 @@ public class RoomButton : MonoBehaviour
             return;
         }
 
+      
+       
         button.onClick.AddListener(() => {
 
           
 
             if (cashRequiredToUnlock > PlayerPrefs.GetInt("Cash"))
             {
-               
 
+                
                 GD.Controller.Instance.RewardedVideo(result => {
 
                     if (result)
                     {
+                       
                         StartCoroutine(CreateChangeButton(obj, storingName));
 
                     }
+                    
 
 
                 });
-
+               
 
             }
             else
             {
 
+              
+               
                
                 PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") - cashRequiredToUnlock);
                 StartCoroutine(CreateChangeButton(obj, storingName));
@@ -110,12 +118,16 @@ public class RoomButton : MonoBehaviour
             }
 
 
-
-
            
 
+
+
+
         });
+       
+
     }
+  
     IEnumerator CreateChangeButton(GameObject obj, string storingName)
     {
        

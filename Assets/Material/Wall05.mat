@@ -10,10 +10,10 @@ Material:
   m_Name: Wall05
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords:
-  - _EMISSION
+  - _RECEIVE_SHADOWS_OFF
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
-  m_EnableInstancingVariants: 1
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
@@ -23,8 +23,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 0546ec8d6d9448a43bf6b4f0b408e994, type: 3}
-        m_Scale: {x: 20, y: 20}
+        m_Texture: {fileID: 2800000, guid: a54baa49c9fbf6a41b074c2f4f9d97cd, type: 3}
+        m_Scale: {x: 1, y: -0.02}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -47,8 +47,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0546ec8d6d9448a43bf6b4f0b408e994, type: 3}
-        m_Scale: {x: 20, y: 20}
+        m_Texture: {fileID: 2800000, guid: a54baa49c9fbf6a41b074c2f4f9d97cd, type: 3}
+        m_Scale: {x: 1, y: -0.02}
         m_Offset: {x: 0, y: 0}
     - _MatCapMask:
         m_Texture: {fileID: 0}
@@ -71,7 +71,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Ramp:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReflectionTex:
@@ -147,7 +147,7 @@ Material:
     - _RampSmoothing: 0.801
     - _RampThreshold: 0.727
     - _RampType: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
     - _ReflectionSmoothness: 0.5
@@ -157,7 +157,7 @@ Material:
     - _ShadowColorLightAtten: 1
     - _Shininess: 0
     - _SingleIndirectColor: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -187,12 +187,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.9150943, g: 0.67768776, b: 0.90811175, a: 1}
     - _ColBlush: {r: 0.83137256, g: 0.15294115, b: 0.44656873, a: 1}
     - _ColEyeliner: {r: 0.20658067, g: 0.12860449, b: 0.3207547, a: 1}
     - _ColEyes: {r: 0.4449537, g: 0.67207235, b: 0.9528302, a: 1}
     - _ColLips: {r: 0.9245283, g: 0.3009078, b: 0.61805964, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9150943, g: 0.67768776, b: 0.90811175, a: 1}
     - _Emission: {r: 0.46226418, g: 0.27256143, b: 0.27256143, a: 1}
     - _EmissionColor: {r: 0.4627451, g: 0.27450982, b: 0.27450982, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}

@@ -124,7 +124,7 @@ Material:
     - _IndirectIntensityOutline: 0
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
-    - _Metallic: 0
+    - _Metallic: 0.073
     - _Mode: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
@@ -192,7 +192,7 @@ Material:
     - _ColEyeliner: {r: 0.20658067, g: 0.12860449, b: 0.3207547, a: 1}
     - _ColEyes: {r: 0.4449537, g: 0.67207235, b: 0.9528302, a: 1}
     - _ColLips: {r: 0.9245283, g: 0.3009078, b: 0.61805964, a: 1}
-    - _Color: {r: 0.6132076, g: 0.47180158, b: 0.35577607, a: 1}
+    - _Color: {r: 0.6132076, g: 0.47180158, b: 0.3557761, a: 1}
     - _Emission: {r: 0.46226418, g: 0.27256143, b: 0.27256143, a: 1}
     - _EmissionColor: {r: 0.4627451, g: 0.27450982, b: 0.27450982, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}

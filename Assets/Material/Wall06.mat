@@ -22,15 +22,14 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Wall06
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ValidKeywords:
-  - _EMISSION
+  m_ValidKeywords: []
   m_InvalidKeywords:
   - TCP2_MOBILE
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_UV_NORMALS_FULL
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -61,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 3bb142e6da34dff47b00e2735534c62e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 33cc4233ded125241923f9f8efa54d9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -175,7 +174,7 @@ Material:
     - _ShadowColorLightAtten: 1
     - _Shininess: 0
     - _SingleIndirectColor: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.284
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -205,14 +204,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
     - _ColBlush: {r: 0.83137256, g: 0.15294115, b: 0.44656873, a: 1}
     - _ColEyeliner: {r: 0.20658067, g: 0.12860449, b: 0.3207547, a: 1}
     - _ColEyes: {r: 0.4449537, g: 0.67207235, b: 0.9528302, a: 1}
     - _ColLips: {r: 0.9245283, g: 0.3009078, b: 0.61805964, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
     - _Emission: {r: 0.46226418, g: 0.27256143, b: 0.27256143, a: 1}
-    - _EmissionColor: {r: 0.4627451, g: 0.27450982, b: 0.27450982, a: 1}
+    - _EmissionColor: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

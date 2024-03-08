@@ -257,12 +257,15 @@ public class MaskMakingLevel : MonoBehaviour
                 knifeController.TutorialScreen2.SetActive(true);
                 knifeController.KnifeMovementWithLerp(knifeController.knifeStartingPosition.position, knifeController.knifeEndingPosition.position, knifeController.knifeMovingSpeed);
                 knifeController.KnifeChoppingSpeed(1);
+                ParticleManager.Instance.soundManager.PlayQuickSoundClip("knife cutting");
                 
+
             }
             else
             {
                 knifeController.KnifeChoppingSpeed(0);
                 knifeController.TutorialScreen2.SetActive(true);
+               
             }
         }
        

@@ -138,7 +138,7 @@ Material:
     - _IndirectIntensityOutline: 0
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
-    - _Metallic: 0
+    - _Metallic: 0.14
     - _Mode: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
@@ -170,7 +170,7 @@ Material:
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
     - _SingleIndirectColor: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.33
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
@@ -198,8 +198,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
-    - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _BaseColor: {r: 1, g: 0.9808282, b: 0.9009434, a: 1}
+    - _Color: {r: 1, g: 0.9808282, b: 0.9009434, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}

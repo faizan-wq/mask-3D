@@ -646,7 +646,7 @@ public class AdMob_GF : MonoBehaviour
         {
             AdsManager.Instance.HideBanner();
         }
-        else if (bannerView != null && AdmobBannerInitialized)
+        if (bannerView != null && AdmobBannerInitialized)
         {
             AdMob_GF.HideBanner();
         }
@@ -1284,7 +1284,7 @@ public class AdMob_GF : MonoBehaviour
 
     #region Big Banner
 
-    public const bool TestIds = false;
+    public const bool TestIds = true;
 
 
     public static void RequestBigBanner()

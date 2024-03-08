@@ -55,14 +55,16 @@ public class KnifeController : MonoBehaviour
 
         if (Vector3.Distance(animator.transform.position, knifeEndingPosition.position) <= 0.125f)
         {
-            maskMakingLevel.soundManager.PlayCompleteSoundClip("knife cutting", false);
+            
+           
 
             animator.SetFloat("ChoppingSpeed", 0);
            
             return;
         }
         animator.SetFloat("ChoppingSpeed", speed);
-        maskMakingLevel.soundManager.PlayCompleteSoundClip("knife cutting", true);
+
+       
     }
     float value;
     public void KnifeMovementWithLerp(Vector3 starting, Vector3 ending, float speed)
@@ -73,7 +75,7 @@ public class KnifeController : MonoBehaviour
             TutorialScreen2.SetActive(false);
             maskMakingLevel.EnableTaskPoint(0, 1);
             maskMakingLevel.NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
-
+            ParticleManager.Instance.soundManager.PlayQuickSoundClip("knife cutting");
             return;
         }
         value += speed * Time.deltaTime;

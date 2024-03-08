@@ -88,10 +88,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8116677706961478899, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: -6682718724934936481, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
       objectReference: {fileID: 0}
+    - target: {fileID: -4665305535396987961, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: -2101294350104369007, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
@@ -108,10 +116,30 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ChoppingItem
       objectReference: {fileID: 0}
+    - target: {fileID: 2478040678948760778, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
+    - target: {fileID: 3241718991007327341, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
+    - target: {fileID: 3757203064789766644, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
+    - target: {fileID: 3848005291960347726, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: 6183571274780125285, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
       objectReference: {fileID: 0}
+    - target: {fileID: 8036849429775806345, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: 8074390097474979614, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
@@ -423,10 +451,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8116677706961478899, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: -6682718724934936481, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
       objectReference: {fileID: 0}
+    - target: {fileID: -4665305535396987961, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: -2101294350104369007, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
@@ -443,10 +479,30 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ChoppingItem
       objectReference: {fileID: 0}
+    - target: {fileID: 2478040678948760778, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
+    - target: {fileID: 3241718991007327341, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
+    - target: {fileID: 3757203064789766644, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
+    - target: {fileID: 3848005291960347726, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: 6183571274780125285, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem
       objectReference: {fileID: 0}
+    - target: {fileID: 8036849429775806345, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a4db8cc22dee354da297bf24af1cff0, type: 2}
     - target: {fileID: 8074390097474979614, guid: a916faa4084a97d489d786ae80611a0a, type: 3}
       propertyPath: m_TagString
       value: ChoppingItem

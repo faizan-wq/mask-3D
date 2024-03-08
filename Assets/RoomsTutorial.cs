@@ -11,7 +11,7 @@ public class RoomsTutorial : MonoBehaviour
 
     private void OnEnable()
     {
-        if (PlayerPrefs.GetString(RoomsTutorialCheck) == completeState || PlayerPrefs.GetInt("Days") < 4)
+        if (PlayerPrefs.GetString(RoomsTutorialCheck) == completeState || PlayerPrefs.GetInt("Days") < 5)
         {
             gameObject.SetActive(false);
         }
@@ -19,6 +19,7 @@ public class RoomsTutorial : MonoBehaviour
     public void TutorialComplete()
     {
         PlayerPrefs.SetString(RoomsTutorialCheck, completeState);
+        gameObject.SetActive(false);
     }
 
 }

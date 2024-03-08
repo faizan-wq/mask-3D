@@ -115,7 +115,7 @@ Material:
     - _IndirectIntensityOutline: 0
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
-    - _Metallic: 0.458
+    - _Metallic: 0.318
     - _Mode: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
@@ -147,7 +147,7 @@ Material:
     - _RimMin: 0.5
     - _ShadowColorLightAtten: 1
     - _SingleIndirectColor: 0
-    - _Smoothness: 0.83
+    - _Smoothness: 0.492
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
@@ -178,8 +178,8 @@ Material:
     m_Colors:
     - Color_3040B7A4: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_78863940: {r: 10, g: 10, b: 0, a: 0}
-    - _BaseColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
-    - _Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
+    - _BaseColor: {r: 0.9433962, g: 0.93894625, b: 0.93894625, a: 1}
+    - _Color: {r: 0.9433962, g: 0.93894625, b: 0.93894625, a: 1}
     - _DissolveGradientTexture: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveMap_SC: {r: 1, g: 1, b: 0, a: 0}
     - _Emission: {r: 0.066560134, g: 0, b: 0.1509434, a: 1}

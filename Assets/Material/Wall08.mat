@@ -42,7 +42,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: e06b62195fe179c4f86300e2b212ced6, type: 3}
-        m_Scale: {x: 4, y: 4}
+        m_Scale: {x: 8, y: 8}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -66,7 +66,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: e06b62195fe179c4f86300e2b212ced6, type: 3}
-        m_Scale: {x: 4, y: 4}
+        m_Scale: {x: 8, y: 8}
         m_Offset: {x: 0, y: 0}
     - _MatCapMask:
         m_Texture: {fileID: 0}
@@ -205,12 +205,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0.91215193, b: 0.7971698, a: 1}
     - _ColBlush: {r: 0.83137256, g: 0.15294115, b: 0.44656873, a: 1}
     - _ColEyeliner: {r: 0.20658067, g: 0.12860449, b: 0.3207547, a: 1}
     - _ColEyes: {r: 0.4449537, g: 0.67207235, b: 0.9528302, a: 1}
     - _ColLips: {r: 0.9245283, g: 0.3009078, b: 0.61805964, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.91215193, b: 0.7971698, a: 1}
     - _Emission: {r: 0.46226418, g: 0.27256143, b: 0.27256143, a: 1}
     - _EmissionColor: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}

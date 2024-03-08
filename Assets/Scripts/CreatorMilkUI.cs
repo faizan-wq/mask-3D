@@ -245,6 +245,7 @@ public class CreatorMilkUI : MonoBehaviour
                     if (CheckCollected)
                     {
                         StartCoroutine(LoadingFinish());
+                        tutorial.SetActive(false);
                         CheckCollected = false;
                     }
                 }
@@ -331,7 +332,7 @@ public class CreatorMilkUI : MonoBehaviour
         TaskFour.transform.GetChild(0).gameObject.SetActive(true);
         tutorial.SetActive(false);
         yield return new WaitForSeconds(3f);
-        
+        tutorial.SetActive(false);
         BoxAnimated.Play("CloseCartonBox");
         StartCoroutine(StateFinish());
     }

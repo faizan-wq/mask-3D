@@ -155,7 +155,7 @@ public class TreeGrowUp : MonoBehaviour
 
                     });
 
-
+                    FillingBar.transform.parent.gameObject.SetActive(false);
 
                     barIsCompletOnce = true;
                 }
@@ -364,8 +364,9 @@ public class TreeGrowUp : MonoBehaviour
                 BasketBox.SetActive(false);
                 yield return new WaitForSeconds(1f);
                 PlasticBox.Play("CloseBox");
+                yield return new WaitForSeconds(1.5f);
                 SearchSource.Play();
-                yield return new WaitForSeconds(4f);
+                yield return new WaitForSeconds(3f);
                 FinishUI.SetActive(true);
                 AppelFinish.SetActive(true);
             }

@@ -288,7 +288,7 @@ Material:
     - _BaseColor: {r: 0.5825177, g: 0.9811321, b: 0.050907783, a: 1}
     - _BaseColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.5825177, g: 0.9811321, b: 0.05090777, a: 1}
+    - _Color: {r: 0.5825177, g: 0.9811321, b: 0.050907783, a: 1}
     - _DepthMapBounds: {r: -402.3, g: -459.43, b: 0.0012693577, a: 0}
     - _Direction: {r: 1, g: 1, b: 0, a: 0}
     - _DistanceNormalsFadeDist: {r: 300, g: 0.25, b: 0, a: 0}
