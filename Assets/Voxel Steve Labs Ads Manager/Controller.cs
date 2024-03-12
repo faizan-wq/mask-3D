@@ -239,6 +239,8 @@ namespace GD
                 }
                 else
                 {
+                    AdMob_GF.Instance.Initializer();
+                    AdsManager.Instance.Initializer();
                     Debug.LogError(
                         "Could not resolve all Firebase dependencies: " + dependencyStatus);
                 }
@@ -281,6 +283,9 @@ namespace GD
             Debug.Log(GlobalConstant.IsMaxBannerAd + "MaxBannerAd");
             Debug.Log(GlobalConstant.IsAdaptiveBannerAd + "AdmobBannerAd");
             Debug.Log(GlobalConstant.isAppOpen + "AppOpenCheck");
+
+            AdMob_GF.Instance.Initializer();
+            AdsManager.Instance.Initializer();
         }
 
         void InitializeFirebase()

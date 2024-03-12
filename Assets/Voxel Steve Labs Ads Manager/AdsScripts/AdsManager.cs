@@ -5,7 +5,7 @@ using GD;
 using ToastPlugin;
 using UnityEngine;
 using UnityEngine.UI;
-//using Gadsme;
+
 
 public class AdsManager : MonoBehaviour
 {
@@ -34,7 +34,8 @@ public class AdsManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Start()
+
+    public void Initializer()
     {
         MaxSdkCallbacks.OnSdkInitializedEvent += sdkConfiguration =>
         {
@@ -44,13 +45,13 @@ public class AdsManager : MonoBehaviour
                 GD.Controller.allowFirebaseAds = true;
             InitializeInterstitialAds();
             InitializeRewardedAds();
+
             InitializeBannerAds();
-            //InitializeAppOpen();
-            // InitializeMRecAds();
 
 
 
-            //GadsmeSDK.Init();
+
+          
         };
 
         if (!GD.Controller.stopAds)
@@ -60,6 +61,8 @@ public class AdsManager : MonoBehaviour
         }
 
     }
+
+
 
     #region Interstitial Ad Methods
 
@@ -305,19 +308,6 @@ public class AdsManager : MonoBehaviour
         }
     }
 
-    public void ShowAdIfReady()
-    {
-        // if (!GlobalConstant.isAppOpen)
-        //     return;
-        if (MaxSdk.IsAppOpenAdReady(AppOpenAdUnitId))
-        {
-            MaxSdk.ShowAppOpenAd(AppOpenAdUnitId);
-        }
-        else
-        {
-            MaxSdk.LoadAppOpenAd(AppOpenAdUnitId);
-        }
-    }
 
     public void OnAppOpenDismissedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
@@ -326,20 +316,6 @@ public class AdsManager : MonoBehaviour
 
 
 
-    public void OnApplicationPause(bool paused)
-    {
-        //// Display the app open ad when the app is foregrounded
-        //if (!paused)
-        //{
-        //    if (isInterstialAdPresent)
-        //    {
-        //        isInterstialAdPresent = false;
-        //        return;
-        //    }
-        //     //ShowAdIfReady();
-
-        //}
-    }
 
     #endregion
 

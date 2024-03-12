@@ -37,6 +37,7 @@ public class AdsIds_GF : MonoBehaviour
     public string adMobRewarded;
     public string admobRewardedInter;
     public string Admob_AppOpen_ID;
+    public string admobBigBanner;
     public GameObject rewardedInterstitial;
 
     void Awake()
@@ -50,5 +51,7 @@ public class AdsIds_GF : MonoBehaviour
         AdMob_GF.bannerPosition = bannerPosition;
         AdMob_GF.bannerSize = bannerSize;
         AdMob_GF.bannerID = adMobBanner;
+        AdMob_GF.BigBanner_ID = admobBigBanner;
+
     }
 }

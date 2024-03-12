@@ -210,9 +210,7 @@ public class MaskMakingLevel : MonoBehaviour
         {
             switch (currentMethod)
             {
-                //case Mask_Making_Level_Methods.Chopping:
-                //    ChoppingMethod();
-                //    break;
+               
                 case Mask_Making_Level_Methods.Hammering:
                     HammeringMethod();
                     break;

@@ -224,7 +224,7 @@ public class CreatorMilkUI : MonoBehaviour
                     int RandomSelection = Random.Range(0, ListMilks.Length);
                     ListMilks[RandomSelection].gameObject.SetActive(true);
 
-                    //(Instantiate(PrefabeUICoin, new Vector3(0, 0, 0), Quaternion.identity) as GameObject).transform.SetParent(ContainerUICoin.transform);
+                 
 
                     FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
 

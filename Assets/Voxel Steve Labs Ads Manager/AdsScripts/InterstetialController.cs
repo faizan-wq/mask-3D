@@ -16,23 +16,20 @@ public class InterstetialController : MonoBehaviour
 
     private void Update()
     {
-       
-        if (AdsManager.isInterstialAdPresent)
+
+        if (AdMob_GF.isShowingAd)
             return;
 
 
-
-
-        
         if (AdMob_GF.oneMinuteTime < 60)
             AdMob_GF.oneMinuteTime+=Time.deltaTime;
 
-        number = AdMob_GF.oneMinuteTime;
+      
 
         if (AdMob_GF.oneMinuteTime > GlobalConstant.ActionsAdsTimeLimit)
         {
 
-            //AdMob_GF.ShowInterstitial();
+           
             
             if(Input.GetMouseButtonDown(0))
             {

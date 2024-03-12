@@ -121,10 +121,7 @@ public class ItemsManager : MonoBehaviour
                             btn.onClick?.Invoke();
                             adButton.gameObject.SetActive(false);
                         }
-                    else
-                        {
-
-                        }
+                  
                     
                     });
                   

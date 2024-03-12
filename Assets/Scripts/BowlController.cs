@@ -33,8 +33,10 @@ public class BowlController : MonoBehaviour
 
     public void ChangeColorOfwater(Color color)
     {
+        color.a = 1f;
         foreach (var item in water.materials)
         {
+            
             item.color = color;
         }
 
