@@ -1,11 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
 using System.Collections.Generic;
 //using GoogleMobileAdsMediationTestSuite.Api;
 using ToastPlugin;
-
 using com.adjust.sdk;
 
 // Example script showing how to invoke the Google Mobile Ads Unity plugin.
@@ -97,7 +97,6 @@ public class AdMob_GF : MonoBehaviour
         if (Instance == null)
             Instance = this;
     }
-
 
     public void Initializer()
     {
@@ -468,7 +467,7 @@ public class AdMob_GF : MonoBehaviour
         AdsManager.isInterstialAdPresent = true;
         if (interstitial != null && interstitial.IsLoaded())
         {
-            isInterstialAdPresent = false;
+            isInterstialAdPresent = true;
 
             debugmsg = " AllPrice Show ";
             interstitial.Show();
@@ -666,7 +665,15 @@ public class AdMob_GF : MonoBehaviour
     }
     public static void ShowRewardedAdmobOrInterstitial()
     {
-        AdsManager.Instance.ShowRewardedAd();
+        if(AdsManager.Instance.IsRewardedAdReady())
+        {
+            AdsManager.Instance.ShowRewardedAd();
+        }
+        else
+        {
+            AdsManager.Instance.LoadRewardedAd();
+            ShowRewardedAdmob();
+        }
     }
 
     public static void ShowRewardedAdmob()
@@ -845,10 +852,7 @@ public class AdMob_GF : MonoBehaviour
 
     public static void HandleRewardedAdClosed(object sender, EventArgs args)
     {
-        //if (!rewarded_mediation.IsLoaded())
-        //{
-        //    CreateAndLoadRewardedAd_Mediation();
-        //}
+        
         if (!rewardedAd.IsLoaded())
         {
             CreateAndLoadRewardedAd();
@@ -891,7 +895,7 @@ public class AdMob_GF : MonoBehaviour
         AdRequest request = new AdRequest.Builder().Build();
 
         // Load an app open ad for portrait orientation
-        AppOpenAd.LoadAd(AppOpen_ID, ScreenOrientation.LandscapeLeft, request, ((appOpenAd, error) =>
+        AppOpenAd.LoadAd(AppOpen_ID, ScreenOrientation.Portrait, request, ((appOpenAd, error) =>
         {
             if (error != null)
             {
@@ -953,11 +957,7 @@ public class AdMob_GF : MonoBehaviour
                 Debug.Log("AppOpenAd dismissed.");
                 isShowingAd = false;
 
-                //if (allowBigBannerAdAppOpen)
-                //{
-
-                //    CommonBannerShow();
-                //}
+               
                 allowBannerAdMobAppOpen = false;
                 allowBannerMaxAppOpen = false;
                 allowBigBannerAdAppOpen = false;
@@ -1065,13 +1065,24 @@ public class AdMob_GF : MonoBehaviour
                 return;
             }
             ShowAppOpenAd();
+            //if (!pauseStateCheck)
+            //{
+            //    StartCoroutine(OnApplicationPauseFun());
+            //    pauseStateCheck = true;
+            //}
 
-
-            // ShowAdIfReady();
+           
         }
 
 
 
+    }
+    private static bool pauseStateCheck = false;
+    private IEnumerator OnApplicationPauseFun()
+    {
+       
+        yield return new WaitForSeconds(1);
+        pauseStateCheck = false;
     }
     //ONPAID EVENTS............
 
@@ -1092,6 +1103,7 @@ public class AdMob_GF : MonoBehaviour
 
     static void Reward_OnPaid(object sender, AdValueEventArgs impressionData)
     {
+      
         Send_Revenu(impressionData.AdValue.Value, "Rewarded");
     }
     public static void Send_Revenu(double rev, string unit_name)

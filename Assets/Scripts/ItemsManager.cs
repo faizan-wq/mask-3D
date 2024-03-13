@@ -24,6 +24,7 @@ public class ItemsManager : MonoBehaviour
     [SerializeField] private GameObject ItemImage;
     [HideInInspector]public SoundManager soundManager;
 
+    private List<GameObject> selectedPieces=new List<GameObject>();
 
     int childNumber = 0;
 
@@ -121,6 +122,11 @@ public class ItemsManager : MonoBehaviour
                             btn.onClick?.Invoke();
                             adButton.gameObject.SetActive(false);
                         }
+                    else
+                        {
+                            btn.onClick?.Invoke();
+                            adButton.gameObject.SetActive(false);
+                        }
                   
                     
                     });
@@ -194,7 +200,7 @@ public class ItemsManager : MonoBehaviour
                     });
 
 
-                        //AdMob_GF.ShowRewardedAdmobOrInterstitial();
+                       
                   
 
                 });
@@ -206,14 +212,30 @@ public class ItemsManager : MonoBehaviour
     }
 
 
-
+    public void SelectedItemsPiecesAdd(GameObject piece)
+    {
+        selectedPieces.Add(piece);
+    }
+    public void SelectedItemsPiecesRemove(GameObject piece)
+    {
+        selectedPieces.Remove(piece);
+    }
+    public void SelectedItemDisable()
+    {
+        foreach (var item in selectedPieces)
+        {
+            item.SetActive(false);
+        }
+        selectedPieces.Clear();
+    }
 
 
 
     private void InstatitateObject(GameObject obj, Vector3 startingPosition)
     {
-        GameObject temp = Instantiate(obj);
-       
+        Transform temp = Instantiate(obj).transform;
+
+        
         obj.transform.position = startingPosition;
     }
 
@@ -331,9 +353,16 @@ public class ItemsManager : MonoBehaviour
                             btn.onClick?.Invoke();
                             adButton.gameObject.SetActive(false);
                         }
+                        else
+                        {
+                            btn.onClick?.Invoke();
+                            adButton.gameObject.SetActive(false);
+                        }
+                        
 
 
                     });
+
 
 
                 });

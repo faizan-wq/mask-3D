@@ -58,7 +58,7 @@ public class MaskMakingLevel : MonoBehaviour
 
     [Header("Mask Applying")]
     public MaskApplyingController maskApplyingController;
-
+    public ItemsManager itemsManager;
 
     #region Unity
     private void Awake()
@@ -76,7 +76,7 @@ public class MaskMakingLevel : MonoBehaviour
             item.GetChild(0).localScale = Vector3.one * 0.7f;
         }
         progressPanel.SetActive(true);
-
+        itemsManager = ItemsManager.Instance;
     }
 
 
@@ -146,8 +146,8 @@ public class MaskMakingLevel : MonoBehaviour
 
     public void EnableTaskPoint(int number,float value)
     {
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
-        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+        soundManager.PlayQuickSoundClip("task complete");
+        soundManager.PlayVibration("0,200,0,200");
         iconList[number].transform.GetChild(0).gameObject.SetActive(true);
         progressBarParent.rectTransform.GetChild(0).GetComponent<Image>().fillAmount = value;
         if(value==1)
@@ -255,7 +255,7 @@ public class MaskMakingLevel : MonoBehaviour
                 knifeController.TutorialScreen2.SetActive(true);
                 knifeController.KnifeMovementWithLerp(knifeController.knifeStartingPosition.position, knifeController.knifeEndingPosition.position, knifeController.knifeMovingSpeed);
                 knifeController.KnifeChoppingSpeed(1);
-                ParticleManager.Instance.soundManager.PlayQuickSoundClip("knife cutting");
+                soundManager.PlayQuickSoundClip("knife cutting");
                 
 
             }
@@ -310,7 +310,7 @@ public class MaskMakingLevel : MonoBehaviour
         Board.SetBool("PlaceInBowl", true);
         Board.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
        
-        //Invoke(nameof(ChangeBoardKnife), 2);
+        
         ChangeBoardKnife();
         changeCameraPositionTest.ChangeTrack(1);
 
@@ -426,8 +426,7 @@ public class MaskMakingLevel : MonoBehaviour
         {
             MaskMakingLevel.Instance.EnableTaskPoint(3, 0);
             bottleController.BottleBackToStartingPosition();
-            hammerController.HammerMovesToMixingPosition();
-
+            hammerController.HammerMovesToMixingPosition();           
             hammerController.isMixingProcessPlayed = true;
             return;
         }
@@ -441,14 +440,7 @@ public class MaskMakingLevel : MonoBehaviour
             hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 30);
             ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", true);
             bowlController.UpdateColorChangingEffect();
-            //if(!mixingParticlelPlayed)
-            //{
-            //    StartCoroutine(ParticleEffect(() =>
-            //    {
-            //        ParticleManager.Instance.PlayAnimation("Mixing Item", hammerController.transform.position + Vector3.up * 3, bowlController.colorOfPaste);
-            //    }, 0.25f));
-            //}
-          
+            
 
         }
        else
@@ -629,8 +621,6 @@ public class MaskMakingLevel : MonoBehaviour
             else
             {
                
-              
-               
                 Debug.Log("Limit is Full");
             }
         }
@@ -659,7 +649,7 @@ public class MaskMakingLevel : MonoBehaviour
     private void InstatitateObject(GameObject obj, Vector3 startingPosition)
     {
         GameObject temp = Instantiate(obj);
-
+        itemsManager.SelectedItemsPiecesAdd(temp);
         obj.transform.position = startingPosition;
     }
 

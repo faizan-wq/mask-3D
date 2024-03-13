@@ -6,8 +6,9 @@ public class Knife : MonoBehaviour
 {
     private Transform board;
     private const string slice = "Slice of Items";
-    [SerializeField] private List<Transform> rigidBodiesPositions;
+    //[SerializeField] private List<Transform> rigidBodiesPositions;
     public MaskMakingLevel maskMakingLevel;
+    private ItemsManager itemManager;
     [Header(slice)]
     [SerializeField] private float jumpHeight=1;
     [SerializeField] private float sliceStep = 1;
@@ -16,6 +17,7 @@ public class Knife : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        itemManager = ItemsManager.Instance;
         board = maskMakingLevel.Board.transform.GetChild(0).GetChild(1).transform; 
     }
 
@@ -33,18 +35,14 @@ public class Knife : MonoBehaviour
                 //rigidbody.isKinematic = false;
                 ParticleManager.Instance.PlayAnimation("Cutting Item", rigidbody.position,ItemsManager.Instance.selectedItem.color);
 
-            
-
-
-
                 Vector3 pos = rigidbody.transform.position - Vector3.forward * (1+sliceStep)+Vector3.left*(divider);
                 rigidbody.transform.DOJump(pos, jumpHeight, 1, 0.125f).OnStart(() => {
                     rigidbody.tag = "Untagged";
                 });
                 difference++;
                 divider = 1- difference*0.1f;
-                
-                rigidBodiesPositions.Add(rigidbody.transform);
+                itemManager.SelectedItemsPiecesAdd(rigidbody.gameObject);
+                //rigidBodiesPositions.Add(rigidbody.transform);
                 StartCoroutine(waitAndExecute(rigidbody,board,0));
                
             }

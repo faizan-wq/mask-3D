@@ -21,16 +21,10 @@ public class LevelUIManager : MonoBehaviour
             Instance = this;
         }
 
+        ItemsManager.Instance.InvokeAfterWait();
+        NextScreen(MMP);
        
 
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        ItemsManager.Instance.InvokeAfterWait();
-        NextScreen(MMP); 
     }
 
    

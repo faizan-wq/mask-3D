@@ -34,7 +34,7 @@ public class AdsManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-
+   
     public void Initializer()
     {
         MaxSdkCallbacks.OnSdkInitializedEvent += sdkConfiguration =>
@@ -49,9 +49,6 @@ public class AdsManager : MonoBehaviour
             InitializeBannerAds();
 
 
-
-
-          
         };
 
         if (!GD.Controller.stopAds)
@@ -90,6 +87,9 @@ public class AdsManager : MonoBehaviour
             MaxSdk.LoadInterstitial(InterstitialAdUnitId);
         // Debug.Log(InterstitialAdUnitId+ "InterstitialAdUnitId");
     }
+   
+
+
 
     public void ShowInterstitial(bool _isRewardedIntestitial = false)
     {
@@ -195,6 +195,15 @@ public class AdsManager : MonoBehaviour
         LoadRewardedAd();
     }
 
+    public bool IsRewardedAdReady()
+    {
+        if (MaxSdk.IsRewardedAdReady(RewardedAdUnitId))
+            return true;
+
+        return false;
+    }
+
+
     public void LoadRewardedAd()
     {
         if (!GD.Controller.allowFirebaseAds)
@@ -273,6 +282,7 @@ public class AdsManager : MonoBehaviour
     {
         // Rewarded ad is hidden. Pre-load the next ad
         Debug.Log("Rewarded ad dismissed");
+     
         LoadRewardedAd();
     }
 
