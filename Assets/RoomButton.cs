@@ -14,6 +14,7 @@ public class RoomButton : MonoBehaviour
     public int cameraPositionNumber;
     private Text price;
     private GameObject addButton;
+    private ParticleManager particleManager;
 
     // Start is called before the first frame update
     private void Awake()
@@ -25,6 +26,7 @@ public class RoomButton : MonoBehaviour
     }
     private void Start()
     {
+        particleManager = ParticleManager.Instance;
         UnlockComplete();
     }
     private void Update()
@@ -132,10 +134,10 @@ public class RoomButton : MonoBehaviour
     {
        
         roomsController.SetSecondVirtualcameratarget(itemToUnlock.transform, cameraPositionNumber);
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("start_01");
         yield return new WaitForSeconds(3);
         PlayerPrefs.SetInt(storingName, 1);
-        ParticleManager.Instance.PlayAnimation("Unlocking Room", itemToUnlock.transform.position);
+        particleManager.soundManager.PlayQuickSoundClip("start_01");
+        particleManager.PlayAnimation("Unlocking Room", itemToUnlock.transform.position);
         itemToUnlock.SetActive(true);
 
 

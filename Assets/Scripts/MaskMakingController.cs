@@ -18,7 +18,13 @@ public class MaskMakingController : MonoBehaviour
     
 
     private bool pressingOfMachineStarted;
-    
+    private SoundManager soundManager;
+
+
+    private void Start()
+    {
+        soundManager = ParticleManager.Instance.soundManager;
+    }
 
 
     public void MachineShaking()
@@ -31,7 +37,7 @@ public class MaskMakingController : MonoBehaviour
         {
             ChangeColorOfMask();
             PerformAnimationMaskmaking("Shake");
-            ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+            soundManager.PlayVibration("0,200,0,200");
             shakingOfMachineStarted = true;
         }
         if(!pressingOfMachineStarted && maskMakingMachine.GetComponent<MaskMakingMachine>().machineShakingComplete && Input.GetMouseButton(0))
@@ -125,7 +131,7 @@ public class MaskMakingController : MonoBehaviour
 
             Tutorial2.SetActive(false);
             masktakingOffThreshold = Mathf.Clamp(-Mouse_Y * 100, 0, 1);
-            ParticleManager.Instance.soundManager.PlayQuickSoundClip("JellySmashSound");
+            soundManager.PlayQuickSoundClip("JellySmashSound");
             takingMaskOff.SetFloat("Speed", 1);
 
 

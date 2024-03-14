@@ -103,6 +103,8 @@ public class AdsManager : MonoBehaviour
         if (MaxSdk.IsInterstitialReady(InterstitialAdUnitId) /*&& GlobalConstant.IsInterstitialMaxAd*/)
         {
             isInterstialAdPresent = true;
+        
+            InterstetialController.interstetialAdShowing = true;
             MaxSdk.ShowInterstitial(InterstitialAdUnitId);
             AnalyticsManagerProgression.instance.InterstitialEvent("Max Interstetial Ad Called");
             return;
@@ -110,8 +112,9 @@ public class AdsManager : MonoBehaviour
         else if (AdMob_GF.IsInterstitialReady(AdMob_GF.RequestFloorType.AllPrice) /*&& GlobalConstant.IsInterstitialAdmobAd*/ )
         {
 
-
+            
             AdMob_GF.ShowInterstitial();
+            InterstetialController.interstetialAdShowing = true;
             AnalyticsManagerProgression.instance.InterstitialEvent("Admob Interstetial Ad Called");
             isInterstialAdPresent = true;
 
@@ -138,7 +141,9 @@ public class AdsManager : MonoBehaviour
 
     private void OnInterstitialFailedEvent(string adUnitId, int errorCode)
     {
+        
         Debug.Log(adUnitId + "InterstitialAdUnitId");
+      
         // interstitialStatusText.text = "Failed load: " + errorCode + "\nRetrying in 3s...";
         Debug.Log("Interstitial failed to load with error code: " + errorCode);
 
@@ -165,6 +170,7 @@ public class AdsManager : MonoBehaviour
     {
         // Interstitial ad is hidden. Pre-load the next ad
         Debug.Log("Interstitial dismissed");
+        InterstetialController.interstetialAdShowing = false;
         PlayerPrefs.SetInt("InterstitialAdsCount", PlayerPrefs.GetInt("InterstitialAdsCount", 0) + 1);
         if (isRewardedIntestitial)
         {
@@ -228,14 +234,20 @@ public class AdsManager : MonoBehaviour
         if (MaxSdk.IsRewardedAdReady(RewardedAdUnitId))
         {
             isInterstialAdPresent = true;
-
+            InterstetialController.interstetialAdShowing = true;
             MaxSdk.ShowRewardedAd(RewardedAdUnitId, PlayerPrefs.GetString("RewardedAdPlacement", "default"));
         }
-        else
+        else if(AdMob_GF.rewardedAd != null && AdMob_GF.rewardedAd.IsLoaded())
         {
+            InterstetialController.interstetialAdShowing = true;
             //AdMob_GF.AdmobRewardedShow();
             AdMob_GF.ShowRewardedAdmob();
         }
+        else
+        {
+            ShowInterstitial(true);
+        }
+
 
     }
 
@@ -249,6 +261,7 @@ public class AdsManager : MonoBehaviour
 
     private void OnRewardedAdFailedEvent(string adUnitId, int errorCode)
     {
+       
         // rewardedStatusText.text = "Failed load: " + errorCode + "\nRetrying in 3s...";
         Debug.Log("Rewarded ad failed to load with error code: " + errorCode);
 
@@ -275,11 +288,13 @@ public class AdsManager : MonoBehaviour
 
     private void OnRewardedAdClickedEvent(string adUnitId)
     {
+       
         Debug.Log("Rewarded ad clicked");
     }
 
     private void OnRewardedAdDismissedEvent(string adUnitId)
     {
+        InterstetialController.interstetialAdShowing = false;
         // Rewarded ad is hidden. Pre-load the next ad
         Debug.Log("Rewarded ad dismissed");
      
@@ -288,8 +303,10 @@ public class AdsManager : MonoBehaviour
 
     private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward)
     {
+       
         PlayerPrefs.SetInt("RewardedAdsCount", PlayerPrefs.GetInt("RewardedAdsCount", 0) + 1);
         Controller.Instance.ActionVideo(true);
+       
         Debug.Log("Rewarded ad received reward");
     }
 

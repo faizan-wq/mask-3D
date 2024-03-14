@@ -31,14 +31,14 @@ public class BottleController : MonoBehaviour
     
 
     private bool ResetBottlePosition;
-    
+    private SoundManager soundManager;
     
     #region UNITY
 
 
     private void Start()
     {
-        
+        soundManager = ParticleManager.Instance.soundManager;
         resetPosition = transform.position;
         maskMakingLevel = MaskMakingLevel.Instance;
     }
@@ -106,7 +106,7 @@ public class BottleController : MonoBehaviour
         selectedBottle = bottles[bottleSelected];
         if(selectedBottle.prefab.name== "WineBottle")
         {
-            ParticleManager.Instance.soundManager.PlayQuickSoundClip("ChampagneOpen");
+           soundManager.PlayQuickSoundClip("ChampagneOpen");
         }
        
 
@@ -202,7 +202,7 @@ public class BottleController : MonoBehaviour
 
            selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = true;
             selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
-            maskMakingLevel.soundManager.PlayCompleteSoundClip("water pouring", true);
+            soundManager.PlayCompleteSoundClip("water pouring", true);
 
             WaterRising();
            
@@ -210,7 +210,7 @@ public class BottleController : MonoBehaviour
         else
         {
             selectedBottle.prefab.transform.GetChild(1).GetComponent<ParticleSystem>().loop = false;
-            maskMakingLevel.soundManager.PlayCompleteSoundClip("water pouring", false);
+            soundManager.PlayCompleteSoundClip("water pouring", false);
             if (value<=0)
             {
                 if(pouringInBowlIsComplete)

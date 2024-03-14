@@ -16,16 +16,21 @@ public class KnifeController : MonoBehaviour
     [HideInInspector]public MaskMakingLevel maskMakingLevel;
     [HideInInspector]public Animator animator;
     [HideInInspector]public Knife knife;
+    private SoundManager soundManager;
 
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
         knife = transform.GetChild(0).GetComponent<Knife>();
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+       
+       
         TutorialScreen1.SetActive(true);
+        soundManager = ParticleManager.Instance.soundManager;
         maskMakingLevel = MaskMakingLevel.Instance;
     }
 
@@ -47,7 +52,7 @@ public class KnifeController : MonoBehaviour
     }
     private void KnifeAnimationEffect()
     {
-        maskMakingLevel.soundManager.PlayVibration("0,200,0,200");
+        soundManager.PlayVibration("0,200,0,200");
       
     }
     public void KnifeChoppingSpeed(float speed)
@@ -75,7 +80,7 @@ public class KnifeController : MonoBehaviour
             TutorialScreen2.SetActive(false);
             maskMakingLevel.EnableTaskPoint(0, 1);
             maskMakingLevel.NextMethod(Mask_Making_Level_Methods.MoveToCrushing);
-            ParticleManager.Instance.soundManager.PlayQuickSoundClip("knife cutting");
+            soundManager.PlayQuickSoundClip("knife cutting");
             return;
         }
         value += speed * Time.deltaTime;

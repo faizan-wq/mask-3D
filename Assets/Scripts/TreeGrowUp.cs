@@ -52,6 +52,13 @@ public class TreeGrowUp : MonoBehaviour
         StartCoroutine(StartAnimator());
         Detecteur.gameObject.SetActive(true);
     }
+
+    private void Start()
+    {
+        soundManager = ParticleManager.Instance.soundManager;
+    }
+
+
     public void OnMouseDown()
     {
         if (StartMoving)
@@ -296,12 +303,13 @@ public class TreeGrowUp : MonoBehaviour
         CheckCameraMoving = true;
     }
     int RandomAppel = 0;
+    int RandomSelection;
     IEnumerator LoadingHandActivate()
     {
         yield return new WaitForSeconds(0.25f);
         BigTree.Play("Vibration");
         HitedShoot.Play();
-        int RandomSelection = UnityEngine.Random.Range(0, 2);
+        RandomSelection =RandomSelection==0?1:0;
         //int RandomSelection = 0;
         if (RandomSelection == 1 && TimeDrop > 0 && FillingBar.GetComponent<Image>().fillAmount != 1)
         {
@@ -315,7 +323,7 @@ public class TreeGrowUp : MonoBehaviour
                 
                 cashTemp.MoveToTarget(diamondTarget, 20);
 
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+               soundManager.PlayVibration("0,200,0,200");
                 FillingBar.GetComponent<Image>().fillAmount += 0.1428571428571429f;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 ListAppels[RandomAppel].transform.GetChild(0).gameObject.GetComponent<Appel>().IsAppel = true;
@@ -430,5 +438,5 @@ public class TreeGrowUp : MonoBehaviour
     public float horizontal_Min, horizontal_Max;
     public float vertical_Min, vertical_Max;
 
-
+    private SoundManager soundManager;
 }

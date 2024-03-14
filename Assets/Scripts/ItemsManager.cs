@@ -113,23 +113,32 @@ public class ItemsManager : MonoBehaviour
                 Button adButton = newObject.GetComponent<RectTransform>().GetChild(1).GetComponent<Button>();
                 adButton.gameObject.SetActive(true);
                 adButton.onClick.AddListener(() => {
+                    try
+                    {
+                        GD.Controller.Instance.RewardedVideo(result => {
 
-                    GD.Controller.Instance.RewardedVideo(result => { 
-                    
-                    if(result)
-                        {
-                            //btn.interactable = true;
-                            btn.onClick?.Invoke();
-                            adButton.gameObject.SetActive(false);
-                        }
-                    else
-                        {
-                            btn.onClick?.Invoke();
-                            adButton.gameObject.SetActive(false);
-                        }
-                  
-                    
-                    });
+                            if (result)
+                            {
+                                //btn.interactable = true;
+                                btn.onClick?.Invoke();
+                                adButton.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                btn.onClick?.Invoke();
+                                adButton.gameObject.SetActive(false);
+                            }
+
+
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        btn.onClick?.Invoke();
+                        adButton.gameObject.SetActive(false);
+                        throw;
+                    }
+                   
                   
                   
 
@@ -343,25 +352,34 @@ public class ItemsManager : MonoBehaviour
                 adButton.gameObject.SetActive(true);
                 adButton.onClick.AddListener(() => {
 
+
+                    try
+                    {
+                        GD.Controller.Instance.RewardedVideo(result => {
+
+                            if (result)
+                            {
+                                //btn.interactable = true;
+                                btn.onClick?.Invoke();
+                                adButton.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                btn.onClick?.Invoke();
+                                adButton.gameObject.SetActive(false);
+                            }
+
+
+
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        btn.onClick?.Invoke();
+                        adButton.gameObject.SetActive(false);
+                        throw;
+                    }
                    
-
-                    GD.Controller.Instance.RewardedVideo(result => {
-
-                        if (result)
-                        {
-                            //btn.interactable = true;
-                            btn.onClick?.Invoke();
-                            adButton.gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            btn.onClick?.Invoke();
-                            adButton.gameObject.SetActive(false);
-                        }
-                        
-
-
-                    });
 
 
 

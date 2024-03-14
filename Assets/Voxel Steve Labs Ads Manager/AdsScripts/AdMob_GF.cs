@@ -67,7 +67,7 @@ public class AdMob_GF : MonoBehaviour
     public static AdPosition tempAdPosition = AdPosition.BottomRight;
     public static bool IsShownAdaptive = false;
     public static bool IsRewardedInterstitial = false;
-    public static float OneMinuteTime = 0;
+   
     public static float ActionsAdsTime = 0;
     public static float InteractionButtonCount = 0;
 
@@ -794,22 +794,26 @@ public class AdMob_GF : MonoBehaviour
 
     static void HandleInterstitialFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
+       
         debugmsg = "HandleInterstitialFailedToLoad event received with message";
         print("HandleInterstitialFailedToLoad event received with message");
     }
 
     static void HandleInterstitialOpened(object sender, EventArgs args)
     {
+       
         print("HandleInterstitialOpened event received");
     }
 
     static void HandleInterstitialClosing(object sender, EventArgs args)
     {
+       
         print("HandleInterstitialClosing event received");
     }
 
     static void HandleInterstitialClosed(object sender, EventArgs args)
     {
+        InterstetialController.interstetialAdShowing = false;
         if (IsRewardedInterstitial)
         {
             GD.Controller.Instance.ActionVideo(true);
@@ -842,17 +846,20 @@ public class AdMob_GF : MonoBehaviour
     public static void HandleRewardedAdOpening(object sender, EventArgs args)
     {
         MonoBehaviour.print("HandleRewardedAdOpening event received");
+       
     }
 
     public static void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
     {
+      
         MonoBehaviour.print(
         "HandleRewardedAdFailedToShow event received with message: " + args.Message);
     }
 
     public static void HandleRewardedAdClosed(object sender, EventArgs args)
     {
-        
+
+     
         if (!rewardedAd.IsLoaded())
         {
             CreateAndLoadRewardedAd();
@@ -866,6 +873,7 @@ public class AdMob_GF : MonoBehaviour
         print("Rewarded Claimed");
         GD.Controller.Instance.ActionVideo(true);
         ToastHelper.ShowToast("Reward hase added", false);
+       
         // Data_GF.RewardedAdWatched();
         //Data_GF.RewardedAdWatched();
     }
@@ -936,7 +944,8 @@ public class AdMob_GF : MonoBehaviour
             return;
         }
 
-
+        if (InterstetialController.interstetialAdShowing)
+            return;
 
 
         if (ad == null)
@@ -961,9 +970,6 @@ public class AdMob_GF : MonoBehaviour
                 allowBannerAdMobAppOpen = false;
                 allowBannerMaxAppOpen = false;
                 allowBigBannerAdAppOpen = false;
-
-
-
 
 
                 AppOpenToggle();

@@ -38,6 +38,9 @@ public class CreatorMilkUI : MonoBehaviour
 
     [SerializeField]
     private GameObject CurrentActive;
+
+    private SoundManager soundManager;
+
     void Start()
     {
         TaskOne.SetActive(true);
@@ -45,6 +48,7 @@ public class CreatorMilkUI : MonoBehaviour
         TaskThree.SetActive(true);
         TaskFour.SetActive(true);
         FillingBar.fillAmount = 0f;
+        soundManager = ParticleManager.Instance.soundManager;
     }
 
     private bool setTwoAd = false;
@@ -62,8 +66,8 @@ public class CreatorMilkUI : MonoBehaviour
         WeaponOne.SetActive(true);
         ClickedUI.gameObject.SetActive(true);
         TaskOne.transform.GetChild(0).gameObject.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+        soundManager.PlayVibration("0,200,0,200");
+        soundManager.PlayQuickSoundClip("task complete");
     }
     public void SetTwo()
     {
@@ -80,8 +84,8 @@ public class CreatorMilkUI : MonoBehaviour
                 WeaponTwo.SetActive(true);
                 ClickedUI.gameObject.SetActive(true);
                 TaskOne.transform.GetChild(0).gameObject.SetActive(true);
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
-                ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+                soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayQuickSoundClip("task complete");
             }
 
 
@@ -103,8 +107,8 @@ public class CreatorMilkUI : MonoBehaviour
                 WeaponThree.SetActive(true);
                 ClickedUI.gameObject.SetActive(true);
                 TaskOne.transform.GetChild(0).gameObject.SetActive(true);
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
-                ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+                soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayQuickSoundClip("task complete");
             }
 
 
@@ -155,8 +159,8 @@ public class CreatorMilkUI : MonoBehaviour
             if (DistanceBtw < 0.1f)
             {
                 TaskTwo.transform.GetChild(0).gameObject.SetActive(true);
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
-                ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+                soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayQuickSoundClip("task complete");
                 FinishItCollecting = false;
             }
         } else if (FinishItCollecting == false && FinishDrooping)
@@ -174,8 +178,8 @@ public class CreatorMilkUI : MonoBehaviour
                         ContainerBar.gameObject.SetActive(false);
 
                         TaskThree.transform.GetChild(0).gameObject.SetActive(true);
-                        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
-                        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+                        soundManager.PlayVibration("0,200,0,200");
+                        soundManager.PlayQuickSoundClip("task complete");
                         FinishDrooping = false;
                     }
                 }
@@ -284,7 +288,7 @@ public class CreatorMilkUI : MonoBehaviour
                 HiteSound.Play();
                 CowSound.Play();
                 WeaponOne.GetComponent<Animator>().Play("Attack");
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayVibration("0,200,0,200");
                 StartCoroutine(LoadingCow());
                 CheckClicked = false;
             }
@@ -296,7 +300,7 @@ public class CreatorMilkUI : MonoBehaviour
                 FillingBar.fillAmount += 0.1666666666666667f;
                 CowSound.Play();
                 WeaponTwo.GetComponent<Animator>().Play("Attack");
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayVibration("0,200,0,200");
                 HiteSound.Play();
                 StartCoroutine(LoadingCow());
                 CheckClicked = false;
@@ -309,7 +313,7 @@ public class CreatorMilkUI : MonoBehaviour
                 FillingBar.fillAmount += 0.1666666666666667f;
                 CowSound.Play();
                 WeaponThree.GetComponent<Animator>().Play("Attack");
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayVibration("0,200,0,200");
                 HiteSound.Play();
                 StartCoroutine(LoadingCow());
                 CheckClicked = false;
@@ -343,8 +347,8 @@ public class CreatorMilkUI : MonoBehaviour
     IEnumerator LoadingFinish()
     {
         TaskFour.transform.GetChild(0).gameObject.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
+        soundManager.PlayVibration("0,200,0,200");
+        soundManager.PlayQuickSoundClip("task complete");
         tutorial.SetActive(false);
         yield return new WaitForSeconds(3f);
         tutorial.SetActive(false);

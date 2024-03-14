@@ -16,8 +16,8 @@ public class MaskMakingLevel : MonoBehaviour
     public Mask_Making_Level_Type maskiMakingType;
 
     [SerializeField] private Mask_Making_Level_Methods currentMethod;
-    [HideInInspector]public SoundManager soundManager;
-
+    [HideInInspector] public SoundManager soundManager;
+    public ItemsManager itemsManager;
 
     [Header("Camera")]
     public Camera camera;
@@ -58,7 +58,8 @@ public class MaskMakingLevel : MonoBehaviour
 
     [Header("Mask Applying")]
     public MaskApplyingController maskApplyingController;
-    public ItemsManager itemsManager;
+  
+   
 
     #region Unity
     private void Awake()
@@ -248,6 +249,10 @@ public class MaskMakingLevel : MonoBehaviour
    
     private void ChoppingMethod()
     {
+        if (knifeController == null)
+            return;
+
+
         if (knifeController.animator.GetBool("Chopping"))
         {
             if (Input.GetMouseButton(0))
@@ -430,15 +435,15 @@ public class MaskMakingLevel : MonoBehaviour
             hammerController.isMixingProcessPlayed = true;
             return;
         }
-        Mouse_X = Mathf.Clamp(Mathf.Abs(Input.GetAxis("Mouse X")), 0, 0.25f);
-        Mouse_Y = Mathf.Clamp(Mathf.Abs(Input.GetAxis("Mouse Y")), 0, 0.25f);
+        Mouse_X = Mathf.Clamp(Mathf.Abs(Input.GetAxis("Mouse X")), 0, 1);
+        Mouse_Y = Mathf.Clamp(Mathf.Abs(Input.GetAxis("Mouse Y")), 0, 1);
 
         if ((Mouse_X > 0 || Mouse_Y >0 )&& Input.GetMouseButton(0))
         {
            
             
-            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 30);
-            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", true);
+            hammerController.HammerRotationEffect((Mouse_X + Mouse_Y) * Time.deltaTime * 15);
+            soundManager.PlayCompleteSoundClip("bowl mixing", true);
             bowlController.UpdateColorChangingEffect();
             
 
@@ -446,14 +451,14 @@ public class MaskMakingLevel : MonoBehaviour
        else
         {
             hammerController.HammerRotationEffect(0);
-            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", false);
+           soundManager.PlayCompleteSoundClip("bowl mixing", false);
         }
 
        if(bowlController.checkColorChangedCompletely)
         {
             mixingComplete = true;
 
-            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("bowl mixing", false);
+            soundManager.PlayCompleteSoundClip("bowl mixing", false);
             hammerController.ResetToStartingPosition();
         }
 

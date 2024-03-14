@@ -20,9 +20,17 @@ public class MaskApplyingController : MonoBehaviour
     private bool maskReachedPositionOnce = false;
     private bool processComplete;
     private Transform Characterparent;
-
-
     private bool maskApplyingOnce;
+
+    private SoundManager soundManager;
+
+
+    private void Start()
+    {
+        soundManager = ParticleManager.Instance.soundManager;
+    }
+
+
     public void ApplyOnStart()
     {
         if (!maskApplyingOnce)
@@ -178,12 +186,12 @@ public class MaskApplyingController : MonoBehaviour
       
         yield return new WaitForSeconds(0.3f);
         Character.Play("Happy01");
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("Girl happy");
+        soundManager.PlayQuickSoundClip("Girl happy");
         //WinSource.Play();
         yield return new WaitForSeconds(2f);
         MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
         FinishUIPanel.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("camera Sound");
+        soundManager.PlayQuickSoundClip("camera Sound");
         yield return new WaitForSeconds(2f);
         GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();
         Controller.SkipBtn.SetActive(true);
@@ -212,7 +220,7 @@ public class MaskApplyingController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         Character.Play("FemaleStanding01");
         vomitParticle.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("Vomit Sound Effect");
+        soundManager.PlayQuickSoundClip("Vomit Sound Effect");
         Characterparent.DOLocalRotate(Vector3.up * 360, 1f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear);
 
 
@@ -220,7 +228,7 @@ public class MaskApplyingController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
         FinishUIPanel.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("camera Sound");
+        soundManager.PlayQuickSoundClip("camera Sound");
         yield return new WaitForSeconds(2f);
         GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();
         Controller.SkipBtn.SetActive(true);
@@ -244,13 +252,13 @@ public class MaskApplyingController : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
         Character.Play("Sad01");
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("Cry Sound");
+        soundManager.PlayQuickSoundClip("Cry Sound");
 
         //WinSource.Play();
         yield return new WaitForSeconds(2f);
         MaskMakingLevel.Instance.camera.transform.GetChild(1).gameObject.SetActive(true);
         FinishUIPanel.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("camera Sound");
+        soundManager.PlayQuickSoundClip("camera Sound");
         yield return new WaitForSeconds(2f);
         GamePlayScene Controller = FindAnyObjectByType<GamePlayScene>();
         Controller.SkipBtn.SetActive(true);

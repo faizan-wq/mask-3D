@@ -28,10 +28,21 @@ public class SyringeController : MonoBehaviour
 
     [HideInInspector]public bool tabletMechanicsStarted ;
 
+    private SoundManager soundManager;
 
-       
+
+
 
     #region Methods
+
+
+    private void Start()
+    {
+        soundManager = ParticleManager.Instance.soundManager;
+    }
+
+
+
 
     public void UpdateColorOfSyringePasteAndParticles()
     {
@@ -132,13 +143,13 @@ public class SyringeController : MonoBehaviour
             Tutorial.SetActive(false);
            
             SetAnimatorParameter(speedSyringe,0.25f);
-            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("BubbleSound", true);
+            soundManager.PlayCompleteSoundClip("BubbleSound", true);
         }
         else
         {
             Tutorial.SetActive(true);
             SetAnimatorParameter(speedSyringe, 0f);
-            ParticleManager.Instance.soundManager.PlayCompleteSoundClip("BubbleSound", false);
+            soundManager.PlayCompleteSoundClip("BubbleSound", false);
         }
         MaskMakingLevel.Instance.progressBarParent.gameObject.SetActive(false);
         if (Syringe.GetComponent<Syringe>().SyringPullCheck)
@@ -171,7 +182,7 @@ public class SyringeController : MonoBehaviour
     private void EnableSyringeLiquidParticles(bool check)
     {
         syringeParticles.gameObject.SetActive(check);
-        ParticleManager.Instance.soundManager.PlayCompleteSoundClip("BubbleSound", false);
+        soundManager.PlayCompleteSoundClip("BubbleSound", false);
         if (check)
         {
            

@@ -14,7 +14,7 @@ public class Adscaller_VoxelSteveLabs : MonoBehaviour
 
     public void OnEnable()
     {
-        LoadingAdScreen.instance.ShowLoadingAdScreen(delegate { AdsManager.Instance.ShowInterstitial(IsReward); });
+       // LoadingAdScreen.instance.ShowLoadingAdScreen(delegate { AdsManager.Instance.ShowInterstitial(IsReward); });
         
         this.gameObject.SetActive(false);
     }

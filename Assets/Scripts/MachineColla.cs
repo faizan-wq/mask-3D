@@ -59,11 +59,14 @@ public class MachineColla : MonoBehaviour
     [Header("Blast Effect")]
     [SerializeField]private List<MeshRenderer> partsNeedToBurn;
 
+    private SoundManager soundManager;
+
 
     void Start()
     {
         ChckerContainer.SetActive(true);
         TakeOne.SetActive(true); TakeTwo.SetActive(true); TakeThree.SetActive(true);
+        soundManager = ParticleManager.Instance.soundManager;
     }
     void Update()
     {
@@ -72,8 +75,8 @@ public class MachineColla : MonoBehaviour
             FillingContainer.SetActive(false);
             FillingBar.SetActive(false);
             TakeThree.transform.GetChild(0).gameObject.SetActive(true);
-            ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
-            ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+            soundManager.PlayQuickSoundClip("task complete");
+            soundManager.PlayVibration("0,200,0,200");
             if (GameFinish)
             {
                 StartCoroutine(MachineBlastEffect());
@@ -205,8 +208,8 @@ public class MachineColla : MonoBehaviour
         FillingContainer.SetActive(true);
         TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
        
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
-        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+        soundManager.PlayQuickSoundClip("task complete");
+        soundManager.PlayVibration("0,200,0,200");
         EffectDone.Play();
         EffectDone.gameObject.GetComponent<AudioSource>().Play();
         ////////
@@ -231,8 +234,8 @@ public class MachineColla : MonoBehaviour
                 FillingBar.SetActive(true);
                 FillingContainer.SetActive(true);
                 TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
-                ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
-                ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+                soundManager.PlayQuickSoundClip("task complete");
+                soundManager.PlayVibration("0,200,0,200");
                 EffectDone.Play();
                 EffectDone.gameObject.GetComponent<AudioSource>().Play();
                 ////////
@@ -262,8 +265,8 @@ public class MachineColla : MonoBehaviour
     {
         yield return new WaitForSeconds(0.7f);
         TakeOne.transform.GetChild(0).gameObject.SetActive(true);
-        ParticleManager.Instance.soundManager.PlayQuickSoundClip("task complete");
-        ParticleManager.Instance.soundManager.PlayVibration("0,200,0,200");
+        soundManager.PlayQuickSoundClip("task complete");
+        soundManager.PlayVibration("0,200,0,200");
         EffectDone.Play();
         EffectDone.gameObject.GetComponent<AudioSource>().Play();
         Purchased.Play();

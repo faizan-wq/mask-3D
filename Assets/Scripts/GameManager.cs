@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetString("Mode", "");
         PlayerPrefs.SetString("Scene", "");
-        Debug.Log("Andar AA agaya");
+       
         SceneManager.LoadScene("Start");
         PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
     }
