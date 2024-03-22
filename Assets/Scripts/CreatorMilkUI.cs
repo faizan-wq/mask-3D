@@ -53,7 +53,7 @@ public class CreatorMilkUI : MonoBehaviour
 
     private bool setTwoAd = false;
     private bool setThreeAd = false;
-
+    private bool onCompletionOfFirstStep = false;
 
     public void SetOne()
     {
@@ -66,6 +66,11 @@ public class CreatorMilkUI : MonoBehaviour
         WeaponOne.SetActive(true);
         ClickedUI.gameObject.SetActive(true);
         TaskOne.transform.GetChild(0).gameObject.SetActive(true);
+        if (!onCompletionOfFirstStep)
+        {
+            LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+            onCompletionOfFirstStep = true;
+        }
         soundManager.PlayVibration("0,200,0,200");
         soundManager.PlayQuickSoundClip("task complete");
     }
@@ -172,6 +177,7 @@ public class CreatorMilkUI : MonoBehaviour
                     ContainerBar.gameObject.SetActive(true);
                     FillingBar.gameObject.SetActive(true);
                     FillingBar.fillAmount = MovingFilling;
+                    
                     if (FillingBar.fillAmount == 1)
                     {
                         FillingBar.gameObject.SetActive(false);
@@ -238,7 +244,7 @@ public class CreatorMilkUI : MonoBehaviour
                     int RandomSelection = Random.Range(0, ListMilks.Length);
                     ListMilks[RandomSelection].gameObject.SetActive(true);
 
-                 
+                    
 
                     FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
 
@@ -249,6 +255,11 @@ public class CreatorMilkUI : MonoBehaviour
                 else if (FillingBar.fillAmount < 1)
                 {
                     ContainerBar.gameObject.SetActive(true);
+                    if(Input.GetMouseButtonDown(0))
+                    {
+                        soundManager.PlayVibration("0,200,0,200");
+                    }
+                   
                     FillingBar.gameObject.SetActive(true);
                     FillingBar.fillAmount = MovingUI;
                 } else if (FillingBar.fillAmount >= 1)

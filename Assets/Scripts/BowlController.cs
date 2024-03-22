@@ -92,7 +92,7 @@ public class BowlController : MonoBehaviour
             MaskMakingLevel.Instance.itemsManager.SelectedItemDisable();
             startingMixingProcessWithHammerOnceCheck = true;
         }
-        colorContrast = Mathf.Clamp(colorContrast + Time.deltaTime/2, 0, colorContrastLimit);
+        colorContrast = Mathf.Clamp(colorContrast + Time.deltaTime/5, 0, colorContrastLimit);
         MaskMakingLevel.Instance.EnableTaskPoint(3, colorContrast/ colorContrastLimit);
         ChangeWaterEffect(MaskMakingLevel.Instance.bottleController.selectedBottle.color, ItemsManager.Instance.selectedItem.color, colorContrast);
         if (colorContrast>= colorContrastLimit)
@@ -106,9 +106,9 @@ public class BowlController : MonoBehaviour
 
     private void ChangeWaterEffect(Color a, Color b, float value)
     {
-       
-        ApplyColorToALLMaterialsOfBowlWater(Color.Lerp(a, b, colorContrast-0.4f));
 
+        //ApplyColorToALLMaterialsOfBowlWater(Color.Lerp(a, b, colorContrast));
+        ApplyColorToALLMaterialsOfBowlWater(Color.Lerp(a, b, colorContrast - 0.4f));
 
 
     }
@@ -116,6 +116,7 @@ public class BowlController : MonoBehaviour
     private void ApplyColorToALLMaterialsOfBowlWater(Color color)
     {
         color.a = 1f;
+
         foreach (var item in water.materials)
         {
             item.color = color;

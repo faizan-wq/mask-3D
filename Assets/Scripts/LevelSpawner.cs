@@ -21,6 +21,9 @@ public class LevelSpawner : MonoBehaviour
    
     void Start()
     {
+
+        //GameAnalyticsSDK.GameAnalytics.NewProgressionEvent(GameAnalyticsSDK.GAProgressionStatus.Start, PlayerPrefs.GetInt("Days").ToString());
+        GameAnalyticsEvents.Instance.OnLevelStarted();
         if (PlayerPrefs.GetString("Mode") == "AllHair")
         {
             AllHair.SetActive(true);

@@ -60,7 +60,8 @@ public class MachineColla : MonoBehaviour
     [SerializeField]private List<MeshRenderer> partsNeedToBurn;
 
     private SoundManager soundManager;
-
+    public GameObject firstTutorial;
+    public GameObject firstTutorial2;
 
     void Start()
     {
@@ -75,10 +76,11 @@ public class MachineColla : MonoBehaviour
             FillingContainer.SetActive(false);
             FillingBar.SetActive(false);
             TakeThree.transform.GetChild(0).gameObject.SetActive(true);
-            soundManager.PlayQuickSoundClip("task complete");
-            soundManager.PlayVibration("0,200,0,200");
+          
+            
             if (GameFinish)
             {
+                soundManager.PlayQuickSoundClip("task complete");
                 StartCoroutine(MachineBlastEffect());
                 StartCoroutine(FinalizingMachineDistruction());
                 GameFinish = false;
@@ -96,6 +98,7 @@ public class MachineColla : MonoBehaviour
       
         yield return new WaitForSeconds(3);
         MachineBox.GetComponent<Animator>().Play("CloseCartonBox");
+        soundManager.PlayQuickSoundClip("task complete");
         EffectDone.Play();
         EffectDone.gameObject.GetComponent<AudioSource>().Play();
         StartCoroutine(loadingFinish());
@@ -184,7 +187,9 @@ public class MachineColla : MonoBehaviour
 
     IEnumerator MachineBlastEffect()
     {
-       
+        MachineCoins.gameObject.GetComponent<Animator>().Play("CokeMachineDistruction");
+        yield return new WaitForSeconds(1.5f);
+
         ParticleManager.Instance.PlayAnimation("machine_Blast", new Vector3(-44f, 17.5f, 7.0999999f));
         yield return new WaitForSeconds(0.1f);
         foreach (var item in partsNeedToBurn)
@@ -207,7 +212,7 @@ public class MachineColla : MonoBehaviour
         FillingBar.SetActive(true);
         FillingContainer.SetActive(true);
         TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
-       
+        firstTutorial2.SetActive(true);
         soundManager.PlayQuickSoundClip("task complete");
         soundManager.PlayVibration("0,200,0,200");
         EffectDone.Play();
@@ -234,6 +239,7 @@ public class MachineColla : MonoBehaviour
                 FillingBar.SetActive(true);
                 FillingContainer.SetActive(true);
                 TakeTwo.transform.GetChild(0).gameObject.SetActive(true);
+                 firstTutorial2.SetActive(true);
                 soundManager.PlayQuickSoundClip("task complete");
                 soundManager.PlayVibration("0,200,0,200");
                 EffectDone.Play();
@@ -261,10 +267,18 @@ public class MachineColla : MonoBehaviour
         ContainerUI.SetActive(true);
         UI.SetActive(true);
     }
+    private bool onCompletionOfFirstStep = false;
     IEnumerator LoadingMachine()
     {
+        firstTutorial.SetActive(false);
         yield return new WaitForSeconds(0.7f);
         TakeOne.transform.GetChild(0).gameObject.SetActive(true);
+       
+        if (!onCompletionOfFirstStep)
+        {
+            LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+            onCompletionOfFirstStep = true;
+        }
         soundManager.PlayQuickSoundClip("task complete");
         soundManager.PlayVibration("0,200,0,200");
         EffectDone.Play();

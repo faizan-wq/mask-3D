@@ -192,14 +192,19 @@ public class TreeGrowUp : MonoBehaviour
 
     }
 
-    
 
+    bool onCompletionOfFirstStep = false;
 
     void ManagerFirstMove()
     {
         if (Scaler.transform.localScale.x == 4.25f)
         {
             TakeOne.transform.GetChild(0).gameObject.SetActive(true);
+            if (!onCompletionOfFirstStep)
+            {
+                LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+                onCompletionOfFirstStep = true;
+            }
             StartMoving = false;
             if (WaterCan.transform.localPosition.x > 0 && FinishGrowing == false)
             {

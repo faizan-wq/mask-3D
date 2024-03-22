@@ -54,6 +54,7 @@ public class ManagerIngredients : MonoBehaviour
             case 0:
                 CurrentEffecs =3;
                 LevelSpawner.isCokeLevel = false;
+                LevelSpawner.isMilk = false;
                 break;
             case 1:
                 CurrentEffecs = 1;
@@ -64,28 +65,41 @@ public class ManagerIngredients : MonoBehaviour
             case 3:
                 CurrentEffecs = 2;
                 LevelSpawner.isMilk = true;
+                IconTwo = IconTwoAcnes;
+                IconTwoBigAcnes = IconTwoAcnes;
+
                 break;
             case 4:
                 CurrentEffecs = 1;
                 LevelSpawner.isMilk = true;
+                IconTwo = IconTwoAcnes;
+                IconTwoBigAcnes = IconTwoAcnes;
                 break;
             case 5:
                 CurrentEffecs = 0;
                 LevelSpawner.isMilk = true;
+                IconTwo = IconTwoAcnes;
+                IconTwoBigAcnes = IconTwoAcnes;
                 break;
             case 6:
                 CurrentEffecs = 4;
                 LevelSpawner.isMilk = false;
                 LevelSpawner.isCokeLevel = true;
+                IconTwo = IconTwoMushRooms;
+                IconTwoBigAcnes = IconTwoMushRooms;
 
                 break;
             case 7:
                 CurrentEffecs = 1;
                 LevelSpawner.isCokeLevel = true;
+                IconTwo = IconTwoMushRooms;
+                IconTwoBigAcnes = IconTwoMushRooms;
                 break;
             case 8:
                 CurrentEffecs = 0;
                 LevelSpawner.isCokeLevel = true;
+                IconTwo = IconTwoMushRooms;
+                IconTwoBigAcnes = IconTwoMushRooms;
                 break;
             
             default:

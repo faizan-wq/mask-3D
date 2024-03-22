@@ -32,8 +32,15 @@ public class BottleController : MonoBehaviour
 
     private bool ResetBottlePosition;
     private SoundManager soundManager;
-    
+    private bool onCompletionOfThirdStep = false;
     #region UNITY
+
+    //private void OnEnable()
+    //{
+    //    soundManager = ParticleManager.Instance.soundManager;
+    //    resetPosition = transform.position;
+    //    maskMakingLevel = MaskMakingLevel.Instance;
+    //}
 
 
     private void Start()
@@ -97,7 +104,7 @@ public class BottleController : MonoBehaviour
     {
         if (bottleSelected == -1)
         {
-            int number = UnityEngine.Random.Range(0, bottles.Count);
+            int number = UnityEngine.Random.Range(0, bottles.Count-1);
             SelectedBottle(number);
 
         }
@@ -184,15 +191,19 @@ public class BottleController : MonoBehaviour
         }
        
         maskMakingLevel.EnableTaskPoint(2, barProgressValue);
+
         if (waterRise>= 3.21f)
         {
             maskMakingLevel.EnableTaskPoint(2, 1);
+            
+
             pouringInBowlIsComplete = true;
         }
         
      
 
     }
+
 
     private void ParticleSystem(float value)
     {
@@ -219,6 +230,11 @@ public class BottleController : MonoBehaviour
                     ResetBottlePosition = true;
                     Tutorial2.SetActive(false);
                     Tutorial1.SetActive(false);
+                    if (!onCompletionOfThirdStep)
+                    {
+                        LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+                        onCompletionOfThirdStep = true;
+                    }
                     maskMakingLevel.NextMethod(Mask_Making_Level_Methods.Mixing);
                 }
                 

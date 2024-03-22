@@ -30,7 +30,7 @@ public class VibrationTest : MonoBehaviour
         string[] patterns = inputValue.Replace ( " ", "" ).Split ( ',' );
         long[] longs = Array.ConvertAll<string, long> ( patterns, long.Parse );
 
-        Debug.Log ( longs.Length );
+       
         //Vibration.Vibrate ( longs, int.Parse ( inputRepeat.text ) );
 #if UNITY_ANDROID
         Vibration.VibrateAndroid ( longs, -1 );

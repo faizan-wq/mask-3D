@@ -69,7 +69,7 @@ namespace GD
         }
 
         public bool isAdmob = false;
-
+        public static Action<bool> interstetialReward=null;
         public void RewardedVideo(Action<bool> result)
         {
             customActionVideo = null;
@@ -82,6 +82,8 @@ namespace GD
             }
 
             Debug.Log("RewardedVideo");
+            interstetialReward = null;
+            interstetialReward += result;
 
             //AdMob_GF.ShowRewardedAdmobOrInterstitial();
             LoadingAdScreen.instance.ShowLoadingAdScreen(delegate { AdMob_GF.ShowRewardedAdmobOrInterstitial(); });

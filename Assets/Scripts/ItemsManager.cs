@@ -311,7 +311,9 @@ public class ItemsManager : MonoBehaviour
                     {
                         MaskMakingLevel.Instance.bottleController.SelectedBottle(5);
                     }
-                   
+                    else
+                        MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
+
 
 
                 }
@@ -325,14 +327,16 @@ public class ItemsManager : MonoBehaviour
                     {
                         MaskMakingLevel.Instance.bottleController.SelectedBottle(4);
                     }
+                    else
+                        MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
 
                 }
                 else
                 {
                     MaskMakingLevel.Instance.bottleController.SelectedBottle(num);
                 }
-              
-                if(item.prefab.name== "WineBottle")
+               
+                if (item.prefab.name== "WineBottle")
                 {
                     soundManager.PlayQuickSoundClip("ChampagneOpen");
                 }

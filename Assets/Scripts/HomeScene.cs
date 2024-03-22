@@ -21,7 +21,11 @@ public class HomeScene : MonoBehaviour
     public Text ValueCoins;
     private void Start()
     {
-        dayLabel.text = "DAY" + (PlayerPrefs.GetInt("Days")+1).ToString();
+
+        int number = PlayerPrefs.GetInt("Days") + 1;
+
+
+        dayLabel.text = "DAY" + (number).ToString();
     }
 
     void Update()
@@ -34,6 +38,7 @@ public class HomeScene : MonoBehaviour
         if (ShowBoolSettings)
         {
             ShowSettings.SetActive(true);
+            LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
         }
         else if(ShowBoolSettings == false)
         {
@@ -61,7 +66,7 @@ public class HomeScene : MonoBehaviour
         else if(ShowBoolDaily == false)
         {
             ShowDaily.SetActive(false);
-           
+            LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
 
         }
     }

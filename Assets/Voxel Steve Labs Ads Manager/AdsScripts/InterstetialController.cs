@@ -37,24 +37,25 @@ public class InterstetialController : MonoBehaviour
                 LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
                 secondsPassed = 0;
                 AdMob_GF.oneMinuteTime = GlobalConstant.ActionsAdsTimeLimit;
+                return;
             }
         }
 
 
        
     }
-    private void Update()
-    {
+    //private void Update()
+    //{
 
-        if (AdMob_GF.isShowingAd)
-            return;
-        //if (interstetialAdShowing)
-        //    return;
+    //    if (AdMob_GF.isShowingAd)
+    //        return;
+    //    //if (interstetialAdShowing)
+    //    //    return;
 
-        WithoutCoroutineTimer();
-
-
+    //    WithoutCoroutineTimer();
 
 
-    }
+
+
+    //}
 }

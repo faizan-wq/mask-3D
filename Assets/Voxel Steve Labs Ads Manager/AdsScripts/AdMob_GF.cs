@@ -534,7 +534,7 @@ public class AdMob_GF : MonoBehaviour
             return;
 
 
-        if (bannerView != null)
+        if (bannerView != null )
         {
             AdMob_GF.ShowBanner();
         }
@@ -576,11 +576,11 @@ public class AdMob_GF : MonoBehaviour
         if (!GlobalConstant.IsBannerAd)
             return;
 
-
+        isBigBanner = true;
         Debug.Log("I'm in Show big banner");
         if (bigBannerView != null)
         {
-            isBigBanner = true;
+          
 
             bigBannerView.Show();
 
@@ -669,10 +669,17 @@ public class AdMob_GF : MonoBehaviour
         {
             AdsManager.Instance.ShowRewardedAd();
         }
-        else
+        else if(rewardedAd.IsLoaded())
         {
             AdsManager.Instance.LoadRewardedAd();
             ShowRewardedAdmob();
+        }
+        else if(AdMob_GF.IsInterstitialReady(AdMob_GF.RequestFloorType.AllPrice))
+        {
+            AdMob_GF.ShowInterstitial(true);
+            InterstetialController.interstetialAdShowing = true;
+            AnalyticsManagerProgression.instance.InterstitialEvent("Admob Interstetial Ad Called");
+            isInterstialAdPresent = true;
         }
     }
 
@@ -816,7 +823,8 @@ public class AdMob_GF : MonoBehaviour
         InterstetialController.interstetialAdShowing = false;
         if (IsRewardedInterstitial)
         {
-            GD.Controller.Instance.ActionVideo(true);
+            //GD.Controller.Instance.ActionVideo(true);
+            GD.Controller.interstetialReward?.Invoke(true);
             IsRewardedInterstitial = false;
         }
 

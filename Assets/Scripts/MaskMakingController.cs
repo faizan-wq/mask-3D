@@ -19,7 +19,7 @@ public class MaskMakingController : MonoBehaviour
 
     private bool pressingOfMachineStarted;
     private SoundManager soundManager;
-
+  
 
     private void Start()
     {
@@ -51,6 +51,7 @@ public class MaskMakingController : MonoBehaviour
         {
             maskMakingMachine.GetComponent<MaskMakingMachine>().machineButtonPressComplete = false;
             MaskMakingLevel.Instance.EnableTaskPoint(5, 1);
+          
             mask.Play("Liquide");
         }
 

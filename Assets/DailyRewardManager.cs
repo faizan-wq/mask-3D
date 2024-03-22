@@ -437,8 +437,21 @@ public class DailyRewardManager : MonoBehaviour
             PlayerPrefs.SetString("Days" + PlayerPrefs.GetInt(Days).ToString(), "selected");
             PlayerPrefs.SetInt(Days, Day + 1);
             int money = PlayerPrefs.GetInt("Cash");
-            money +=Int32.Parse( dailyReward_Item_Properties[Day].text_Value.text.ToString());
+            money += Int32.Parse(dailyReward_Item_Properties[Day].text_Value.text.ToString());
             PlayerPrefs.SetInt("Cash", money);
+
+            //if (target.transform!=null)
+            //{
+            //    FlyingDiamond cashTemp = flyingDiamondPrefab;
+            //    cashTemp.MoveToTarget(target.transform, Int32.Parse(dailyReward_Item_Properties[Day].text_Value.text.ToString()));
+            //}
+            //else
+            //{
+               
+
+            //}
+
+
         }
        
 

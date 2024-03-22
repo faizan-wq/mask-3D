@@ -125,6 +125,7 @@ public class SyringeController : MonoBehaviour
 
 
         tablet.gameObject.SetActive(true);
+
         Invoke(nameof(EnableTabletTutorial),0.1f);
         
     }
@@ -218,7 +219,7 @@ public class SyringeController : MonoBehaviour
     private bool tabletMethodOnce;
     private bool allowtabletMechanics;
     private bool starttabletEffect;
-
+    private bool onCompletionOfSixthStep;
     public void MoveTabletMethodIitiate()
     {
         if (!allowtabletMechanics)
@@ -264,6 +265,11 @@ public class SyringeController : MonoBehaviour
         if (tablet.GetComponent<Tablet>().tabletInsideMachne)
         {
             Debug.Log("MaskMakingMethod");
+            if (!onCompletionOfSixthStep)
+            {
+                LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+                onCompletionOfSixthStep = true;
+            }
             MaskMakingLevel.Instance.NextMethod(Mask_Making_Level_Methods.Mask_Making);
             tabletReachedPosition = true;
             tablet.GetComponent<Tablet>().tabletParticles = false;

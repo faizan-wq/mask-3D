@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GD;
+using GameAnalyticsSDK;
 public class GameManager : MonoBehaviour
 {
     [Header("Show UI")]
@@ -25,10 +26,29 @@ public class GameManager : MonoBehaviour
         soundManager = ParticleManager.Instance.soundManager;
         CheckingDone();
     }
+
+    private bool interstetialAdIfSpecialLevels = false;
+
     public void SkipeBtnWin()
     {
 
         FlyingDiamond cashTemp = DailyRewardManager.Instance.flyingDiamondPrefab;
+        //int value = PlayerPrefs.GetInt("Days") % 9;
+        //if(value==0 || value == 3 || value == 6 )
+        //{
+        //    if (!interstetialAdIfSpecialLevels)
+        //    {
+        //        LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+        //        interstetialAdIfSpecialLevels = true;
+        //    }
+        //}
+
+        if (!interstetialAdIfSpecialLevels)
+        {
+            LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
+            interstetialAdIfSpecialLevels = true;
+        }
+
         cashTemp.MoveToTarget(diamondTarget, 150, null);
         Invoke(nameof(GameComplete), 2);
 
@@ -39,7 +59,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("Scene", "");
        
         SceneManager.LoadScene("Start");
+        GameAnalyticsEvents.Instance.OnLevelComplete();
         PlayerPrefs.SetInt("Days", PlayerPrefs.GetInt("Days") + 1);
+        GameAnalyticsEvents.Instance.UpgradeLevelNumber();
+
+        //GameAnalytics.NewProgressionEvent(GameAnalyticsSDK.GAProgressionStatus.Complete, PlayerPrefs.GetInt("Days").ToString());
+
     }
 
 
@@ -88,6 +113,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         PlayerPrefs.SetString("Scene", "");
+        GameAnalyticsEvents.Instance.OnLevelRestart();
+      
         SceneManager.LoadScene(0);
     }
     public void OpenSetting()
@@ -96,6 +123,7 @@ public class GameManager : MonoBehaviour
         if (BoolSettings)
         {
             PanelSettings.SetActive(true);
+            LoadingAdScreen.instance.ShowLoadingAdScreen(() => { AdsManager.Instance.ShowInterstitial(false); });
         }
         else if(BoolSettings == false)
         {
